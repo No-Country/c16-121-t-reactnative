@@ -1,13 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { globalStyles } from './src/Styles/Globals';
+import * as React from "react";
+import { View} from "react-native";
+import { globalStyles } from "./src/Styles/Globals";
+import { Hub } from "aws-amplify";
 
 export default function App() {
-  return (
-    <View style={globalStyles.screenContainer}>
-      
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [user, setUser] = React.useState(null);
+  const listener = (data) => {
+    switch (data.payload.event) {
+      case "signIn":
+        const { attributes } = data.payload.data;
+        setUser(attributes);
+        break;
+      default:
+        break;
+    }
+  };
+  Hub.listen("auth", listener);
+  return <View style={globalStyles.screenContainer}></View>;
 }
-
