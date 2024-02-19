@@ -1,9 +1,14 @@
 import * as React from "react";
-import { View} from "react-native";
-import { globalStyles } from "./src/Styles/Globals";
+import {  View} from "react-native";
+
 import { Hub } from "aws-amplify";
+import Background from "./src/Components/Background";
+
+
 
 export default function App() {
+
+
   const [user, setUser] = React.useState(null);
   const listener = (data) => {
     switch (data.payload.event) {
@@ -16,5 +21,7 @@ export default function App() {
     }
   };
   Hub.listen("auth", listener);
-  return <View style={globalStyles.screenContainer}></View>;
+  return <View >
+    <Background/>
+  </View>;
 }
