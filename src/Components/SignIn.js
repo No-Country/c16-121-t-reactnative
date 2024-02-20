@@ -5,8 +5,30 @@ import MyInput from "./MyInput";
 import { AuthContext } from "../Context/AuthContext";
 
 const SignIn = () => {
-  const { setAuthState, setEmail, setPassword, hadleSignIn } =
+
+
+  const {authState, setAuthState, setEmail, setPassword, handleSignIn } =
     React.useContext(AuthContext);
+
+const onHandleSign = async()=>{
+
+try{
+
+await handleSignIn();
+if(authState === "signedIn"){
+alert("inicio de sesion exitoso ")
+}
+
+}catch(err){
+
+  console.log("Error" ,err)
+}
+
+
+
+}
+
+
   return (
     <React.Fragment>
       <Text style={styles.text}>Correro Electrónico </Text>
@@ -17,7 +39,7 @@ const SignIn = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <MyBottom title="Ingresar" onPress={hadleSignIn} />
+      <MyBottom title="Ingresar" onPress={onHandleSign} />
     </React.Fragment>
   );
 };

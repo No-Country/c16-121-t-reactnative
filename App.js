@@ -1,9 +1,19 @@
 import * as React from "react";
 import {  View} from "react-native";
+import Background from "./src/components/Background"
 
-import { Hub } from "aws-amplify";
-import Background from "./src/Components/Background";
+import {Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
+import config from './src/aws-exports'; 
+import { AuthProvider } from './src/Context/AuthContext';
+import  SignIn  from "./src/components/SignIn";
 
+Amplify.configure({
+  ...config,
+  Analytics: { disabled: true },
+  DataStore: {
+    authModeStrategyType: AuthModeStrategyType.MULTI_AUTH,
+  },
+});
 
 
 export default function App() {
@@ -21,7 +31,16 @@ export default function App() {
     }
   };
   Hub.listen("auth", listener);
-  return <View >
-    <Background/>
-  </View>;
+  return(
+
+ <AuthProvider>
+   <View >
+   
+
+  
+  </View>
+
+  </AuthProvider>
+  
+  );
 }
