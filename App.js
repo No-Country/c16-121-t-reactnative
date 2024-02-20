@@ -1,16 +1,19 @@
 import * as React from "react";
-import {  View} from "react-native";
-
+import { View, StyleSheet } from "react-native";
+import Navigation from "./src/Components/Navigation";
 import { Hub } from "aws-amplify";
 import Background from "./src/Components/Background";
-import SignIn from "./src/Components/SignIn";
+import Login from "./src/Screens/Login";
 
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default function App() {
-
-
   const [user, setUser] = React.useState(null);
+
   const listener = (data) => {
     switch (data.payload.event) {
       case "signIn":
@@ -21,11 +24,17 @@ export default function App() {
         break;
     }
   };
-  Hub.listen("auth", listener);
+
+  React.useEffect(() => {
+    Hub.listen("auth", listener);
+    return () => Hub.remove("auth", listener);
+  }, []);
+
   return (
-    <View >
-      <Background/>
-   
+    <View style={styles.container}>
+      <Background />
+      {/* <Login /> */}
+      <Navigation />
     </View>
-  )
+  );
 }
