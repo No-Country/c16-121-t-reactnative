@@ -3,6 +3,7 @@ import {  View} from "react-native";
 
 import { Hub } from "aws-amplify";
 import Background from "./src/Components/Background";
+import SignIn from "./src/Components/SignIn";
 
 
 
@@ -21,7 +22,10 @@ export default function App() {
     }
   };
   Hub.listen("auth", listener);
-  return <View >
-    <Background/>
-  </View>;
+  return (
+    <View >
+      <Background/>
+   
+    </View>
+  )
 }
