@@ -2,7 +2,8 @@
 //pasarse a todos mis componentes sin tener que volver a escribir codigo
 
 import * as React from "react";
-import { Auth } from "aws-amplify";
+import { Auth ,  DataStore} from "aws-amplify";
+import { Usuarios } from '../models';
 
 const AuthContext = React.createContext({
   authState: "SignIn",
@@ -22,11 +23,37 @@ const { Provider } = AuthContext;
 
 function AuthProvider({ children }) {
   //inicializo mis funciones con useState ya que me permite cambiar el estado de ellas
-  const [authSTate, setAuthState] = React.useState("signIn");
+  const [authSTate, setAuthState] = React.useState(null);
+  const [dbUser, setDbUser] = React.useState(null);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [verificationCode, setVerificationCode] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const sub = authSTate?.attributes?.sub;
+
+
+  React.useEffect(()=> {
+
+    Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState)
+
+
+}, [])
+
+console.log(authSTate, "user");
+
+
+React.useEffect(()=>{
+
+  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setAuthState(users[0]));
+  
+  
+  
+  
+  
+  }, [sub])
+
+
+
 
   async function handleSignIn() {
     //se puede validar que lo ingresado sea un email o contraseña correcta
@@ -42,6 +69,7 @@ function AuthProvider({ children }) {
       });
       alert("inicio sesion exitoso ")
       console.log("user signed In");
+      console.log(user)
       setAuthState("signedIn");
       //hay que guardar este user en BD
     } catch (e) {
@@ -104,6 +132,9 @@ function AuthProvider({ children }) {
         verificationCode,
         setVerificationCode,
         isLoading,
+        dbUser,
+        setDbUser,
+        sub
       }}
     >
       {children}
@@ -111,3 +142,4 @@ function AuthProvider({ children }) {
   );
 }
 export {AuthContext,AuthProvider};
+
