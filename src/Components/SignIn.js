@@ -18,9 +18,7 @@ const onHandleSign = async()=>{
 try{
 
 await handleSignIn();
-if(authState === "signedIn"){
-alert("inicio de sesion exitoso ")
-}
+
 
 }catch(err){
 

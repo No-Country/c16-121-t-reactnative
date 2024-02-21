@@ -40,6 +40,7 @@ function AuthProvider({ children }) {
         username: email,
         password,
       });
+      alert("inicio sesion exitoso ")
       console.log("user signed In");
       setAuthState("signedIn");
       //hay que guardar este user en BD
