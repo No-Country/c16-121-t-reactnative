@@ -1,11 +1,12 @@
 import * as React from "react";
-import {  View} from "react-native";
-import Background from "./src/components/Background"
-
+import { View, StyleSheet } from "react-native";
+import Navigation from "./src/Components/Navigation";
 import {Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
 import config from './src/aws-exports'; 
 import { AuthProvider } from './src/Context/AuthContext';
-import  SignIn  from "./src/components/SignIn";
+import Background from "./src/Components/Background";
+import Login from "./src/Screens/Login";
+
 
 Amplify.configure({
   ...config,
@@ -15,11 +16,15 @@ Amplify.configure({
   },
 });
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default function App() {
-
-
   const [user, setUser] = React.useState(null);
+
   const listener = (data) => {
     switch (data.payload.event) {
       case "signIn":
@@ -30,17 +35,21 @@ export default function App() {
         break;
     }
   };
-  Hub.listen("auth", listener);
-  return(
 
- <AuthProvider>
-   <View >
-   
 
-  
-  </View>
+  React.useEffect(() => {
+    Hub.listen("auth", listener);
+    return () => Hub.remove("auth", listener);
+  }, []);
 
-  </AuthProvider>
-  
+  return (
+    <AuthProvider>
+    <View style={styles.container}>
+      <Background />
+      {/* <Login /> */}
+      <Navigation />
+    </View>
+    </AuthProvider>
+
   );
 }
