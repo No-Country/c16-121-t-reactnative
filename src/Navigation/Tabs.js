@@ -6,17 +6,16 @@ import { MaterialIcons } from "@expo/vector-icons"; // Importar iconos de Materi
 import { Colors } from "../Constants/Colors";
 import Background from "../Components/Background";
 
-import Login from "../Screens/Login";
-// import Profile from "../Screens/Profile";
-
+import Profile from "../Screens/Profile";
+import Home from "../Screens/Home";
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+export default function MyTabs() {
     return (
         <Tab.Navigator>
             <Tab.Screen
-                name="Login"
-                component={Login}
+                name="Home"
+                component={Home}
                 options={{
                 tabBarIcon: ({ color, size }) => (
                     <MaterialIcons name="home" color={color} size={size} />
@@ -25,7 +24,7 @@ function MyTabs() {
             />
             <Tab.Screen
                 name="Profile"
-                component={Login}
+                component={Profile}
                 options={{
                 tabBarIcon: ({ color, size }) => (
                     <MaterialIcons name="person" color={color} size={size} />
@@ -36,12 +35,12 @@ function MyTabs() {
     );
 }
 
-export default function Navigation() {
-    return (
-        /** El Background debe ir segundo sino desaparece de nuevo */
-        <NavigationContainer>
-            <MyTabs />
-            <Background />
-        </NavigationContainer>
-    );
-}
+// export default function Navigation() {
+//     return (
+//         /** El Background debe ir segundo sino desaparece de nuevo */
+//         <NavigationContainer>
+//             <MyTabs />
+//             <Background />
+//         </NavigationContainer>
+//     );
+// }

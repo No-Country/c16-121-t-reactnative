@@ -6,12 +6,16 @@ import { AuthContext } from "../Context/AuthContext";
 import MyBottonGoogle from "./MyBottonGoogle";
 import BottonRegistro from "./BottonRegistro";
 import { Colors } from "../Constants/Colors";
+import { useNavigation } from '@react-navigation/native';
+
 
 const SignIn = () => {
 
 
   const {authState, setAuthState, setEmail, setPassword, handleSignIn } =
     React.useContext(AuthContext);
+
+  const navigation = useNavigation();
 
 const onHandleSign = async()=>{
 
@@ -57,7 +61,7 @@ await handleSignIn();
         <Text> ¿No tienes una cuenta? </Text>
       </Pressable>
 
-      <BottonRegistro title="Registrate" />
+      <BottonRegistro title="Registrate" onPress={() => navigation.navigate('Register')} />
 
     </React.Fragment>
   );
