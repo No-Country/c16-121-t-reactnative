@@ -16,6 +16,15 @@ const AuthContext = React.createContext({
   isLoading: false,
   hadleSignIn: () => {},
   hadleSignUp: () => {},
+
+  firstName: "",
+  setFirstName: () => {},
+  lastName: "", 
+  setLastName: () => {}, 
+  date: "",
+  setDate: () => {},
+  location: "", 
+  setLocation: () => {},
 });
 
 const { Provider } = AuthContext;
@@ -27,6 +36,11 @@ function AuthProvider({ children }) {
   const [password, setPassword] = React.useState("");
   const [verificationCode, setVerificationCode] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [date, setDate] = React.useState("");
+  const [location, setLocation] = React.useState("");
 
   async function handleSignIn() {
     //se puede validar que lo ingresado sea un email o contraseña correcta
