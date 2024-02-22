@@ -48,7 +48,7 @@ export default function App() {
     <View style={styles.container}>
      
      
-    <RootNavigation/>
+    <RootNavigation/>  
       <Background />
     </View>
     </AuthProvider>

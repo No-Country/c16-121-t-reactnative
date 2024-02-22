@@ -37,10 +37,10 @@ await handleSignIn();
   return (
     <React.Fragment>
       <Text style={styles.text}>Correro Electrónico </Text>
-      <MyInput label={"Email"} onChangeText={setEmail} />
+      <MyInput label={"  example@correo.com"} onChangeText={setEmail} />
       <Text style={styles.textPassword}>Contraseña </Text>
       <MyInput
-        label={"Contraseña"}
+        label={"  **********************"}
         onChangeText={setPassword}
         secureTextEntry
       />
@@ -49,7 +49,7 @@ await handleSignIn();
 
 
       <Pressable>
-        <Text style={styles.textForgotPassword}>
+        <Text>
           {" "}
           ¿Olvidaste tu contraseña?{" "}
         </Text>
@@ -80,11 +80,13 @@ const styles = StyleSheet.create({
     color: "#F3305F",
     marginRight: "65%",
   },
-  textForgotPassword: {
-    position: "absolute",
-    left: 0,
-    top: -7,
-  },
+  // textForgotPassword: {
+  //   position: "absolute",
+  //   alignItems:'center',
+  //   textAlign:'center',
+  //   left: 0,
+  //   top: -7,
+  // },
   line: {
     width: "90%",
     height: 2,
