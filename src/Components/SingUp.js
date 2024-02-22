@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View,Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView} from "react-native";
 import MyBottom from "./MyBottom";
 import MyInput from "./MyInput";
 import { AuthContext } from "../Context/AuthContext";
@@ -7,39 +7,53 @@ import { Colors } from "../Constants/Colors";
 import DateInput from "./DateInput";
 
 const SingUp = () => {
-  const { setAuthState, setEmail, setPassword, setName, setLastName, setDate, setLocation, hadleSignIn } =
-    React.useContext(AuthContext);
+  const {
+    setAuthState,
+    setEmail,
+    setPassword,
+    setFirstName,
+    setLastName,
+    setDate,
+    setLocation,
+    handleSignUp,
+  } = React.useContext(AuthContext);
 
-    const [selectedDate, setSelectedDate] = React.useState(null);
+  // const { width, height } = Dimensions.get("window");
 
   return (
-    <SafeAreaView >
-      <View >
+    
+    <SafeAreaView>
+      <View>
         <Text style={styles.text}>Correo Electrónico</Text>
-        <MyInput label={"example@gmail.com"} onChangeText={setEmail}/>
+        <MyInput label={"example@gmail.com"} onChangeText={setEmail} />
 
         <Text style={styles.textPassword}>Contraseña</Text>
-        <MyInput label={"Contraseña"} onChangeText={setPassword} secureTextEntry/>
+        <MyInput
+          label={"Contraseña"}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
         <Text style={styles.text}>Nombre</Text>
-        <MyInput label={"Sofía"} onChangeText={setName}/>
+        <MyInput label={"Sofía"} onChangeText={setFirstName} />
 
         <Text style={styles.text}>Apellido</Text>
-        <MyInput label={"Quiroz"} onChangeText={setLastName}/>
+        <MyInput label={"Quiroz"} onChangeText={setLastName} />
 
-        <View style={{flexDirection:'row'}}>
-          <View style={{width: '48%'}}>
-            <Text style={styles.text}>Fecha</Text>
-            <DateInput label={"05/02/1994"} onChange={setSelectedDate}/>
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ width: "48%" }}>
+            <Text style={styles.text}>Fecha de nacimiento</Text>
+            <DateInput onChange={setDate} />
           </View>
-          <View style={{width: '48%'}}>
-            <Text style={styles.text}>Ciudad</Text>
+          <View style={{ width: "48%" }}>
+            <Text style={styles.text}>Ciudad - País</Text>
             <MyInput label={"Bs.As"} onChangeText={setLocation} />
           </View>
         </View>
-        <MyBottom title="Guardar" />
+        <MyBottom title="Guardar" onPress={handleSignUp} />
       </View>
     </SafeAreaView>
+
   );
 };
 
