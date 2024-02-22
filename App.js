@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, SplashScreen } from "react-native";
 import Navigation from "./src/Navigation/Tabs";
 import {Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
 import config from './src/aws-exports'; 
@@ -9,6 +9,8 @@ import Login from "./src/Screens/Login";
 import 'react-native-gesture-handler';
 import Stack from './src/Navigation/UserStack';
 import RootNavigation from "./src/Navigation/RootNavigation";
+import LoadingScreen from "./src/Screens/Loading";
+
 Amplify.configure({
   ...config,
   Analytics: { disabled: true },
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
 
 export default function App() {
   const [user, setUser] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const listener = (data) => {
     switch (data.payload.event) {
@@ -43,15 +46,24 @@ export default function App() {
     return () => Hub.remove("auth", listener);
   }, []);
 
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
   return (
     <AuthProvider>
-    <View style={styles.container}>
-     
-     
-    <RootNavigation/>
-      <Background />
-    </View>
+      <View style={styles.container}>
+        {isLoading ? (
+          <LoadingScreen />
+        ) : (
+          <>
+            <RootNavigation />
+            <Background />
+          </>
+        )}
+      </View>
     </AuthProvider>
-
   );
 }
