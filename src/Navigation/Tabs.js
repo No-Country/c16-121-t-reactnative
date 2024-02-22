@@ -5,6 +5,7 @@ import { Colors } from "../Constants/Colors";
 
 import Profile from "../Screens/Profile";
 import Home from "../Screens/Home";
+import DonationForm from "../Screens/DonationForm";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +27,15 @@ export default function MyTabs() {
                 options={{
                 tabBarIcon: ({ color, size }) => (
                     <MaterialIcons name="person" color={color} size={size} />
+                ),
+                }}
+            />
+            <Tab.Screen
+                name="DonationForm"
+                component={DonationForm}
+                options={{
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialIcons name="circle" color={color} size={size} />
                 ),
                 }}
             />
