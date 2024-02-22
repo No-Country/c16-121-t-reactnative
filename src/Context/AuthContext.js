@@ -65,15 +65,24 @@ function AuthProvider({ children }) {
     }
   }
   async function handleSignUp() {
-    if (!email || !password) {
-      alert("Por favor ingresa email y contraseña");
+    if (!email || !password || !firstName || !date || !lastName || !location) {
+      alert("Por favor completa todos los datos");
       return;
     }
+
+  // Validar el formato del correo electrónico
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.trim())) {
+    alert("Por favor ingresa un correo electrónico válido");
+    return;
+  }
+
     try {
       setIsLoading(true);
       await Auth.signUp({
-        username: email,
+        username: email.trim(),
         password,
+        birthdate: date,
       });
 
       setAuthState("confirmSignUp");
@@ -87,7 +96,7 @@ function AuthProvider({ children }) {
   }
 
   async function handleConfirmSignUp() {
-    if (!email || !password) {
+    if (!email || !password || !firstName || !date || !lastName  || !location) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
@@ -118,6 +127,14 @@ function AuthProvider({ children }) {
         verificationCode,
         setVerificationCode,
         isLoading,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
+        date,
+        setDate,
+        location,
+        setLocation
       }}
     >
       {children}

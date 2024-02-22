@@ -6,6 +6,7 @@ import { Colors } from "../Constants/Colors";
 const DateInput = ({ label, value, onChange }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(value);
+  const [dateString, setDateString] = useState(value ? value.toLocaleDateString() : '')
 
   const handleModalOpen = () => {
     setModalVisible(true);
@@ -18,6 +19,7 @@ const DateInput = ({ label, value, onChange }) => {
   const handleChange = (event, selectedDate) => {
     if (selectedDate) {
       setSelectedDate(selectedDate);
+      setDateString(selectedDate.toLocaleDateString())
       onChange(selectedDate);
       handleModalClose();
     }
@@ -28,7 +30,7 @@ const DateInput = ({ label, value, onChange }) => {
       <TouchableOpacity onPress={handleModalOpen}>
         <TextInput
           label={label}
-          value={selectedDate ? selectedDate.toLocaleDateString() : ''}
+          value={dateString || '05/02/1994'}
           style={styles.input}
           editable={false}
         />
@@ -41,11 +43,12 @@ const DateInput = ({ label, value, onChange }) => {
       >
         <TouchableOpacity style={styles.modalContainer} onPress={handleModalClose}>
           <View style={styles.modalContent}>
-            <DateTimePicker
+            <DateTimePicker 
               value={selectedDate || new Date()}
               mode="date"
               display="spinner"
               onChange={handleChange}
+              maximumDate={new Date()}
             />
           </View>
         </TouchableOpacity>
@@ -72,9 +75,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 20,
+    backgroundColor: 'transparent',
+    // borderRadius: 10,
+    // padding: 20,
   },
 });
 
