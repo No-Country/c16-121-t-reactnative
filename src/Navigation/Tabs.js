@@ -1,13 +1,11 @@
-// Navigation.js
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { MaterialIcons } from "@expo/vector-icons"; // Importar iconos de MaterialIcons
+import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "../Constants/Colors";
-import Background from "../Components/Background";
 
 import Profile from "../Screens/Profile";
 import Home from "../Screens/Home";
+
 const Tab = createBottomTabNavigator();
 
 export default function MyTabs() {

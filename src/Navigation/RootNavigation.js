@@ -7,19 +7,13 @@ import MyStack from './UserStack';
 
 
 const RootNavigation = () => {
-
-
-
-
   return (
 
 
     <NavigationContainer >
-       <AuthStack/>
+        <MyStack/>
     </NavigationContainer>
-  )
+  );
+};
 
-
-}
-
-export default RootNavigation
+export default RootNavigation;
