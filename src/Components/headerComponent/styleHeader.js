@@ -48,7 +48,7 @@ export const headerStyle = StyleSheet.create({
     borderRadius: 50,
   },
   
-  logoProfile: {
+  containerLogoProfile: {
     width: "100%",
     height: "30%",
  

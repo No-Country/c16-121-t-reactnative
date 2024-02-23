@@ -2,7 +2,9 @@
 //pasarse a todos mis componentes sin tener que volver a escribir codigo
 
 import * as React from "react";
-import { Auth } from "aws-amplify";
+import { Auth ,  DataStore, API, graphqlOperationp } from "aws-amplify";
+import { Usuarios } from '../models';
+
 
 const AuthContext = React.createContext({
   authState: "SignIn",
@@ -16,17 +18,63 @@ const AuthContext = React.createContext({
   isLoading: false,
   hadleSignIn: () => {},
   hadleSignUp: () => {},
+  name: "",
+  setName: ()=>{},
+  firstName: "",
+  middlename: "",
+  setMiddleName: ()=>{},
+  setFirstName: () => {},
+  lastName: "", 
+  setLastName: () => {}, 
+  date: "",
+  setDate: () => {},
+  location: "", 
+  setLocation: () => {},
 });
 
 const { Provider } = AuthContext;
 
 function AuthProvider({ children }) {
   //inicializo mis funciones con useState ya que me permite cambiar el estado de ellas
-  const [authSTate, setAuthState] = React.useState("signIn");
+  const [authSTate, setAuthState] = React.useState(null);
+  const [dbUser, setDbUser] = React.useState(null);
   const [email, setEmail] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [middlename, setMiddleName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [verificationCode, setVerificationCode] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const sub = authSTate?.attributes?.sub;
+
+
+  React.useEffect(()=> {
+
+    Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
+
+
+}, [])
+
+console.log(authSTate, "user");
+
+
+
+
+React.useEffect(()=>{
+
+  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setDbUser(users[0]));
+  
+  
+  
+  
+  
+  }, [sub])
+  
+
+
+
+
+
 
   async function handleSignIn() {
     //se puede validar que lo ingresado sea un email o contraseña correcta
@@ -40,7 +88,9 @@ function AuthProvider({ children }) {
         username: email,
         password,
       });
+      alert("inicio sesion exitoso ")
       console.log("user signed In");
+      console.log(user)
       setAuthState("signedIn");
       //hay que guardar este user en BD
     } catch (e) {
@@ -50,17 +100,38 @@ function AuthProvider({ children }) {
     }
   }
   async function handleSignUp() {
-    if (!email || !password) {
+    if (!email || !password 
+      
+      ) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
+
+    console.log("name, middle",  name,middlename, email )
     try {
       setIsLoading(true);
-      await Auth.signUp({
+      const signUpResponse = await Auth.signUp({
         username: email,
-        password,
+        password, 
+        attributes: {
+          email: email,
+          name: name,
+          middle_name: middlename
+        }
       });
 
+
+      // await API.graphql(graphqlOperationp(createUsuarios, {
+      //   input: {
+      //     email: email,
+      //     name: name,
+      //     middle_name: middleName,
+      //     sub: signUpResponse.userSub 
+      //   }
+      // }));
+      // await updateUserInDatabase(userData);
+
+      console.log('Usuario registrado exitosamente:', signUpResponse);
       setAuthState("confirmSignUp");
       setIsLoading(false);
     } catch (err) {
@@ -103,6 +174,11 @@ function AuthProvider({ children }) {
         verificationCode,
         setVerificationCode,
         isLoading,
+        dbUser,
+        setDbUser,
+        sub,
+        setMiddleName,
+        setName
       }}
     >
       {children}
@@ -110,3 +186,4 @@ function AuthProvider({ children }) {
   );
 }
 export {AuthContext,AuthProvider};
+

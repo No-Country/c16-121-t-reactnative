@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, Platform, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { CLOUD_NAME, UPLOAD_PRESET } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { styleProps } from "react-native-web/dist/cjs/modules/forwardedProps";
+// import { styleProps } from "react-native-web/dist/cjs/modules/forwardedProps";
 import { TouchableOpacity } from "react-native";
 import { Colors } from "../../Constants/Colors";
 

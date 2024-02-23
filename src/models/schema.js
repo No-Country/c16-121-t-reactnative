@@ -162,34 +162,34 @@ export const schema = {
                     "name": "pais",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "provincia": {
                     "name": "provincia",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "localidad": {
                     "name": "localidad",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
-                "Id_ubicacion": {
-                    "name": "Id_ubicacion",
+                "id_ubicacion": {
+                    "name": "id_ubicacion",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
                     "attributes": []
                 },
-                "telefono": {
-                    "name": "telefono",
+                "sub": {
+                    "name": "sub",
                     "isArray": false,
-                    "type": "AWSPhone",
+                    "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -204,6 +204,35 @@ export const schema = {
                     "name": "publicaciones",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "dni": {
+                    "name": "dni",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "backup": {
+                    "name": "backup",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "bloqueado": {
+                    "name": "bloqueado",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "telefono": {
+                    "name": "telefono",
+                    "isArray": false,
+                    "type": "AWSPhone",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -222,42 +251,6 @@ export const schema = {
                             "usuariosID"
                         ]
                     }
-                },
-                "fecha_nacimiento": {
-                    "name": "fecha_nacimiento",
-                    "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "genero": {
-                    "name": "genero",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "dni": {
-                    "name": "dni",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "backup": {
-                    "name": "backup",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "bloqueado": {
-                    "name": "bloqueado",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "Rol": {
                     "name": "Rol",
@@ -330,5 +323,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "ccb34b9b293c63077b6ad43af0d3df4c"
+    "version": "fba7e67e5938a6feedd49bf0320fb67e"
 };
