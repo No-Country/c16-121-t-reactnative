@@ -110,38 +110,17 @@ React.useEffect(()=>{
     }
   }
   async function handleSignUp() {
-    if (!email || !password 
-      
-      ) {
+    if (!email || !password) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
-
-    console.log("name, middle",  name,middlename, email )
     try {
       setIsLoading(true);
-      const signUpResponse = await Auth.signUp({
+      await Auth.signUp({
         username: email,
-        password, 
-        attributes: {
-          email: email,
-          name: name,
-          middle_name: middlename
-        }
+        password,
       });
 
-
-      await API.graphql(graphqlOperation(createUsuarios, {
-        input: {
-          email: email,
-          name: name,
-          middle_name: middleName,
-          sub: signUpResponse.userSub // Usamos el "sub" del usuario registrado
-        }
-      }));
-      await updateUserInDatabase(userData);
-
-      console.log('Usuario registrado exitosamente:', signUpResponse);
       setAuthState("confirmSignUp");
       setIsLoading(false);
     } catch (err) {
@@ -153,7 +132,7 @@ React.useEffect(()=>{
   }
 
   async function handleConfirmSignUp() {
-    if (!email || !password) {
+    if (!email || !password || !firstName || !date || !lastName  || !location) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
@@ -184,11 +163,6 @@ React.useEffect(()=>{
         verificationCode,
         setVerificationCode,
         isLoading,
-        dbUser,
-        setDbUser,
-        sub,
-        setMiddleName,
-        setName
       }}
     >
       {children}

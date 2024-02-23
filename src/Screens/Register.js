@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, KeyboardAvoidingView, Platform, Dimensions } from "react-native";
 
 import { Hub } from "aws-amplify";
 import  SingUp  from "../Components/SingUp";
@@ -9,15 +9,17 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     scrollViewContainer: {
-        // flex: 1,
-        marginTop: 150,
-        alignItems: "center", // Centra el contenido horizontalmente
+        flex: 1,
+        // marginTop: 150,
+        justifyContent: "center",
+        alignItems: "center", 
     },
 });
 
+
 export default function Login() {
     const [user, setUser] = React.useState(null);
-
+const { width, height } = Dimensions.get("window");
     const listener = (data) => {
         switch (data.payload.event) {
         case "signIn":
@@ -35,10 +37,14 @@ export default function Login() {
     }, []);
 
     return (
+        // <KeyboardAvoidingView
+        // style={{ flex: 1 }}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollViewContainer} keyboardShouldPersistTaps="handled" >
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}  >
                 <SingUp />
             </ScrollView>
         </View>
+        // </KeyboardAvoidingView>
     );
 }
