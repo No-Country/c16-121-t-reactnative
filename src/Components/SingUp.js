@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, StyleSheet, SafeAreaView} from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import MyBottom from "./MyBottom";
 import MyInput from "./MyInput";
 import { AuthContext } from "../Context/AuthContext";
@@ -11,17 +11,14 @@ const SingUp = () => {
     setAuthState,
     setEmail,
     setPassword,
-    setFirstName,
+    setName,
     setLastName,
     setDate,
     setLocation,
+    setMiddleName,
     handleSignUp,
   } = React.useContext(AuthContext);
-
-  // const { width, height } = Dimensions.get("window");
-
   return (
-    
     <SafeAreaView>
       <View>
         <Text style={styles.text}>Correo Electrónico</Text>
@@ -35,10 +32,11 @@ const SingUp = () => {
         />
 
         <Text style={styles.text}>Nombre</Text>
-        <MyInput label={"Sofía"} onChangeText={setFirstName} />
+        <MyInput label={"Sofía"} onChangeText={setName} />
 
         <Text style={styles.text}>Apellido</Text>
-        <MyInput label={"Quiroz"} onChangeText={setLastName} />
+
+        <MyInput label={"Quiroz"} onChangeText={setMiddleName} />
 
         <View style={{ flexDirection: "row" }}>
           <View style={{ width: "48%" }}>
@@ -53,7 +51,6 @@ const SingUp = () => {
         <MyBottom title="Guardar" onPress={handleSignUp} />
       </View>
     </SafeAreaView>
-
   );
 };
 

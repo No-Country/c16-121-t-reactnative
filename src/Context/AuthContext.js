@@ -2,7 +2,9 @@
 //pasarse a todos mis componentes sin tener que volver a escribir codigo
 
 import * as React from "react";
-import { Auth } from "aws-amplify";
+import { Auth ,  DataStore, API, graphqlOperationp } from "aws-amplify";
+import { Usuarios } from '../models';
+
 
 const AuthContext = React.createContext({
   authState: "SignIn",
@@ -16,8 +18,11 @@ const AuthContext = React.createContext({
   isLoading: false,
   hadleSignIn: () => {},
   hadleSignUp: () => {},
-
+  name: "",
+  setName: ()=>{},
   firstName: "",
+  middlename: "",
+  setMiddleName: ()=>{},
   setFirstName: () => {},
   lastName: "", 
   setLastName: () => {}, 
@@ -31,16 +36,45 @@ const { Provider } = AuthContext;
 
 function AuthProvider({ children }) {
   //inicializo mis funciones con useState ya que me permite cambiar el estado de ellas
-  const [authSTate, setAuthState] = React.useState("signIn");
+  const [authSTate, setAuthState] = React.useState(null);
+  const [dbUser, setDbUser] = React.useState(null);
   const [email, setEmail] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [middlename, setMiddleName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [verificationCode, setVerificationCode] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const sub = authSTate?.attributes?.sub;
+
+
+  React.useEffect(()=> {
+
+    Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
+
+
+}, [])
+
+console.log(authSTate, "user");
+
+
+
+
+React.useEffect(()=>{
+
+  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setDbUser(users[0]));
   
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
-  const [date, setDate] = React.useState("");
-  const [location, setLocation] = React.useState("");
+  
+  
+  
+  
+  }, [sub])
+  
+
+
+
+
+
 
   async function handleSignIn() {
     //se puede validar que lo ingresado sea un email o contraseña correcta
@@ -56,6 +90,7 @@ function AuthProvider({ children }) {
       });
       alert("inicio sesion exitoso ")
       console.log("user signed In");
+      console.log(user)
       setAuthState("signedIn");
       //hay que guardar este user en BD
     } catch (e) {
@@ -65,26 +100,38 @@ function AuthProvider({ children }) {
     }
   }
   async function handleSignUp() {
-    if (!email || !password || !firstName || !date || !lastName || !location) {
-      alert("Por favor completa todos los datos");
+    if (!email || !password 
+      
+      ) {
+      alert("Por favor ingresa email y contraseña");
       return;
     }
 
-  // Validar el formato del correo electrónico
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email.trim())) {
-    alert("Por favor ingresa un correo electrónico válido");
-    return;
-  }
-
+    console.log("name, middle",  name,middlename, email )
     try {
       setIsLoading(true);
-      await Auth.signUp({
-        username: email.trim(),
-        password,
-        birthdate: date,
+      const signUpResponse = await Auth.signUp({
+        username: email,
+        password, 
+        attributes: {
+          email: email,
+          name: name,
+          middle_name: middlename
+        }
       });
 
+
+      // await API.graphql(graphqlOperationp(createUsuarios, {
+      //   input: {
+      //     email: email,
+      //     name: name,
+      //     middle_name: middleName,
+      //     sub: signUpResponse.userSub 
+      //   }
+      // }));
+      // await updateUserInDatabase(userData);
+
+      console.log('Usuario registrado exitosamente:', signUpResponse);
       setAuthState("confirmSignUp");
       setIsLoading(false);
     } catch (err) {
@@ -96,7 +143,7 @@ function AuthProvider({ children }) {
   }
 
   async function handleConfirmSignUp() {
-    if (!email || !password || !firstName || !date || !lastName  || !location) {
+    if (!email || !password) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
@@ -127,14 +174,11 @@ function AuthProvider({ children }) {
         verificationCode,
         setVerificationCode,
         isLoading,
-        firstName,
-        setFirstName,
-        lastName,
-        setLastName,
-        date,
-        setDate,
-        location,
-        setLocation
+        dbUser,
+        setDbUser,
+        sub,
+        setMiddleName,
+        setName
       }}
     >
       {children}
@@ -142,3 +186,4 @@ function AuthProvider({ children }) {
   );
 }
 export {AuthContext,AuthProvider};
+

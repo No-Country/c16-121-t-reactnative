@@ -186,10 +186,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "telefono": {
-                    "name": "telefono",
+                "sub": {
+                    "name": "sub",
                     "isArray": false,
-                    "type": "AWSPhone",
+                    "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -277,6 +277,13 @@ export const schema = {
                         ]
                     }
                 },
+                "telefono": {
+                    "name": "telefono",
+                    "isArray": false,
+                    "type": "AWSPhone",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -330,5 +337,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "ccb34b9b293c63077b6ad43af0d3df4c"
+    "version": "3247a7d63cde7a3b6e3d888835a94abb"
 };

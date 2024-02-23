@@ -1,18 +1,38 @@
-// Navigation.js
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { MaterialIcons } from "@expo/vector-icons"; // Importar iconos de MaterialIcons
+import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "../Constants/Colors";
-import Background from "../Components/Background";
 
 import Profile from "../Screens/Profile";
 import Home from "../Screens/Home";
+import DonationForm from "../Screens/DonationForm";
+
 const Tab = createBottomTabNavigator();
 
 export default function MyTabs() {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{
+            headerShown: false,
+            tabBarStyle: {
+              backgroundColor: '#FCC5D2',
+              borderTopColor: 'white', 
+              borderTopWidth: 2, 
+              paddingTop: 8, 
+              borderTopLeftRadius: 30, 
+              borderTopRightRadius: 30,
+            },
+            tabBarIconStyle: {
+              marginBottom: -1, 
+            },
+            tabBarLabelStyle: {
+              color:'black',
+              fontSize: 12, 
+              marginBottom: 3, 
+            },
+            tabBarInactiveTintColor: '#666666', 
+            tabBarActiveTintColor: '#F3305F', 
+            tabBarPressColor: 'rgba(243, 48, 95, 0.7)'
+          }}>
             <Tab.Screen
                 name="Home"
                 component={Home}
@@ -21,6 +41,7 @@ export default function MyTabs() {
                     <MaterialIcons name="home" color={color} size={size} />
                 ),
                 }}
+                
             />
             <Tab.Screen
                 name="Profile"
@@ -28,6 +49,15 @@ export default function MyTabs() {
                 options={{
                 tabBarIcon: ({ color, size }) => (
                     <MaterialIcons name="person" color={color} size={size} />
+                ),
+                }}
+            />
+            <Tab.Screen
+                name="DonationForm"
+                component={DonationForm}
+                options={{
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialIcons name="circle" color={color} size={size} />
                 ),
                 }}
             />
