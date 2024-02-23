@@ -2,7 +2,7 @@ import React from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 import { Colors } from "../Constants/Colors";
 
-const MyInput = ({ label, value, onChangeText, secureTextEntry }) => {
+const MyInput = ({ label, value, onChangeText, secureTextEntry, onBlur }) => {
   return (
     
       <TextInput
@@ -11,6 +11,7 @@ const MyInput = ({ label, value, onChangeText, secureTextEntry }) => {
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
+        onBlur={onBlur}
       />
    
   );
