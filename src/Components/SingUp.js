@@ -7,18 +7,15 @@ import { Colors } from "../Constants/Colors";
 import DateInput from "./DateInput";
 
 const SingUp = () => {
-  const {
-    setAuthState,
-    setEmail,
-    setPassword,
-    setFirstName,
-    setLastName,
-    setDate,
-    setLocation,
-    handleSignUp,
-  } = React.useContext(AuthContext);
+
+  const { setAuthState, setEmail, setPassword, setName, setLastName, setDate, setLocation, setMiddleName,handleSignUp } =
+    React.useContext(AuthContext);
+
 
   // const { width, height } = Dimensions.get("window");
+
+
+
 
   return (
     
@@ -35,10 +32,13 @@ const SingUp = () => {
         />
 
         <Text style={styles.text}>Nombre</Text>
-        <MyInput label={"Sofía"} onChangeText={setFirstName} />
+        <MyInput label={"Sofía"} onChangeText={setName} />
 
         <Text style={styles.text}>Apellido</Text>
-        <MyInput label={"Quiroz"} onChangeText={setLastName} />
+
+        <MyInput label={"Quiroz"} onChangeText={setMiddleName}/>
+
+  
 
         <View style={{ flexDirection: "row" }}>
           <View style={{ width: "48%" }}>
