@@ -9,3 +9,4 @@ const Profile = () => {
     </View>
   )}
 export default Profile;
+

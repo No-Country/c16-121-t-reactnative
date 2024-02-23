@@ -7,13 +7,14 @@ import  SingUp  from "../Components/SingUp";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    scrollViewContainer: {
-        flex: 1,
-        // marginTop: 150,
+        marginTop:180,
+        marginButtom: 200,
         justifyContent: "center",
-        alignItems: "center", 
+        alignItems: "center",
+        alignSelf:'center',
+        width:350,
     },
+
 });
 
 export default function Login() {
@@ -39,11 +40,14 @@ const { width, height } = Dimensions.get("window");
         // <KeyboardAvoidingView
         // style={{ flex: 1 }}
         // behavior={Platform.OS === "ios" ? "padding" : "height"}>
-        <View style={styles.container} >
+       
             <ScrollView contentContainerStyle={styles.scrollViewContainer}  keyboardShouldPersistTaps="handled">
+               
+                <View style={styles.container} >
                 <SingUp />
+                </View>
             </ScrollView>
-        </View>
+
         // </KeyboardAvoidingView>
     );
 }

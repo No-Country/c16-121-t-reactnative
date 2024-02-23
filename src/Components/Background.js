@@ -2,14 +2,12 @@ import React from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { Colors } from "../Constants/Colors";
 const Background = () => {
-  return <View style={styles.background}>
-
-<Image
-        source={require("../img/Sin título-1-02.png")} 
+  return  <View style={styles.background}>
+    <Image
+        source={require("../Assets/Logo.png")} 
         style={styles.backgroundImage}
       />
   </View>;
-  
 };
 
 const styles = StyleSheet.create({
@@ -26,11 +24,13 @@ const styles = StyleSheet.create({
     justifyContent: "center", 
     alignItems: "center", 
     zIndex: -1,
+    alignItems: "center", 
   },
   backgroundImage: {
     flex: 1,
-    width: 100, 
+    width: 200, 
     resizeMode: "contain", 
+   
   },
 });
 export default Background;
