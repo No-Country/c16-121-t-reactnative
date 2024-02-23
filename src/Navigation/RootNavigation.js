@@ -11,7 +11,7 @@ const RootNavigation = () => {
 
 
     <NavigationContainer >
-      <MyStack/>
+     <AuthStack/>
     </NavigationContainer>
   );
 };
