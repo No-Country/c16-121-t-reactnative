@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     },
 });
 
-
 export default function Login() {
     const [user, setUser] = React.useState(null);
 const { width, height } = Dimensions.get("window");
@@ -40,8 +39,8 @@ const { width, height } = Dimensions.get("window");
         // <KeyboardAvoidingView
         // style={{ flex: 1 }}
         // behavior={Platform.OS === "ios" ? "padding" : "height"}>
-        <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollViewContainer}  >
+        <View style={styles.container} >
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}  keyboardShouldPersistTaps="handled">
                 <SingUp />
             </ScrollView>
         </View>
