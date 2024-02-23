@@ -85,7 +85,7 @@ export default function FileCaro() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
 
-      <HeaderMovil></HeaderMovil>
+      <HeaderMovil condition={true}></HeaderMovil>
 
      <View style={{ flex: 1, padding: "6%" }}>
           <FlatList
@@ -95,8 +95,15 @@ export default function FileCaro() {
           keyExtractor={(item) => item.name}
         ></FlatList>
      
-      </View>  
+      </View> 
+      {/* <HeaderMovil
+        imagePosition="left"
+        componentPosition="middle"
+      
+      ></HeaderMovil>  */}
 
+ 
+      <HeaderMovil condition={false}></HeaderMovil>
     
     </SafeAreaView>
   );

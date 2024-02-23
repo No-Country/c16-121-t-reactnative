@@ -74,7 +74,7 @@ export const PictureProfile = ({showButton}) => {
       <View style={style.profile}>
         {showButton && (
           <TouchableOpacity onPress={pickImage} style={style.button}>
-            <Text style={{ fontSize: 40, color: "white" }}>+</Text>
+            <Text style={{ fontSize: 18, color: "white", fontWeight:'800' }}>+</Text>
           </TouchableOpacity>
         )}
 
@@ -82,8 +82,6 @@ export const PictureProfile = ({showButton}) => {
           <Image source={{ uri: picture }} style={style.image}></Image>
         )}
       </View>
-      {/* 
-      <Text style={{fontSize: 12}}>ProfileScreen</Text> */}
     </View>
   );
 };
@@ -112,11 +110,11 @@ const style = StyleSheet.create({
   },
 
   button: {
-    width: "30%",
-    height: "30%",
+    width: "35%",
+    height: "35%",
     borderRadius: 100,
     backgroundColor: Colors.bottonLogin,
-    opacity: 0.3,
+   
     color: "black",
     position: "absolute",
     zIndex: 20,
@@ -124,9 +122,9 @@ const style = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
   },
+
   image: {
     flex: 1,
-
     width: "100%",
     height: "100%",
     resizeMode: "cover",
