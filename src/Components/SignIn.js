@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, TouchableOpacity, Text, StyleSheet, Pressable,Dimensions } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Pressable } from "react-native";
 import MyBottom from "./MyBottom";
 import { Feather } from "@expo/vector-icons";
 import MyInput from "./MyInput";
@@ -8,11 +8,15 @@ import MyBottonGoogle from "./MyBottonGoogle";
 import BottonRegistro from "./BottonRegistro";
 import { Colors } from "../Constants/Colors";
 import { useNavigation } from "@react-navigation/native";
-const { width, height } = Dimensions.get("window");
+
+
+
+
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const { authState, setAuthState, setEmail, setPassword, handleSignIn } =
-    React.useContext(AuthContext);
+ React.useContext(AuthContext);
+
   const navigation = useNavigation();
 
   const onHandleSign = async () => {

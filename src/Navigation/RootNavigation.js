@@ -10,10 +10,7 @@ const RootNavigation = () => {
   return (
 
 
-    <NavigationContainer  screenOptions={{
-     
-      cardStyle: { backgroundColor: 'red' } 
-  }}>
+    <NavigationContainer >
       <MyStack/>
     </NavigationContainer>
   );

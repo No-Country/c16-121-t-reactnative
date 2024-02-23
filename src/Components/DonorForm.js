@@ -62,8 +62,8 @@ const DonorForm = () => {
                 ))}
             </Picker>
         </View>
-        {questions.map((item) => (
-          <View>
+        {questions.map((item,index) => (
+          <View key={index}>
             <Text style={styles.text}>{item.question}</Text>
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={[styles.buttom, isOptionSelected(item.id,true) && {
