@@ -6,6 +6,7 @@ import { Colors } from "../Constants/Colors";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:'white'
     },
     textStyle: {
         marginTop: 150,
