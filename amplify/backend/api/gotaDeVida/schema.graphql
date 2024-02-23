@@ -12,19 +12,18 @@ type Usuarios @model @auth(rules: [{allow: public}]) {
   id: ID!
   nombre: String!
   apellido: String!
-  imagen: String
+  imagen: String!
   pais: String!
-  provincia: String!
-  localidad: String!
-  Id_ubicacion: ID
-  telefono: AWSPhone!
+  provincia: String
+  localidad: String
+  id_ubicacion: ID
+  sub: String!
   notificaciones: String
   publicaciones: String
-  ReciboDonaciones: [ReciboDonaciones] @hasMany(indexName: "byUsuarios", fields: ["id"])
-  fecha_nacimiento: AWSDate!
-  genero: String!
-  dni: Int!
+  dni: Int
   backup: [String]
   bloqueado: Boolean
+  telefono: AWSPhone
+  ReciboDonaciones: [ReciboDonaciones] @hasMany(indexName: "byUsuarios", fields: ["id"])
   Rol: Rol @hasOne
-} 
+}
