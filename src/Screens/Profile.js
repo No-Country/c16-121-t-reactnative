@@ -1,12 +1,9 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from 'react';
+import { View, Text, StyleSheet,TextInput } from 'react-native';
+import ProfileDates from '../Components/ProfileDates';
 
 const Profile = () => {
   return (
-  <View style={{flex:1, backgroundColor:'white'}}>
-    <Text>Perfilss</Text>
-  </View>
-  )
-}
-
-export default Profile
+    <ProfileDates/>
+  )}
+export default Profile;
