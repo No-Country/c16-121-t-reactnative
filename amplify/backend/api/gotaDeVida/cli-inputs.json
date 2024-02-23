@@ -15,7 +15,9 @@
     ],
     "conflictResolution": {
       "defaultResolutionStrategy": {
+
         "type": "NONE"
+
       }
     }
   }

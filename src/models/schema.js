@@ -162,25 +162,25 @@ export const schema = {
                     "name": "pais",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "provincia": {
                     "name": "provincia",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "localidad": {
                     "name": "localidad",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
-                "Id_ubicacion": {
-                    "name": "Id_ubicacion",
+                "id_ubicacion": {
+                    "name": "id_ubicacion",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -207,41 +207,11 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "ReciboDonaciones": {
-                    "name": "ReciboDonaciones",
-                    "isArray": true,
-                    "type": {
-                        "model": "ReciboDonaciones"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "usuariosID"
-                        ]
-                    }
-                },
-                "fecha_nacimiento": {
-                    "name": "fecha_nacimiento",
-                    "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "genero": {
-                    "name": "genero",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "dni": {
                     "name": "dni",
                     "isArray": false,
                     "type": "Int",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "backup": {
@@ -258,6 +228,29 @@ export const schema = {
                     "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
+                },
+                "telefono": {
+                    "name": "telefono",
+                    "isArray": false,
+                    "type": "AWSPhone",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "ReciboDonaciones": {
+                    "name": "ReciboDonaciones",
+                    "isArray": true,
+                    "type": {
+                        "model": "ReciboDonaciones"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": [
+                            "usuariosID"
+                        ]
+                    }
                 },
                 "Rol": {
                     "name": "Rol",
