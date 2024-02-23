@@ -1,10 +1,11 @@
 import * as React from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import MyBottom from "./MyBottom";
 import MyInput from "./MyInput";
 import { AuthContext } from "../Context/AuthContext";
 import { Colors } from "../Constants/Colors";
 import DateInput from "./DateInput";
+import { Feather } from "@expo/vector-icons";
 
 const SingUp = () => {
   const {
@@ -12,33 +13,94 @@ const SingUp = () => {
     setEmail,
     setPassword,
     setName,
+    setMiddleName,
     setLastName,
     setDate,
     setLocation,
-    setMiddleName,
     handleSignUp,
   } = React.useContext(AuthContext);
+
+  //Validar el correo electrónico si cumple con el formato
+  const [correo, setCorreo] = React.useState('');
+  const [correoError, setCorreoError] = React.useState('');
+  
+  const validateEmail = () => {
+    const emailRegex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(correo.trim())) {
+      setCorreoError('Ingresa un correo electrónico válido')
+    } else { 
+      setCorreoError('');
+    }
+  }
+
+  //Validar que la contraseña cumpla con 6 caracteres mínimo y posea una mayúscula
+  const [contraseña, setContraseña] = React.useState('');
+  const [contraseñaError, setContraseñaError] = React.useState('');
+  
+  const validateContraseña = () => {
+    if(contraseña.length < 6 || !/[A-Z]/.test(contraseña)){
+      setContraseñaError('Debe tener al menos 6 caracteres y una mayúscula')
+    } else {
+      setContraseñaError('')
+    }
+  }
+  
+  //Validar que las contraseñas sean iguales
+  const [confirmarContraseña, setConfirmarContraseña] = React.useState('');
+  const [confirmarContraseñaError, setConfirmarContraseñaError] = React.useState('');
+  
+  const validateConfirmarContraseña = () => {
+    if(contraseña !== confirmarContraseña){
+      setConfirmarContraseñaError('Las contraseñas no son iguales')
+    } else {
+      setConfirmarContraseñaError('')
+    }
+  }
+  
+  //Mostar las constraseñas o no
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword2, setShowPassword2] = React.useState(false);
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleShowPassword2 = () => {
+    setShowPassword2(!showPassword2);
+  };
+
   return (
+    
     <SafeAreaView>
       <View>
-        <Text style={styles.text}>Correo Electrónico</Text>
-        <MyInput label={"example@gmail.com"} onChangeText={setEmail} />
-
-        <Text style={styles.textPassword}>Contraseña</Text>
-        <MyInput
-          label={"Contraseña"}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-
         <Text style={styles.text}>Nombre</Text>
-        <MyInput label={"Sofía"} onChangeText={setName} />
+        <MyInput label={"Sofía"} onChangeText={(text) => setName(text.trim())} />
 
         <Text style={styles.text}>Apellido</Text>
+        <MyInput label={"Quiroz"} onChangeText={(text) => setMiddleName(text.trim())} />
 
-        <MyInput label={"Quiroz"} onChangeText={setMiddleName} />
+        <Text style={styles.text}>Correo Electrónico</Text>
+        <MyInput label={"example@gmail.com"} onChangeText={(text) => {setEmail(text.trim()); setCorreo(text.trim())}} onBlur={validateEmail}/>
+        <Text style={styles.error}>{correoError}</Text>
 
-        <View style={{ flexDirection: "row" }}>
+        <Text style={styles.text}>Contraseña</Text>
+        <View style={styles.viewPassword}>
+          <MyInput label={"Contraseña"} onChangeText={(text) => { setContraseña(text) ; {setPassword(text)}}} onBlur={validateContraseña} secureTextEntry={!showPassword}/>
+            <TouchableOpacity onPress={toggleShowPassword} style={styles.eyeIcon} activeOpacity={0.8}>
+              <Feather name={showPassword ? "eye" : "eye-off"} size={24} color="#323646" />
+            </TouchableOpacity>
+        </View>
+        <Text style={styles.error}>{contraseñaError}</Text>
+
+        <Text style={styles.text}>Confirmar contraseña</Text>
+        <View style={styles.viewPassword}>
+          <MyInput label={"Contraseña"} onChangeText={(text) => {setConfirmarContraseña(text)}} onBlur={validateConfirmarContraseña} secureTextEntry={!showPassword2}/>
+          <TouchableOpacity onPress={toggleShowPassword2} style={styles.eyeIcon} activeOpacity={0.8}>
+              <Feather name={showPassword2 ? "eye" : "eye-off"} size={24} color="#323646" />
+            </TouchableOpacity>
+        </View>
+        <Text style={styles.error}>{confirmarContraseñaError}</Text>
+
+
+        {/* <View style={{ flexDirection: "row" }}>
           <View style={{ width: "48%" }}>
             <Text style={styles.text}>Fecha de nacimiento</Text>
             <DateInput onChange={setDate} />
@@ -47,10 +109,11 @@ const SingUp = () => {
             <Text style={styles.text}>Ciudad - País</Text>
             <MyInput label={"Bs.As"} onChangeText={setLocation} />
           </View>
-        </View>
+        </View> */}
         <MyBottom title="Guardar" onPress={handleSignUp} />
       </View>
     </SafeAreaView>
+
   );
 };
 
@@ -59,18 +122,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     color: "#F3305F",
-    marginRight: "55%",
+    marginLeft: '3%',
   },
-  textPassword: {
-    fontSize: 14,
-    fontWeight: "bold",
+  error:{
+    fontSize: 10,
     color: "#F3305F",
-    marginRight: "65%",
-  },
-  textForgotPassword: {
-    position: "absolute",
-    left: 0,
-    top: -7,
+    marginLeft: '3%',
+    marginBottom: 6,
+    marginTop: -8,
   },
   line: {
     width: "90%",
@@ -78,6 +137,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bottonLogin,
     marginTop: "6%",
     marginBottom: "2%",
+  },
+  viewPassword: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  eyeIcon: {
+    marginLeft: -40,
   },
 });
 export default SingUp;

@@ -5,7 +5,6 @@ import * as React from "react";
 import { Auth ,  DataStore, API, graphqlOperationp } from "aws-amplify";
 import { Usuarios } from '../models';
 
-
 const AuthContext = React.createContext({
   authState: "SignIn",
   setAuthState: () => {},
@@ -47,34 +46,16 @@ function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = React.useState(false);
   const sub = authSTate?.attributes?.sub;
 
-
   React.useEffect(()=> {
-
     Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
-
-
-}, [])
+  }, [])
 
 console.log(authSTate, "user");
 
 
-
-
 React.useEffect(()=>{
 
-  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setDbUser(users[0]));
-  
-  
-  
-  
-  
-  }, [sub])
-  
-
-
-
-
-
+  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setDbUser(users[0]));}, [sub])
 
   async function handleSignIn() {
     //se puede validar que lo ingresado sea un email o contraseña correcta
@@ -99,10 +80,9 @@ React.useEffect(()=>{
       console.log(e);
     }
   }
+  
   async function handleSignUp() {
-    if (!email || !password 
-      
-      ) {
+    if (!email || !password) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
@@ -111,7 +91,7 @@ React.useEffect(()=>{
     try {
       setIsLoading(true);
       const signUpResponse = await Auth.signUp({
-        username: email,
+        username: email.trim(),
         password, 
         attributes: {
           email: email,
@@ -186,4 +166,3 @@ React.useEffect(()=>{
   );
 }
 export {AuthContext,AuthProvider};
-
