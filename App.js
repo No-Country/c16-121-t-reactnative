@@ -10,7 +10,7 @@ import 'react-native-gesture-handler';
 import Stack from './src/Navigation/UserStack';
 import RootNavigation from "./src/Navigation/RootNavigation";
 import LoadingScreen from "./src/Screens/Loading";
-import FileCaro from "./fileDePruebaCaro";
+
 
 Amplify.configure({
   ...config,
@@ -20,13 +20,12 @@ Amplify.configure({
   },
 });
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
-
-
 
 
 export default function App() {

@@ -12,8 +12,8 @@ type Usuarios @model @auth(rules: [{allow: public}]) {
   id: ID!
   nombre: String!
   apellido: String!
-  imagen: String
-  pais: String
+  imagen: String!
+  pais: String!
   provincia: String
   localidad: String
   id_ubicacion: ID
@@ -27,4 +27,3 @@ type Usuarios @model @auth(rules: [{allow: public}]) {
   ReciboDonaciones: [ReciboDonaciones] @hasMany(indexName: "byUsuarios", fields: ["id"])
   Rol: Rol @hasOne
 }
- 

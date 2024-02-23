@@ -71,10 +71,10 @@ type EagerUsuarios = {
   readonly nombre: string;
   readonly apellido: string;
   readonly imagen?: string | null;
-  readonly pais?: string | null;
-  readonly provincia?: string | null;
-  readonly localidad?: string | null;
-  readonly id_ubicacion?: string | null;
+  readonly pais: string;
+  readonly provincia: string;
+  readonly localidad: string;
+  readonly Id_ubicacion?: string | null;
   readonly sub: string;
   readonly notificaciones?: string | null;
   readonly publicaciones?: string | null;
@@ -84,6 +84,7 @@ type EagerUsuarios = {
   readonly telefono?: string | null;
   readonly ReciboDonaciones?: (ReciboDonaciones | null)[] | null;
   readonly Rol?: Rol | null;
+  readonly telefono: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly usuariosRolId?: string | null;
@@ -98,10 +99,10 @@ type LazyUsuarios = {
   readonly nombre: string;
   readonly apellido: string;
   readonly imagen?: string | null;
-  readonly pais?: string | null;
-  readonly provincia?: string | null;
-  readonly localidad?: string | null;
-  readonly id_ubicacion?: string | null;
+  readonly pais: string;
+  readonly provincia: string;
+  readonly localidad: string;
+  readonly Id_ubicacion?: string | null;
   readonly sub: string;
   readonly notificaciones?: string | null;
   readonly publicaciones?: string | null;
@@ -111,6 +112,7 @@ type LazyUsuarios = {
   readonly telefono?: string | null;
   readonly ReciboDonaciones: AsyncCollection<ReciboDonaciones>;
   readonly Rol: AsyncItem<Rol | undefined>;
+  readonly telefono: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly usuariosRolId?: string | null;

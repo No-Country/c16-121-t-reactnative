@@ -270,6 +270,13 @@ export const schema = {
                         ]
                     }
                 },
+                "telefono": {
+                    "name": "telefono",
+                    "isArray": false,
+                    "type": "AWSPhone",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -323,5 +330,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "fba7e67e5938a6feedd49bf0320fb67e"
+    "version": "3247a7d63cde7a3b6e3d888835a94abb"
 };
