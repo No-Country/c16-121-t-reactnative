@@ -9,8 +9,10 @@ const AuthStack = createStackNavigator();
 export default function MyStack (){
     return(
 
-        <AuthStack.Navigator>
-        <AuthStack.Screen name="Login" component={Login}/>
+        <AuthStack.Navigator screenOptions={{
+            cardStyle: { backgroundColor: 'white' }
+          }}>
+        <AuthStack.Screen name="Login" component={Login} />
         <AuthStack.Screen name="Register" component={Register}/>
         </AuthStack.Navigator>
     )
