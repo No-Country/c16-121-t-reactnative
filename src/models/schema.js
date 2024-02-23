@@ -270,13 +270,6 @@ export const schema = {
                         ]
                     }
                 },
-                "telefono": {
-                    "name": "telefono",
-                    "isArray": false,
-                    "type": "AWSPhone",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -320,6 +313,18 @@ export const schema = {
                                     "delete",
                                     "read"
                                 ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
                             }
                         ]
                     }
@@ -330,5 +335,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "3247a7d63cde7a3b6e3d888835a94abb"
+    "version": "fba7e67e5938a6feedd49bf0320fb67e"
 };
