@@ -5,6 +5,7 @@ import * as React from "react";
 import { Auth ,  DataStore, API, graphqlOperationp } from "aws-amplify";
 import { Usuarios } from '../models';
 
+
 const AuthContext = React.createContext({
   authState: "SignIn",
   setAuthState: () => {},
@@ -69,18 +70,7 @@ React.useEffect(()=>{
   
   }, [sub])
   
-  let attribute = name;
 
-  // Verificar si "attribute" es un string
-  if (typeof attribute === 'string') {
-  
-      console.log("Es un string ")
-  
-  } else {
-  
-      console.log("No Es un string ")
-  
-  }
 
 
 
@@ -110,17 +100,38 @@ React.useEffect(()=>{
     }
   }
   async function handleSignUp() {
-    if (!email || !password) {
+    if (!email || !password 
+      
+      ) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
+
+    console.log("name, middle",  name,middlename, email )
     try {
       setIsLoading(true);
-      await Auth.signUp({
+      const signUpResponse = await Auth.signUp({
         username: email,
-        password,
+        password, 
+        attributes: {
+          email: email,
+          name: name,
+          middle_name: middlename
+        }
       });
 
+
+      // await API.graphql(graphqlOperationp(createUsuarios, {
+      //   input: {
+      //     email: email,
+      //     name: name,
+      //     middle_name: middleName,
+      //     sub: signUpResponse.userSub 
+      //   }
+      // }));
+      // await updateUserInDatabase(userData);
+
+      console.log('Usuario registrado exitosamente:', signUpResponse);
       setAuthState("confirmSignUp");
       setIsLoading(false);
     } catch (err) {
@@ -132,7 +143,7 @@ React.useEffect(()=>{
   }
 
   async function handleConfirmSignUp() {
-    if (!email || !password || !firstName || !date || !lastName  || !location) {
+    if (!email || !password) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
@@ -163,6 +174,11 @@ React.useEffect(()=>{
         verificationCode,
         setVerificationCode,
         isLoading,
+        dbUser,
+        setDbUser,
+        sub,
+        setMiddleName,
+        setName
       }}
     >
       {children}
