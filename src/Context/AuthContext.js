@@ -2,7 +2,7 @@
 //pasarse a todos mis componentes sin tener que volver a escribir codigo
 
 import * as React from "react";
-import { Auth ,  DataStore} from "aws-amplify";
+import { Auth ,  DataStore, API, graphqlOperationp } from "aws-amplify";
 import { Usuarios } from '../models';
 
 const AuthContext = React.createContext({
@@ -17,6 +17,18 @@ const AuthContext = React.createContext({
   isLoading: false,
   hadleSignIn: () => {},
   hadleSignUp: () => {},
+  name: "",
+  setName: ()=>{},
+  firstName: "",
+  middlename: "",
+  setMiddleName: ()=>{},
+  setFirstName: () => {},
+  lastName: "", 
+  setLastName: () => {}, 
+  date: "",
+  setDate: () => {},
+  location: "", 
+  setLocation: () => {},
 });
 
 const { Provider } = AuthContext;
@@ -26,6 +38,9 @@ function AuthProvider({ children }) {
   const [authSTate, setAuthState] = React.useState(null);
   const [dbUser, setDbUser] = React.useState(null);
   const [email, setEmail] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [middlename, setMiddleName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [verificationCode, setVerificationCode] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -34,7 +49,7 @@ function AuthProvider({ children }) {
 
   React.useEffect(()=> {
 
-    Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState)
+    Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
 
 
 }, [])
@@ -42,15 +57,31 @@ function AuthProvider({ children }) {
 console.log(authSTate, "user");
 
 
+
+
 React.useEffect(()=>{
 
-  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setAuthState(users[0]));
+  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setDbUser(users[0]));
   
   
   
   
   
   }, [sub])
+  
+  let attribute = name;
+
+  // Verificar si "attribute" es un string
+  if (typeof attribute === 'string') {
+  
+      console.log("Es un string ")
+  
+  } else {
+  
+      console.log("No Es un string ")
+  
+  }
+
 
 
 
@@ -79,17 +110,38 @@ React.useEffect(()=>{
     }
   }
   async function handleSignUp() {
-    if (!email || !password) {
+    if (!email || !password 
+      
+      ) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
+
+    console.log("name, middle",  name,middlename, email )
     try {
       setIsLoading(true);
-      await Auth.signUp({
+      const signUpResponse = await Auth.signUp({
         username: email,
-        password,
+        password, 
+        attributes: {
+          email: email,
+          name: name,
+          middle_name: middlename
+        }
       });
 
+
+      await API.graphql(graphqlOperation(createUsuarios, {
+        input: {
+          email: email,
+          name: name,
+          middle_name: middleName,
+          sub: signUpResponse.userSub // Usamos el "sub" del usuario registrado
+        }
+      }));
+      await updateUserInDatabase(userData);
+
+      console.log('Usuario registrado exitosamente:', signUpResponse);
       setAuthState("confirmSignUp");
       setIsLoading(false);
     } catch (err) {
@@ -134,7 +186,9 @@ React.useEffect(()=>{
         isLoading,
         dbUser,
         setDbUser,
-        sub
+        sub,
+        setMiddleName,
+        setName
       }}
     >
       {children}
