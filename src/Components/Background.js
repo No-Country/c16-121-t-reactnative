@@ -1,8 +1,13 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import { Colors } from "../Constants/Colors";
 const Background = () => {
-  return <View style={styles.background}></View>;
+  return  <View style={styles.background}>
+    <Image
+        source={require("../Assets/Logo.png")} 
+        style={styles.backgroundImage}
+      />
+  </View>;
 };
 
 const styles = StyleSheet.create({
@@ -17,6 +22,13 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 900,
     backgroundColor: Colors.background,
     zIndex: -1,
+    alignItems: "center", 
+  },
+  backgroundImage: {
+    flex: 1,
+    width: 200, 
+    resizeMode: "contain", 
+   
   },
 });
 export default Background;
