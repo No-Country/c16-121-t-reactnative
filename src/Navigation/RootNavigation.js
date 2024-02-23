@@ -8,8 +8,6 @@ import MyStack from './UserStack';
 
 const RootNavigation = () => {
   return (
-
-
     <NavigationContainer >
      <AuthStack/>
     </NavigationContainer>

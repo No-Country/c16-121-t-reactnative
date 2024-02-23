@@ -11,6 +11,7 @@ import Stack from './src/Navigation/UserStack';
 import RootNavigation from "./src/Navigation/RootNavigation";
 import LoadingScreen from "./src/Screens/Loading";
 
+
 Amplify.configure({
   ...config,
   Analytics: { disabled: true },
@@ -19,11 +20,13 @@ Amplify.configure({
   },
 });
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
+
 
 export default function App() {
   const [user, setUser] = React.useState(null);
