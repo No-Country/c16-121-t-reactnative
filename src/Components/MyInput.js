@@ -19,11 +19,12 @@ const MyInput = ({ label, value, onChangeText, secureTextEntry, onBlur }) => {
 
 const styles = StyleSheet.create({
   input: {
+    paddingHorizontal: 10,
     width: "90%",
     height: 45,
     justifyContent: "center",
     margin: 10,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderRadius: 10,
     borderWidth: 1,
     borderColor: Colors.input,

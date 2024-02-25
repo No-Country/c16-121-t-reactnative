@@ -18,46 +18,47 @@ const SingUp = () => {
     setDate,
     setLocation,
     handleSignUp,
+    navigation,
   } = React.useContext(AuthContext);
 
-  //Validar el correo electrónico si cumple con el formato
-  const [correo, setCorreo] = React.useState('');
-  const [correoError, setCorreoError] = React.useState('');
-  
-  const validateEmail = () => {
-    const emailRegex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(correo.trim())) {
-      setCorreoError('Ingresa un correo electrónico válido')
-    } else { 
-      setCorreoError('');
-    }
-  }
+  // Validar el correo electrónico si cumple con el formato
+  const [correo, setCorreo] = React.useState("");
+  const [correoError, setCorreoError] = React.useState("");
 
-  //Validar que la contraseña cumpla con 6 caracteres mínimo y posea una mayúscula
-  const [contraseña, setContraseña] = React.useState('');
-  const [contraseñaError, setContraseñaError] = React.useState('');
-  
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(correo.trim())) {
+      setCorreoError("Ingresa un correo electrónico válido");
+    } else {
+      setCorreoError("");
+    }
+  };
+
+  // Validar que la contraseña cumpla con 6 caracteres mínimo y posea una mayúscula
+  const [contraseña, setContraseña] = React.useState("");
+  const [contraseñaError, setContraseñaError] = React.useState("");
+
   const validateContraseña = () => {
-    if(contraseña.length < 6 || !/[A-Z]/.test(contraseña)){
-      setContraseñaError('Debe tener al menos 6 caracteres y una mayúscula')
+    if (contraseña.length < 6 || !/[A-Z]/.test(contraseña)) {
+      setContraseñaError("Debe tener al menos 6 caracteres y una mayúscula");
     } else {
-      setContraseñaError('')
+      setContraseñaError("");
     }
-  }
-  
-  //Validar que las contraseñas sean iguales
-  const [confirmarContraseña, setConfirmarContraseña] = React.useState('');
-  const [confirmarContraseñaError, setConfirmarContraseñaError] = React.useState('');
-  
+  };
+
+  // Validar que las contraseñas sean iguales
+  const [confirmarContraseña, setConfirmarContraseña] = React.useState("");
+  const [confirmarContraseñaError, setConfirmarContraseñaError] = React.useState("");
+
   const validateConfirmarContraseña = () => {
-    if(contraseña !== confirmarContraseña){
-      setConfirmarContraseñaError('Las contraseñas no son iguales')
+    if (contraseña !== confirmarContraseña) {
+      setConfirmarContraseñaError("Las contraseñas no son iguales");
     } else {
-      setConfirmarContraseñaError('')
+      setConfirmarContraseñaError("");
     }
-  }
-  
-  //Mostar las constraseñas o no
+  };
+
+  // Mostrar las contraseñas o no
   const [showPassword, setShowPassword] = React.useState(false);
   const [showPassword2, setShowPassword2] = React.useState(false);
   const toggleShowPassword = () => {
@@ -68,52 +69,94 @@ const SingUp = () => {
   };
 
   return (
-    
     <SafeAreaView>
       <View>
         <Text style={styles.text}>Nombre</Text>
-        <MyInput label={"Sofía"} onChangeText={(text) => setName(text.trim())} />
+        <MyInput
+          label={"Sofía"}
+          onChangeText={(text) => setName(text.trim())}
+        />
 
         <Text style={styles.text}>Apellido</Text>
-        <MyInput label={"Quiroz"} onChangeText={(text) => setMiddleName(text.trim())} />
+        <MyInput
+          label={"Quiroz"}
+          onChangeText={(text) => setMiddleName(text.trim())}
+        />
 
         <Text style={styles.text}>Correo Electrónico</Text>
-        <MyInput label={"example@gmail.com"} onChangeText={(text) => {setEmail(text.trim()); setCorreo(text.trim())}} onBlur={validateEmail}/>
+        <MyInput
+          label={"example@gmail.com"}
+          onChangeText={(text) => {
+            setEmail(text.trim());
+            setCorreo(text.trim());
+          }}
+          onBlur={validateEmail}
+          placeholderStyle={styles.placeholderPadding} // Aplicar estilo de padding al placeholder
+        />
         <Text style={styles.error}>{correoError}</Text>
 
         <Text style={styles.text}>Contraseña</Text>
         <View style={styles.viewPassword}>
-          <MyInput label={"Contraseña"} onChangeText={(text) => { setContraseña(text) ; {setPassword(text)}}} onBlur={validateContraseña} secureTextEntry={!showPassword}/>
-            <TouchableOpacity onPress={toggleShowPassword} style={styles.eyeIcon} activeOpacity={0.8}>
-              <Feather name={showPassword ? "eye" : "eye-off"} size={24} color="#323646" />
-            </TouchableOpacity>
+          <MyInput
+            label={"Contraseña"}
+            onChangeText={(text) => {
+              setContraseña(text);
+              {
+                setPassword(text);
+              }
+            }}
+            onBlur={validateContraseña}
+            secureTextEntry={!showPassword}
+            style={styles.placeholderPadding} // Aplicar estilo de padding al placeholder
+          />
+          <TouchableOpacity
+            onPress={toggleShowPassword}
+            style={styles.eyeIcon}
+            activeOpacity={0.8}
+          >
+            <Feather
+              name={showPassword ? "eye" : "eye-off"}
+              size={24}
+              color="#323646"
+            />
+          </TouchableOpacity>
         </View>
         <Text style={styles.error}>{contraseñaError}</Text>
 
         <Text style={styles.text}>Confirmar contraseña</Text>
         <View style={styles.viewPassword}>
-          <MyInput label={"Contraseña"} onChangeText={(text) => {setConfirmarContraseña(text)}} onBlur={validateConfirmarContraseña} secureTextEntry={!showPassword2}/>
-          <TouchableOpacity onPress={toggleShowPassword2} style={styles.eyeIcon} activeOpacity={0.8}>
-              <Feather name={showPassword2 ? "eye" : "eye-off"} size={24} color="#323646" />
-            </TouchableOpacity>
+          <MyInput
+            label={"Contraseña"}
+            onChangeText={(text) => {
+              setConfirmarContraseña(text);
+            }}
+            onBlur={validateConfirmarContraseña}
+            secureTextEntry={!showPassword2}
+            placeholderStyle={styles.placeholderPadding} // Aplicar estilo de padding al placeholder
+          />
+          <TouchableOpacity
+            onPress={toggleShowPassword2}
+            style={styles.eyeIcon}
+            activeOpacity={0.8}
+          >
+            <Feather
+              name={showPassword2 ? "eye" : "eye-off"}
+              size={24}
+              color="#323646"
+            />
+          </TouchableOpacity>
         </View>
         <Text style={styles.error}>{confirmarContraseñaError}</Text>
 
-
-        {/* <View style={{ flexDirection: "row" }}>
-          <View style={{ width: "48%" }}>
-            <Text style={styles.text}>Fecha de nacimiento</Text>
-            <DateInput onChange={setDate} />
-          </View>
-          <View style={{ width: "48%" }}>
-            <Text style={styles.text}>Ciudad - País</Text>
-            <MyInput label={"Bs.As"} onChangeText={setLocation} />
-          </View>
-        </View> */}
-        <MyBottom title="Guardar" onPress={handleSignUp} />
+        <MyBottom
+          title="Guardar"
+          onPress={() => {
+            handleSignUp();
+            navigation.navigate("Verification"); // Navegamos a la pantalla de verificacion despues de registrarnos
+          }}
+        />
       </View>
     </SafeAreaView>
-
   );
 };
 
@@ -122,12 +165,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     color: "#F3305F",
-    marginLeft: '3%',
+    marginLeft: "3%",
   },
-  error:{
+  error: {
     fontSize: 10,
     color: "#F3305F",
-    marginLeft: '3%',
+    marginLeft: "3%",
     marginBottom: 6,
     marginTop: -8,
   },
@@ -145,5 +188,9 @@ const styles = StyleSheet.create({
   eyeIcon: {
     marginLeft: -40,
   },
+  placeholderPadding: {
+    left: "500%"
+  },
 });
+
 export default SingUp;
