@@ -16,7 +16,7 @@ const AuthContext = React.createContext({
   setVerificationCode: () => {},
   isLoading: false,
   hadleSignIn: () => {},
-  hadleSignUp: () => {},
+  hadleSignUp: async () => {},
   name: "",
   setName: ()=>{},
   firstName: "",
@@ -33,7 +33,7 @@ const AuthContext = React.createContext({
 
 const { Provider } = AuthContext;
 
-function AuthProvider({ children }) {
+function AuthProvider({ children, navigation }) {
   //inicializo mis funciones con useState ya que me permite cambiar el estado de ellas
   const [authSTate, setAuthState] = React.useState(null);
   const [dbUser, setDbUser] = React.useState(null);
@@ -81,7 +81,7 @@ React.useEffect(()=>{
     }
   }
   
-  async function handleSignUp() {
+  const handleSignUp = async () => {
     if (!email || !password) {
       alert("Por favor ingresa email y contraseña");
       return;
@@ -92,28 +92,30 @@ React.useEffect(()=>{
       setIsLoading(true);
       const signUpResponse = await Auth.signUp({
         username: email.trim(),
-        password, 
+        password,
         attributes: {
           email: email,
           name: name,
-          middle_name: middlename
-        }
+          middle_name: middlename,
+        },
       });
-
 
       // await API.graphql(graphqlOperationp(createUsuarios, {
       //   input: {
       //     email: email,
       //     name: name,
       //     middle_name: middleName,
-      //     sub: signUpResponse.userSub 
+      //     sub: signUpResponse.userSub
       //   }
       // }));
       // await updateUserInDatabase(userData);
 
-      console.log('Usuario registrado exitosamente:', signUpResponse);
+      console.log("Usuario registrado exitosamente:", signUpResponse);
       setAuthState("confirmSignUp");
       setIsLoading(false);
+
+      // Redirigir a la pantalla de verificación
+      navigation.navigate("Verification");
     } catch (err) {
       setIsLoading(false);
       alert(err.message);
@@ -158,7 +160,8 @@ React.useEffect(()=>{
         setDbUser,
         sub,
         setMiddleName,
-        setName
+        setName,
+        navigation, // Paso navigation como parte del contexto
       }}
     >
       {children}

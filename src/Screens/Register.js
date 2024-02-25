@@ -1,8 +1,8 @@
 import * as React from "react";
 import { View, ScrollView, StyleSheet, KeyboardAvoidingView, Platform, Dimensions } from "react-native";
-
 import { Hub } from "aws-amplify";
 import  SingUp  from "../Components/SingUp";
+import { AuthContext, AuthProvider } from "../Context/AuthContext";
 
 const styles = StyleSheet.create({
     container: {
@@ -17,9 +17,9 @@ const styles = StyleSheet.create({
 
 });
 
-export default function Login() {
+export default function Register({ navigation }) {
     const [user, setUser] = React.useState(null);
-const { width, height } = Dimensions.get("window");
+    const { width, height } = Dimensions.get("window");
     const listener = (data) => {
         switch (data.payload.event) {
         case "signIn":
@@ -40,13 +40,13 @@ const { width, height } = Dimensions.get("window");
         // <KeyboardAvoidingView
         // style={{ flex: 1 }}
         // behavior={Platform.OS === "ios" ? "padding" : "height"}>
-       
+        <AuthProvider navigation={navigation}>
             <ScrollView contentContainerStyle={styles.scrollViewContainer}  keyboardShouldPersistTaps="handled">
-               
                 <View style={styles.container} >
-                <SingUp />
+                    <SingUp />
                 </View>
             </ScrollView>
+        </AuthProvider>
 
         // </KeyboardAvoidingView>
     );
