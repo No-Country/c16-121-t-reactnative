@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     marginLeft: 10,
-    flex: 1, // Hace que el texto ocupe el espacio restante
+    flex: 1, 
   },
   textTitle: {
     fontSize: 30,
