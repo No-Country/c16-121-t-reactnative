@@ -5,13 +5,10 @@ import {Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
 import config from './src/aws-exports'; 
 import { AuthProvider } from './src/Context/AuthContext';
 import Background from "./src/Components/Background";
-import Login from "./src/Screens/Login";
-import 'react-native-gesture-handler';
-import Stack from './src/Navigation/UserStack';
-import RootNavigation from "./src/Navigation/RootNavigation";
-import LoadingScreen from "./src/Screens/Loading";
-import Verification from "./src/Screens/Verification";
 
+import 'react-native-gesture-handler';
+import AuthStack from "./src/Navigation/AuthStack";
+import MyStack from "./src/Navigation/UserStack";
 
 Amplify.configure({
   ...config,
@@ -59,15 +56,8 @@ export default function App() {
   return (
     <AuthProvider>
       <View style={styles.container}>
-        {isLoading ? (
-          <LoadingScreen />
-        ) : (
-          <>
-          {/* <Verification /> */}
-            <RootNavigation />
-            <Background />
-          </>
-        )}
+        
+      { user ? <MyStack/>: <AuthStack/>}
       </View>
     </AuthProvider>
   );
