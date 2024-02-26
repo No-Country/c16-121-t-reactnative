@@ -10,6 +10,7 @@ import 'react-native-gesture-handler';
 import Stack from './src/Navigation/UserStack';
 import RootNavigation from "./src/Navigation/RootNavigation";
 import LoadingScreen from "./src/Screens/Loading";
+import Verification from "./src/Screens/Verification";
 
 
 Amplify.configure({
@@ -62,6 +63,7 @@ export default function App() {
           <LoadingScreen />
         ) : (
           <>
+          {/* <Verification /> */}
             <RootNavigation />
             <Background />
           </>

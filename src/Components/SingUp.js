@@ -91,7 +91,6 @@ const SingUp = () => {
             setCorreo(text.trim());
           }}
           onBlur={validateEmail}
-          placeholderStyle={styles.placeholderPadding} // Aplicar estilo de padding al placeholder
         />
         <Text style={styles.error}>{correoError}</Text>
 
@@ -107,7 +106,6 @@ const SingUp = () => {
             }}
             onBlur={validateContraseña}
             secureTextEntry={!showPassword}
-            style={styles.placeholderPadding} // Aplicar estilo de padding al placeholder
           />
           <TouchableOpacity
             onPress={toggleShowPassword}
@@ -132,7 +130,6 @@ const SingUp = () => {
             }}
             onBlur={validateConfirmarContraseña}
             secureTextEntry={!showPassword2}
-            placeholderStyle={styles.placeholderPadding} // Aplicar estilo de padding al placeholder
           />
           <TouchableOpacity
             onPress={toggleShowPassword2}
@@ -187,10 +184,7 @@ const styles = StyleSheet.create({
   },
   eyeIcon: {
     marginLeft: -40,
-  },
-  placeholderPadding: {
-    left: "500%"
-  },
+  }
 });
 
 export default SingUp;
