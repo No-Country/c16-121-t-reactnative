@@ -5,60 +5,65 @@ const PorqueDonar = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-       
-        <Text style={styles.textTitle}>¿POR QUE DONAR?</Text>
+        <Text style={styles.textTitle}>¿POR QUÉ DONAR?</Text>
         <View style={styles.backgroundItem}>
-        
+          <Image
+            source={require("../Assets/manosgota.png")}
+            style={styles.image}
+          />
           <Text style={styles.text}>
             Porque donar sangre es un acto de solidaridad que puede hacer un
             impacto duradero en la comunidad
           </Text>
         </View>
+        
         <View style={styles.backgroundItem}>
+          <Image
+            source={require("../Assets/salud.png")}
+            style={styles.image}
+          />
           <Text style={styles.text}>
             Con tu apoyo, puedes ser la razón por la cual alguien recupera su
             salud y su felicidad
           </Text>
         </View>
         <View style={styles.backgroundItem}>
+          <Image
+            source={require("../Assets/manosgota.png")}
+            style={styles.image}
+          />
           <Text style={styles.text}>
             Dar sangre es un acto de generosidad que puede hacer una diferencia
             real en la vida de alguien más
           </Text>
         </View>
         <View style={styles.backgroundItem}>
+          <Image
+            source={require("../Assets/vida.png")}
+            style={styles.image}
+          />
           <Text style={styles.text}>
             Tu donación puede ser la clave para salvar vidas y brindar esperanza
             a quienes más lo necesitan.
           </Text>
         </View>
       </View>
-     
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 230,
-  },
-  container2: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom:30,
+    marginTop: 250,
   },
   backgroundItem: {
     backgroundColor: "#FC688B",
     padding: 10,
     borderRadius: 5,
-    flexWrap: "wrap",
-    width: 300,
+    width: 350,
     flexDirection: "row",
     marginTop: 10,
     shadowColor: "#000",
@@ -74,6 +79,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "white",
     fontWeight: "bold",
+    marginLeft: 10,
+    flex: 1, // Hace que el texto ocupe el espacio restante
   },
   textTitle: {
     fontSize: 30,
@@ -81,9 +88,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   image: {
-    width: 200,
-    height: 200,
-     },
+    width: 40,
+    height: 40,
+    alignSelf: 'center',
+  },
 });
 
 export default PorqueDonar;
