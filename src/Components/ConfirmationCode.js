@@ -1,28 +1,36 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { AuthContext } from '../Context/AuthContext';
 
 const VerificationScreen = () => {
-    const [verificationCode, setVerificationCode] = useState('');
+    const { handleConfirmSignUp, email, verificationCode } = useContext(AuthContext);
+    const [enteredCode, setEnteredCode] = useState('');
     const verificationInputs = useRef([]);
 
-    const handleVerification = () => {
-        const code = verificationInputs.current
-        .map(input => input ? input.props.value : '')
-        .join('');
+    useEffect(() => {
+        if (verificationCode && enteredCode.length === 6) {
+            handleVerification();
+        }
+    }, [verificationCode]);
 
-        if (code === '123456') { 
+    const handleVerification = async () => {
+        console.log("Valor de verificationCode:", enteredCode);
+        try {
+            await handleConfirmSignUp(enteredCode, email);
             Alert.alert('Éxito', 'Código de verificación correcto');
-        } else {
+        } catch (error) {
             Alert.alert('Error', 'Código de verificación incorrecto');
         }
     };
 
-    const handleChangeText = (index, value) => {
-        const newVerificationCode = verificationCode.split('');
-        newVerificationCode[index] = value;
-        setVerificationCode(newVerificationCode.join(''));
 
-        // Auto focus next input
+    const handleChangeText = (index, value) => {
+        setEnteredCode(prevCode => {
+            const newCode = prevCode.split('');
+            newCode[index] = value;
+            return newCode.join('');
+        });
+
         if (value.length === 1 && index < verificationInputs.current.length - 1) {
             verificationInputs.current[index + 1].focus();
         }
@@ -32,21 +40,21 @@ const VerificationScreen = () => {
         <View style={styles.container}>
             <View style={styles.inputsContainer}>
                 {[...Array(6)].map((_, index) => (
-                <TextInput
-                    key={index}
-                    style={styles.input}
-                    maxLength={1}
-                    onChangeText={text => handleChangeText(index, text)}
-                    ref={ref => (verificationInputs.current[index] = ref)}
-                    keyboardType="numeric"
-                    returnKeyType="next"
-                    blurOnSubmit={false}
-                    onSubmitEditing={() => {
-                        if (index === 5) {
-                            handleVerification();
-                        }
-                    }}
-                />
+                    <TextInput
+                        key={index}
+                        style={styles.input}
+                        maxLength={1}
+                        onChangeText={text => handleChangeText(index, text)}
+                        ref={ref => (verificationInputs.current[index] = ref)}
+                        keyboardType="numeric"
+                        returnKeyType="next"
+                        blurOnSubmit={false}
+                        onSubmitEditing={() => {
+                            if (index === 5) {
+                                handleVerification();
+                            }
+                        }}
+                    />
                 ))}
             </View>
             <Button title="Verificar" onPress={handleVerification} />
@@ -75,4 +83,3 @@ const styles = StyleSheet.create({
 });
 
 export default VerificationScreen;
-
