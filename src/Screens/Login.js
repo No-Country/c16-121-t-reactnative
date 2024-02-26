@@ -3,6 +3,7 @@ import { View, ScrollView, StyleSheet } from "react-native";
 
 import { Hub } from "aws-amplify";
 import  SignIn  from "../Components/SignIn";
+import Background from "../Components/Background";
 
 const styles = StyleSheet.create({
     container: {
@@ -38,8 +39,12 @@ export default function Login() {
         /**Para evitar que el teclado del dispositivo abra y mueva el formulario hacia arriba
          * uso de la propiedad keyboardShouldPersistTaps en el componente ScrollView.
          * Esto evita que el teclado cause un desplazamiento de la vista cuando se toque un campo */
+        
+        
         <View style={styles.container}>
+            <Background/>
             <ScrollView contentContainerStyle={styles.scrollViewContainer} keyboardShouldPersistTaps="handled" >
+            
                 <SignIn />
             </ScrollView>
         </View>
