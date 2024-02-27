@@ -88,8 +88,6 @@ React.useEffect(()=>{
     }
 
     console.log("name, middle",  name,middlename, email )
-    
-    navigation.navigate("Verification");
     try {
       setIsLoading(true);
       const signUpResponse = await Auth.signUp({
@@ -119,7 +117,7 @@ React.useEffect(()=>{
       setIsLoading(false);
 
       // Redirigir a la pantalla de verificación
-      // navigation.navigate("Verification");
+      //navigation.navigate("Verification");
     } catch (err) {
       setIsLoading(false);
       alert(err.message);

@@ -157,7 +157,7 @@ const SingUp = () => {
           onPress={() => {
             if (validateData()) {
               handleSignUp();
-              // navigation.navigate("Verification");
+              navigation.navigate("Verification",{correo:correo});
             }
           }}
         />
