@@ -36,17 +36,15 @@ const SignIn = () => {
       <MyInput label={"Email"} onChangeText={setEmail} style={styles.input}/>
       <Text style={styles.textPassword}> Contraseña </Text>
       <View style={styles.viewPassword}>
-        
-    <MyInput
-      label={"Contraseña"}
-      onChangeText={setPassword}
-      secureTextEntry={!showPassword}
-      style={styles.input}
-    />
-    <TouchableOpacity onPress={toggleShowPassword} style={styles.eyeIcon} activeOpacity={0.8}>
-      <Feather name={showPassword ? "eye" : "eye-off"} size={24} color="#323646" />
-    </TouchableOpacity>
-  
+        <MyInput
+          label={"Contraseña"}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
+          // style={styles.input}
+        />
+        <TouchableOpacity onPress={toggleShowPassword} style={styles.eyeIcon} activeOpacity={0.8}>
+          <Feather name={showPassword ? "eye" : "eye-off"} size={24} color="#323646" />
+        </TouchableOpacity>
       </View>
       <MyBottom title="Ingresar" onPress={onHandleSign} />
 
@@ -111,15 +109,11 @@ const styles = StyleSheet.create({
   viewPassword:{
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: "space-between",
-    marginRight:21,
   },
 
   eyeIcon: {
     position: "absolute",
-    right: 30,
-    top: 20,
-
+    right: 25,
   },
 });
 export default SignIn;

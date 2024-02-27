@@ -3,16 +3,23 @@ import { View, ScrollView, StyleSheet, KeyboardAvoidingView, Platform, Dimension
 import { Hub } from "aws-amplify";
 import  SingUp  from "../Components/SingUp";
 import { AuthContext, AuthProvider } from "../Context/AuthContext";
+import Background from "../Components/Background";
 
 const styles = StyleSheet.create({
+    scrollViewContainer:{
+        flexGrow: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
     container: {
         flex: 1,
         marginTop:180,
         marginButtom: 200,
         justifyContent: "center",
         alignItems: "center",
-        alignSelf:'center',
-        width:350,
+        // alignSelf:'center',
+        // maxWidth: "80%"
+        width:"100%",
     },
 
 });
@@ -41,6 +48,7 @@ export default function Register({ navigation }) {
         // style={{ flex: 1 }}
         // behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <AuthProvider navigation={navigation}>
+            <Background/>
             <ScrollView contentContainerStyle={styles.scrollViewContainer}  keyboardShouldPersistTaps="handled">
                 <View style={styles.container} >
                     <SingUp />
