@@ -10,6 +10,7 @@ import 'react-native-gesture-handler';
 import Stack from './src/Navigation/UserStack';
 import RootNavigation from "./src/Navigation/RootNavigation";
 import LoadingScreen from "./src/Screens/Loading";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 Amplify.configure({
@@ -56,17 +57,29 @@ export default function App() {
   }, []);
 
   return (
-    <AuthProvider>
+ 
+      <AuthProvider>
+
+      
       <View style={styles.container}>
+    
+
         {isLoading ? (
           <LoadingScreen />
+          
         ) : (
           <>
+
+            
             <RootNavigation />
-            <Background />
+            {/* <Background /> */}
+   
+       
           </>
         )}
       </View>
     </AuthProvider>
+  
+    
   );
 }

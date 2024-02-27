@@ -60,9 +60,14 @@ export const PictureProfile = ({showButton}) => {
         console.log("PROBANDING", UPLOAD_PRESET);
         console.log("PROBANDING", CLOUD_NAME);
 
+
+        // Lógica para guardarlo en la base de datos
         // Guardar en localStorage
+
         await AsyncStorage.setItem("@pic", json.url);
         console.log("url", json.url);
+
+        
       } catch (e) {
         console.log(e);
       }
