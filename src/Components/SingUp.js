@@ -68,6 +68,13 @@ const SingUp = () => {
     setShowPassword2(!showPassword2);
   };
 
+  const validateData = () => {
+    if (correoError !== "" || contraseñaError !== "" || confirmarContraseñaError !== "") {
+      return false;
+    }
+    return true;
+  };
+
   return (
     <SafeAreaView>
       <View>
@@ -148,8 +155,10 @@ const SingUp = () => {
         <MyBottom
           title="Guardar"
           onPress={() => {
-            handleSignUp();
-            navigation.navigate("Verification"); // Navegamos a la pantalla de verificacion despues de registrarnos
+            if (validateData()) {
+              handleSignUp();
+              // navigation.navigate("Verification");
+            }
           }}
         />
       </View>
