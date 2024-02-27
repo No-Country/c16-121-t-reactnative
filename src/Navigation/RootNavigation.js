@@ -9,7 +9,8 @@ const RootNavigation = () => {
 
 
     <NavigationContainer >
-     <AuthStack/>
+ 
+     <MyStack></MyStack>
     </NavigationContainer>
   );
 };

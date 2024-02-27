@@ -114,8 +114,11 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    padding: "2%",
-    marginTop: "3%",
+    // padding: "8%",
+
+    paddingLeft:'9%',
+    paddingRight:'9%',
+    marginTop: "4%",
   },
   containerInfo: {
     flexDirection: "row",

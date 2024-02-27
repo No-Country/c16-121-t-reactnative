@@ -54,11 +54,16 @@ export default function App() {
   }, []);
 
   return (
-    <AuthProvider>
+ 
+      <AuthProvider>
+
+      
       <View style={styles.container}>
         
       { user ? <MyStack/>: <AuthStack/>}
       </View>
     </AuthProvider>
+  
+    
   );
 }
