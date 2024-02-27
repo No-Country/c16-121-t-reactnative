@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   button: {
     width: "90%",
     height: 45,
-    backgroundColor: Colors.bottonTab,
+    backgroundColor: Colors.background,
     borderColor:Colors.bottonTab,
     padding: 10,
     margin: 10,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonText: {
-    color: "black",
+    color: "white",
     fontSize: 16,
     fontWeight: "bold",
   },
