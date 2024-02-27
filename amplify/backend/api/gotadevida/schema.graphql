@@ -1,0 +1,29 @@
+type Rol @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  tipo_rol: String
+}
+
+type ReciboDonaciones @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  usuariosID: ID! @index(name: "byUsuarios")
+}
+
+type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  nombre: String!
+  apellido: String!
+  imagen: String
+  pais: String
+  provincia: String
+  localidad: String
+  id_ubicacion: ID
+  sub: String!
+  notificaciones: String
+  publicaciones: String
+  dni: Int
+  backup: [String]
+  bloqueado: Boolean
+  telefono: AWSPhone
+  ReciboDonaciones: [ReciboDonaciones] @hasMany(indexName: "byUsuarios", fields: ["id"])
+  Rol: Rol @hasOne
+} 
