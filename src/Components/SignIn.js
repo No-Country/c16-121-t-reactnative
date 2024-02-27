@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, TouchableOpacity, Text, StyleSheet, Pressable } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Pressable,Dimensions } from "react-native";
 import MyBottom from "./MyBottom";
 import { Feather } from "@expo/vector-icons";
 import MyInput from "./MyInput";
@@ -8,15 +8,12 @@ import MyBottonGoogle from "./MyBottonGoogle";
 import BottonRegistro from "./BottonRegistro";
 import { Colors } from "../Constants/Colors";
 import { useNavigation } from "@react-navigation/native";
-
-
-
+import { ScrollView } from "react-native-gesture-handler";
+const { width, height } = Dimensions.get("window");
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  const { authState, setAuthState, setEmail, setPassword, handleSignIn } =
- React.useContext(AuthContext);
-
+  const { authState, setAuthState, setEmail, setPassword, handleSignIn } = React.useContext(AuthContext);
   const navigation = useNavigation();
 
   const onHandleSign = async () => {
@@ -33,22 +30,21 @@ const SignIn = () => {
   
   return (
     <React.Fragment>
-      <Text style={styles.text}>Correro Electrónico </Text>
-      <MyInput label={"Email"} onChangeText={setEmail} />
-      <Text style={styles.textPassword}>Contraseña </Text>
+      <ScrollView>
+        <View style={styles.cont}>
+      <Text style={styles.text}> Correo Electrónico </Text>
+      <MyInput label={"Email"} onChangeText={setEmail} style={styles.input}/>
+      <Text style={styles.textPassword}> Contraseña </Text>
       <View style={styles.viewPassword}>
-        
-        
-    <MyInput
-      label={"Contraseña"}
-      onChangeText={setPassword}
-      secureTextEntry={!showPassword}
-      style={styles.input}
-    />
-    <TouchableOpacity onPress={toggleShowPassword} style={styles.eyeIcon} activeOpacity={0.8}>
-      <Feather name="eye" size={24} color="#323646" />
-    </TouchableOpacity>
-  
+        <MyInput
+          label={"Contraseña"}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
+          // style={styles.input}
+        />
+        <TouchableOpacity onPress={toggleShowPassword} style={styles.eyeIcon} activeOpacity={0.8}>
+          <Feather name={showPassword ? "eye" : "eye-off"} size={24} color="#323646" />
+        </TouchableOpacity>
       </View>
       <MyBottom title="Ingresar" onPress={onHandleSign} />
 
@@ -62,23 +58,32 @@ const SignIn = () => {
       <MyBottonGoogle title="Google" />
 
       <Pressable>
-        <Text> ¿No tienes una cuenta? </Text>
+        <Text style={styles.textPass}> ¿No tienes una cuenta? </Text>
       </Pressable>
 
       <BottonRegistro
         title="Registrate"
         onPress={() => navigation.navigate("Register")}
       />
+      </View>
+      </ScrollView>
     </React.Fragment>
   );
 };
 
 const styles = StyleSheet.create({
+  cont:{
+    flex:1,
+    alignItems:'center',
+   
+  },
   text: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#F3305F",
     marginRight: "55%",
+    marginTop:80,
+  
   },
   textPassword: {
     fontSize: 14,
@@ -88,8 +93,8 @@ const styles = StyleSheet.create({
   },
   textForgotPassword: {
     position: "absolute",
-    left: 0,
-    top: -7,
+    alignSelf:'center',
+    
   },
   line: {
     width: "90%",
@@ -98,15 +103,17 @@ const styles = StyleSheet.create({
     marginTop: "6%",
     marginBottom: "2%",
   },
+  textPass:{
+    alignSelf:'center',
+  },
   viewPassword:{
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: "space-between",
-    marginRight:21
   },
 
   eyeIcon: {
-    marginLeft: -40, 
+    position: "absolute",
+    right: 25,
   },
 });
 export default SignIn;

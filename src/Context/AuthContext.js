@@ -5,9 +5,8 @@ import * as React from "react";
 import { Auth ,  DataStore, API, graphqlOperationp } from "aws-amplify";
 import { Usuarios } from '../models';
 
-
 const AuthContext = React.createContext({
-  authState: "SignIn",
+  authState: "signIn",
   setAuthState: () => {},
   email: "",
   setEmail: () => {},
@@ -17,7 +16,7 @@ const AuthContext = React.createContext({
   setVerificationCode: () => {},
   isLoading: false,
   hadleSignIn: () => {},
-  hadleSignUp: () => {},
+  hadleSignUp: async () => {},
   name: "",
   setName: ()=>{},
   firstName: "",
@@ -34,9 +33,9 @@ const AuthContext = React.createContext({
 
 const { Provider } = AuthContext;
 
-function AuthProvider({ children }) {
+function AuthProvider({ children, navigation }) {
   //inicializo mis funciones con useState ya que me permite cambiar el estado de ellas
-  const [authSTate, setAuthState] = React.useState(null);
+  const [authState, setAuthState] = React.useState(null);
   const [dbUser, setDbUser] = React.useState(null);
   const [email, setEmail] = React.useState("");
   const [name, setName] = React.useState("");
@@ -45,36 +44,18 @@ function AuthProvider({ children }) {
   const [password, setPassword] = React.useState("");
   const [verificationCode, setVerificationCode] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-  const sub = authSTate?.attributes?.sub;
-
+  const sub = authState?.attributes?.sub;
 
   React.useEffect(()=> {
-
     Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
+  }, [])
 
-
-}, [])
-
-console.log(authSTate, "user");
-
-
+console.log(authState, "user");
 
 
 React.useEffect(()=>{
 
-  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setDbUser(users[0]));
-  
-  
-  
-  
-  
-  }, [sub])
-  
-
-
-
-
-
+  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setDbUser(users[0]));}, [sub])
 
   async function handleSignIn() {
     //se puede validar que lo ingresado sea un email o contraseña correcta
@@ -99,10 +80,9 @@ React.useEffect(()=>{
       console.log(e);
     }
   }
-  async function handleSignUp() {
-    if (!email || !password 
-      
-      ) {
+  
+  const handleSignUp = async () => {
+    if (!email || !password) {
       alert("Por favor ingresa email y contraseña");
       return;
     }
@@ -111,29 +91,33 @@ React.useEffect(()=>{
     try {
       setIsLoading(true);
       const signUpResponse = await Auth.signUp({
-        username: email,
-        password, 
+        username: email.trim(),
+        password,
         attributes: {
           email: email,
           name: name,
-          middle_name: middlename
-        }
+          middle_name: middlename,
+        },
       });
-
 
       // await API.graphql(graphqlOperationp(createUsuarios, {
       //   input: {
       //     email: email,
       //     name: name,
       //     middle_name: middleName,
-      //     sub: signUpResponse.userSub 
+      //     sub: signUpResponse.userSub
       //   }
       // }));
       // await updateUserInDatabase(userData);
 
-      console.log('Usuario registrado exitosamente:', signUpResponse);
+      console.log("Usuario registrado exitosamente:", signUpResponse);
+      setVerificationCode(verificationCode); // Almacena el código de verificación en el estado
+      console.log("verificationCode: ", verificationCode);
       setAuthState("confirmSignUp");
       setIsLoading(false);
+
+      // Redirigir a la pantalla de verificación
+      //navigation.navigate("Verification");
     } catch (err) {
       setIsLoading(false);
       alert(err.message);
@@ -142,27 +126,34 @@ React.useEffect(()=>{
     }
   }
 
-  async function handleConfirmSignUp() {
-    if (!email || !password) {
-      alert("Por favor ingresa email y contraseña");
-      return;
+ const handleConfirmSignUp = async (verificationCode, email) => { // Ajustamos los parámetros aquí
+    if (!verificationCode || !email) {
+      console.log("Este es el user: ", email);
+        setIsLoading(false);
+        Alert.alert("Error", "Por favor ingresa el código de verificación");
+        return;
     }
     try {
-      setIsLoading(true);
-      await Auth.confirmSignUp(email, verificationCode);
-      alert("Confirmado", "Ya puedes iniciar sesión");
-      setAuthState("signIn");
-      setIsLoading(false);
-    } catch (err) {
-      setIsLoading(false);
-      alert(err.message);
-      console.log(err);
+        setIsLoading(true);
+        await Auth.confirmSignUp(email, verificationCode);
+        const currentUser = await Auth.currentAuthenticatedUser();
+        await Auth.updateUserAttributes(currentUser, {
+            "userConfirmed": "true",
+        });
+        console.log("Confirmado. Ahora puedes iniciar sesión");
+        setAuthState("signIn");
+    } catch (error) {
+        console.error("Error: ", error);
+    } finally {
+        setIsLoading(false);
     }
-  }
+};
+
+
   return (
     <Provider
       value={{
-        authSTate,
+        authState,
         setAuthState,
         email,
         setEmail,
@@ -178,7 +169,8 @@ React.useEffect(()=>{
         setDbUser,
         sub,
         setMiddleName,
-        setName
+        setName,
+        navigation, // Paso navigation como parte del contexto
       }}
     >
       {children}
@@ -186,4 +178,3 @@ React.useEffect(()=>{
   );
 }
 export {AuthContext,AuthProvider};
-

@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TextInput, SafeAreaView } from "react-native";
 import ProfileDates from "../Components/ProfileDates";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
+import Background from '../Components/Background';
 
 const Profile = () => {
   return (
