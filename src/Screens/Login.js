@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     },
     scrollViewContainer: {
         // flex: 1,
-        marginTop: 150,
+        marginTop: 190,
         alignItems: "center", // Centra el contenido horizontalmente
     },
 });
