@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { styleProps } from "react-native-web/dist/cjs/modules/forwardedProps";
 import { TouchableOpacity } from "react-native";
 import { Colors } from "../../Constants/Colors";
+import { IconToNotification } from "../iconNotification/iconToNotification";
 
 export const PictureProfile = ({showButton}) => {
   const [picture, setPicture] = React.useState("");
@@ -87,6 +88,9 @@ export const PictureProfile = ({showButton}) => {
           <Image source={{ uri: picture }} style={style.image}></Image>
         )}
       </View>
+      <View style= {style.iconNotification}>
+        <IconToNotification></IconToNotification>
+      </View>
     </View>
   );
 };
@@ -113,6 +117,10 @@ const style = StyleSheet.create({
     flexDirection: "column",
     overflow: "hidden",
   },
+  iconNotification:{
+    position:'absolute',
+    right:-9
+    },
 
   button: {
     width: "35%",

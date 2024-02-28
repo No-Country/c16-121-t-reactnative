@@ -65,11 +65,11 @@ export default function App() {
       <AuthProvider>
 
       {/* <UserStack></UserStack> */}
+
       <View style={styles.container}>
         {/* <MapScreen/>*/}
         
-      { user ? <MyStack/>: <AuthStack/>} */}
-
+      { user ? <MyStack/>: <AuthStack/>} 
       </View>
     </AuthProvider>
     </GestureHandlerRootView>
