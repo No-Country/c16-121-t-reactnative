@@ -13,6 +13,10 @@ import UserStack from '../c16-121-t-reactnative/src/Navigation/UserStack'
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import MapScreen from "./src/Components/map";
+import ModoDarck from './src/Components/ButtomMod';
+
+
+
 
 Amplify.configure({
   ...config,
@@ -68,7 +72,7 @@ export default function App() {
       <View style={styles.container}>
         {/* <MapScreen/>*/}
         
-      { user ? <MyStack/>: <AuthStack/>} */}
+      { user ? <MyStack/>: <AuthStack/>}      
 
       </View>
     </AuthProvider>
