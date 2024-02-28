@@ -19,19 +19,19 @@ const DonorForm = () => {
   const questions = [
     {   
         id: 1,
-        question: "¿Pregunta 1?",
+        question: "¿Has tenido alguna cirugía en los últimos seis meses?",
     },
     {
         id: 2,
-        question: "¿Pregunta 2?",
+        question: "¿Te has realizado algún tatuaje o perforación en los últimos 12 meses?",
     },
     {   
         id: 3,
-        question: "¿Pregunta 3?",
+        question: "¿Tienes antecedentes de enfermedades transmitidas por la sangre, como hepatitis B, hepatitis C o VIH/SIDA?",
     },
     {
         id: 4,
-        question: "¿Pregunta 4?",
+        question: "¿Has recibido alguna vacuna en los últimos 48 horas?",
     }
   ]
 
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     color: Colors.input,
-    marginBottom: 8
+    marginBottom: 8,
   },
   formContainer: {
     width: "90%",
@@ -113,6 +113,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.input,
     alignItems: "center",
     paddingTop: 16,
+    // padding: 10,
+    // paddingLeft: 10,
   },
   pickerContainer: {
     width: "42%",
@@ -128,8 +130,10 @@ const styles = StyleSheet.create({
   },
   buttonContainer:{
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
+    justifyContent: "center",
     gap: 10,
+    width: "60%",
     marginBottom: 18
   },
   buttom:{
