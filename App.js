@@ -10,6 +10,9 @@ import 'react-native-gesture-handler';
 import AuthStack from "./src/Navigation/AuthStack";
 import MyStack from "./src/Navigation/UserStack";
 
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import MapScreen from "./src/Components/map";
+
 Amplify.configure({
   ...config,
   Analytics: { disabled: true },
@@ -54,15 +57,18 @@ export default function App() {
   }, []);
 
   return (
- 
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
 
       
       <View style={styles.container}>
-        
-      { user ? <MyStack/>: <AuthStack/>}
+
+       <MapScreen/>
+{/*         
+      { user ? <MyStack/>: <AuthStack/>} */}
       </View>
     </AuthProvider>
+    </GestureHandlerRootView>
   
     
   );
