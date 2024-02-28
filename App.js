@@ -10,6 +10,7 @@ import 'react-native-gesture-handler';
 import AuthStack from "./src/Navigation/AuthStack";
 import MyStack from "./src/Navigation/UserStack";
 import UserStack from '../c16-121-t-reactnative/src/Navigation/UserStack'
+import {IconToNotification} from './src/Components/iconNotification/iconToNotification'
 
 Amplify.configure({
   ...config,
@@ -59,9 +60,10 @@ export default function App() {
       <AuthProvider>
 
       {/* <UserStack></UserStack> */}
+
       <View style={styles.container}>
         
-      { user ? <MyStack/>: <AuthStack/>}
+      { user ? <MyStack/>: <AuthStack/>} 
       </View>
     </AuthProvider>
   
