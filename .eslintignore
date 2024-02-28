@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 src\models\models
+=======
+src\models\models
+amplify-codegen-temp\models\models
+
+src/models/models
+>>>>>>> 0d4e53cdada996644e8058c7b31cfc1b9bc7ba7b

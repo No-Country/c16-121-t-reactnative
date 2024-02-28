@@ -1,20 +1,69 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import { View, StyleSheet, SplashScreen } from "react-native";
+import Navigation from "./src/Navigation/Tabs";
+import {Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
+import config from './src/aws-exports'; 
+import { AuthProvider } from './src/Context/AuthContext';
+import Background from "./src/Components/Background";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import 'react-native-gesture-handler';
+import AuthStack from "./src/Navigation/AuthStack";
+import MyStack from "./src/Navigation/UserStack";
+
+Amplify.configure({
+  ...config,
+  Analytics: { disabled: true },
+  DataStore: {
+    authModeStrategyType: AuthModeStrategyType.MULTI_AUTH,
+  },
+});
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
+
+
+export default function App() {
+  const [user, setUser] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  const listener = (data) => {
+    switch (data.payload.event) {
+      case "signIn":
+        const { attributes } = data.payload.data;
+        setUser(attributes);
+        break;
+      default:
+        break;
+    }
+  };
+
+
+  React.useEffect(() => {
+    Hub.listen("auth", listener);
+    return () => Hub.remove("auth", listener);
+  }, []);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
+  return (
+ 
+      <AuthProvider>
+
+      
+      <View style={styles.container}>
+        
+      { user ? <MyStack/>: <AuthStack/>}
+      </View>
+    </AuthProvider>
+  
+    
+  );
+}
