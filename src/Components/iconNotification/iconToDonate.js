@@ -22,10 +22,15 @@ export const IconToDonate = () => {
   const toggleIcon = () => {
     setVisibleModal(true);
   };
-
+  // Función para hacer contacto y enviar notidicación
   const sendNotification = () => {
     console.log("se envió solicitud");
   };
+
+  // Función para hacer solicitud de eliminar contactar
+  const deleteNotification = () =>{
+    console.log('eliminando notificación')
+  }
 
   const messege = {
     messege1:
@@ -51,7 +56,7 @@ export const IconToDonate = () => {
                 setIconState1(false);
                 setIconState2(true);
               } else {
-                sendNotification();
+                deleteNotification();
                 setIconState1(true);
                 setIconState2(false);
               }

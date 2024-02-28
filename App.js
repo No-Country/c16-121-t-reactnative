@@ -1,14 +1,15 @@
 import * as React from "react";
 import { View, StyleSheet, SplashScreen } from "react-native";
 import Navigation from "./src/Navigation/Tabs";
-import {Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
-import config from './src/aws-exports'; 
+import { Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
+import config from './src/aws-exports';
 import { AuthProvider } from './src/Context/AuthContext';
 import Background from "./src/Components/Background";
 
 import 'react-native-gesture-handler';
 import AuthStack from "./src/Navigation/AuthStack";
 import MyStack from "./src/Navigation/UserStack";
+import UserStack from '../c16-121-t-reactnative/src/Navigation/UserStack'
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import MapScreen from "./src/Components/map";
@@ -39,6 +40,9 @@ export default function App() {
         const { attributes } = data.payload.data;
         setUser(attributes);
         break;
+      case "signOut":
+        setUser(null); // Cuando el usuario se desloguea, establecemos user a null
+        break;
       default:
         break;
     }
@@ -48,7 +52,7 @@ export default function App() {
   React.useEffect(() => {
     Hub.listen("auth", listener);
     return () => Hub.remove("auth", listener);
-  }, []);
+  }, [user]);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -60,12 +64,12 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
 
-      
+      {/* <UserStack></UserStack> */}
       <View style={styles.container}>
-
-       <MapScreen/>
-{/*         
+        {/* <MapScreen/>*/}
+        
       { user ? <MyStack/>: <AuthStack/>} */}
+
       </View>
     </AuthProvider>
     </GestureHandlerRootView>

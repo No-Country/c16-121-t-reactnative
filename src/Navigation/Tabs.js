@@ -6,10 +6,14 @@ import { Colors } from "../Constants/Colors";
 import Profile from "../Screens/Profile";
 import Home from "../Screens/Home";
 import DonationForm from "../Screens/DonationForm";
+import Exit from "../Screens/Exit";
 
 const Tab = createBottomTabNavigator();
 
 export default function MyTabs() {
+
+     
+
     return (
         <Tab.Navigator screenOptions={{
             headerShown: false,
@@ -58,6 +62,15 @@ export default function MyTabs() {
                 options={{
                 tabBarIcon: ({ color, size }) => (
                     <MaterialIcons name="circle" color={color} size={size} />
+                ),
+                }}
+            />
+            <Tab.Screen
+                name="Exit"
+                component={Exit}
+                options={{
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialIcons name="exit-to-app" color={color} size={size} />
                 ),
                 }}
             />

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { Colors } from "../../Constants/Colors";
 import { PictureProfile } from "../headerComponent/PictureProfile";
 import { IconToDonate } from "../iconNotification/iconToDonate";
@@ -13,6 +13,8 @@ const infoProfile = {
   coment:
     "With React Native, you style your application using JavaScript. All of the core components accept a prop named style. The style names and values usually match how CSS works on the ith React Native, you style your application usin .",
   type: "+A",
+  image:
+    "https://purina.com.pe/sites/default/files/styles/webp/public/2022-10/Que_debes_saber_antes_de_adoptar_un_gatito.jpg.webp?itok=N2sS0lfp",
 };
 
 const InfoDetail = ({ value, option }) => {
@@ -29,17 +31,23 @@ export const PostCard = ({ itemProfile }) => {
     <View style={[style.container]}>
       <View style={style.containerInfo}>
         <View style={style.itemProfile}>
-
-        <PictureProfile showButton={false}></PictureProfile>
-        <View style={style.containerIcon} >
-          <IconToDonate ></IconToDonate>
-        </View>
-        
-
+          <View style={style.imageContainer}>
+            <Image style={style.image} source={{uri:itemProfile.image}}></Image>
+          </View>
+          
+          {/* <PictureProfile showButton={false}></PictureProfile> */}
+          <View style={style.containerIcon}>
+            <IconToDonate></IconToDonate>
+          </View>
         </View>
 
         <View style={style.itemInfo}>
-          <View style={[style.titleName, {borderBottomWidth: 0.5, borderColor:Colors.background}]}>
+          <View
+            style={[
+              style.titleName,
+              { borderBottomWidth: 0.5, borderColor: Colors.background },
+            ]}
+          >
             <Text>{itemProfile.name}</Text>
           </View>
 
@@ -66,7 +74,7 @@ export const PostCard = ({ itemProfile }) => {
             <View
               style={[
                 style.type,
-                { justifyContent: "space-around", alignItems: "center",  },
+                { justifyContent: "space-around", alignItems: "center" },
               ]}
             >
               <Text
@@ -116,8 +124,8 @@ const style = StyleSheet.create({
     flexDirection: "column",
     // padding: "8%",
 
-    paddingLeft:'9%',
-    paddingRight:'9%',
+    paddingLeft: "9%",
+    paddingRight: "9%",
     marginTop: "4%",
   },
   containerInfo: {
@@ -129,19 +137,29 @@ const style = StyleSheet.create({
   // componente de foto de perfil
   itemProfile: {
     flex: 1 / 4,
-    padding:'3%',
-    position:'relative',
- 
-    // borderColor: "red",
-    // borderWidth: 4,
+    padding: "3%",
+    position: "relative",
+
   },
-  containerIcon:{
-   position:'absolute',
-   top:0,
-   bottom:0,
-   right:0,
-   justifyContent:'flex-end',
-    
+  imageContainer:{
+    backgroundColor:'blue',
+    borderRadius:300,
+    aspectRatio: 1,
+    borderWidth: 2,
+    borderRadius: 200,
+    overflow: "hidden",
+  }
+  ,
+  image:{
+    resizeMode : "cover",
+    flex:1,
+  },
+  containerIcon: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    justifyContent: "flex-end",
   },
 
   itemInfo: {
@@ -156,7 +174,6 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
   },
-  
 
   titleName: {
     flex: 1 / 5,
@@ -172,18 +189,16 @@ const style = StyleSheet.create({
     flex: 3 / 4,
     flexDirection: "column",
     justifyContent: "space-around",
-    paddingRight:'2%'
+    paddingRight: "2%",
   },
 
   list: {
     flexDirection: "row",
-    justifyContent: 'flex-end',
- 
+    justifyContent: "flex-end",
   },
   textList: {
-    flex:1,
+    flex: 1,
     fontSize: 11,
-
   },
   flexColumn: {},
   flexRow: {
