@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "GotaDeVida",
-    "slug": "GotaDeVida",
+    "name": "gotadevida",
+    "slug": "gotadevida",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
