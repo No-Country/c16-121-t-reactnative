@@ -72,7 +72,7 @@ React.useEffect(()=>{
       alert("inicio sesion exitoso ")
       console.log("user signed In");
       console.log(user)
-      setAuthState("signedIn");
+      //setAuthState("signedIn");
       //hay que guardar este user en BD
     } catch (e) {
       alert(e.message);
