@@ -9,6 +9,7 @@ import Background from "./src/Components/Background";
 import 'react-native-gesture-handler';
 import AuthStack from "./src/Navigation/AuthStack";
 import MyStack from "./src/Navigation/UserStack";
+import UserStack from '../c16-121-t-reactnative/src/Navigation/UserStack'
 
 Amplify.configure({
   ...config,
@@ -54,11 +55,16 @@ export default function App() {
   }, []);
 
   return (
-    <AuthProvider>
+ 
+      <AuthProvider>
+
+      {/* <UserStack></UserStack> */}
       <View style={styles.container}>
         
       { user ? <MyStack/>: <AuthStack/>}
       </View>
     </AuthProvider>
+  
+    
   );
 }

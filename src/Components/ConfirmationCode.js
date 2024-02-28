@@ -1,11 +1,13 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { AuthContext } from '../Context/AuthContext';
+import { useRoute } from '@react-navigation/native';
 
 const VerificationScreen = () => {
     const { handleConfirmSignUp, email, verificationCode } = useContext(AuthContext);
     const [enteredCode, setEnteredCode] = useState('');
     const verificationInputs = useRef([]);
+    const {correo}=useRoute().params
 
     useEffect(() => {
         if (verificationCode && enteredCode.length === 6) {
@@ -16,7 +18,7 @@ const VerificationScreen = () => {
     const handleVerification = async () => {
         console.log("Valor de verificationCode:", enteredCode);
         try {
-            await handleConfirmSignUp(enteredCode, email);
+            await handleConfirmSignUp(enteredCode, correo);
             Alert.alert('Éxito', 'Código de verificación correcto');
         } catch (error) {
             Alert.alert('Error', 'Código de verificación incorrecto');

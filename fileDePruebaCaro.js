@@ -91,18 +91,11 @@ export default function FileCaro() {
           <FlatList
           data={data}
           renderItem={({ item }) => <PostCard itemProfile={item}></PostCard>}
-    
           keyExtractor={(item) => item.name}
         ></FlatList>
      
       </View> 
-      {/* <HeaderMovil
-        imagePosition="left"
-        componentPosition="middle"
-      
-      ></HeaderMovil>  */}
 
- 
       <HeaderMovil condition={false}></HeaderMovil>
     
     </SafeAreaView>
