@@ -58,11 +58,11 @@ export default function App() {
  
       <AuthProvider>
 
-      <UserStack></UserStack>
-      {/* <View style={styles.container}>
+      {/* <UserStack></UserStack> */}
+      <View style={styles.container}>
         
       { user ? <MyStack/>: <AuthStack/>}
-      </View> */}
+      </View>
     </AuthProvider>
   
     
