@@ -4,6 +4,7 @@ import { View, ScrollView, StyleSheet } from "react-native";
 import { Hub } from "aws-amplify";
 import  SignIn  from "../Components/SignIn";
 import Background from "../Components/Background";
+import { AuthProvider } from "../Context/AuthContext";
 
 const styles = StyleSheet.create({
     container: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default function Login() {
+export default function Login({ navigation }) {
     const [user, setUser] = React.useState(null);
 
     const listener = (data) => {
@@ -40,7 +41,7 @@ export default function Login() {
          * uso de la propiedad keyboardShouldPersistTaps en el componente ScrollView.
          * Esto evita que el teclado cause un desplazamiento de la vista cuando se toque un campo */
         
-        
+        <AuthProvider navigation={navigation}>
         <View style={styles.container}>
             <Background/>
             <ScrollView contentContainerStyle={styles.scrollViewContainer} keyboardShouldPersistTaps="handled" >
@@ -48,5 +49,6 @@ export default function Login() {
                 <SignIn />
             </ScrollView>
         </View>
+        </AuthProvider>
     );
 }
