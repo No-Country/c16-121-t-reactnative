@@ -62,7 +62,6 @@ export default function App() {
       <AuthProvider>
         <View style={styles.container}>
           {/* <MapScreen/>*/}
-
           {user ? <MyStack /> : <AuthStack />}
         </View>
       </AuthProvider>
