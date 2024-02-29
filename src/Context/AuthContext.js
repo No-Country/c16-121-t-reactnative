@@ -65,13 +65,17 @@ React.useEffect(()=>{
     if (!email || !password) {
       alert("Por favor ingresa email y contraseña");
       return;
+      
     }
     try {
       setIsLoading(true);
       const user = await Auth.signIn({
         username: email,
         password,
+
       });
+      const username = user.attributes.name; 
+      console.log('USEEER',username)
       alert("inicio sesion exitoso ")
       console.log("user signed In");
       console.log(user)
@@ -90,7 +94,7 @@ React.useEffect(()=>{
       return;
     }
 
-    console.log("name, middle",  name,middlename, email )
+    console.log('NOMBRE' ,name )
     try {
       setIsLoading(true);
       const signUpResponse = await Auth.signUp({

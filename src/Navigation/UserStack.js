@@ -15,6 +15,12 @@ export default function MyStack() {
         initialRouteName="Tabs"
         screenOptions={{
           headerShown: false,
+          style:{
+            position:'absolute',
+            bottom: 0, 
+            left: 0,
+            right: 0,
+          }
         }}
       >
         <UserStack.Screen name="Tabs" component={MyTabs} />
