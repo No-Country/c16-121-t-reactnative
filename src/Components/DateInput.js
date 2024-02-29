@@ -30,7 +30,7 @@ const DateInput = ({ label, value, onChange }) => {
       <TouchableOpacity onPress={handleModalOpen}>
         <TextInput
           label={label}
-          value={dateString || '05/02/1994'}
+          value={dateString || '  05/02/1994'}
           style={styles.input}
           editable={false}
         />
