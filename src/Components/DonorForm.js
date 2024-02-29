@@ -7,7 +7,7 @@ import DonorContext, { useDonorContext } from "../Context/DonorContext";
 import DonorInfo from "./DonorInfo";
 
 const DonorForm = () => {
-  const { donorData } = useDonorContext();
+  const { donorData, setDonorData } = useDonorContext();
   const [isEditing, setIsEditing] = useState(true);
   const [canDonate, setCanDonate] = useState(true);
 
@@ -69,14 +69,16 @@ const DonorForm = () => {
     return answers[questionId] === option;
   };
 
-  const Donor = useContext(DonorContext);
+  // const Donor = useContext(DonorContext);
 
   const saveForm = () => {
     if (allAnswer) {
-      Donor.setDonorData({
+      setDonorData((prevDonorData) => ({
+        ...prevDonorData,
         tipoSangre: selectSangre,
         respuestas: answers,
-      });
+        donaciones: prevDonorData && prevDonorData.donaciones
+      }));
       setIsEditing(false);
 
       //verificar si puede donar
