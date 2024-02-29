@@ -64,7 +64,8 @@ export default function App() {
         <DonorProvider>
           <View style={styles.container}>
             {/* <MapScreen/>*/}
-            {user ? <MyStack /> : <AuthStack />}
+            {/* {user ? <MyStack /> : <AuthStack />} */}
+            <MyStack />
           </View>
         </DonorProvider>
         
