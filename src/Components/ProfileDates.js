@@ -21,12 +21,7 @@ function InfoDate({ label, value, canEdit, handleUpDate, handleContext }) {
   const [localValue, setLocalValue] = React.useState(value);
   return (
     <View style={styles.fielContainer}>
-      <Text
-        style={styles.label}
-      >
-        {" "}
-        {label}
-      </Text>
+      <Text style={styles.label}> {label}</Text>
       <TextInput
         placeholder={label}
         keyboardType={canEdit ? "web-search" : "default"}
@@ -36,8 +31,8 @@ function InfoDate({ label, value, canEdit, handleUpDate, handleContext }) {
         style={{
           fontWeight: "500",
           flexShrink: 1,
-          marginHorizontal:2,
-         
+          marginHorizontal: 50,
+          flex: 1,
         }}
       />
     </View>
@@ -48,17 +43,18 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingTop: 20,
-   
   },
   sectionTitle: {
     fontSize: 16,
- color:'grey',
+    color: "grey",
     marginBottom: 1,
   },
   fielContainer: {
+    alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.background,
     paddingVertical: 11,
   },
   row: {
@@ -66,14 +62,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 10,
   },
-  label:{
-    flex: 1,
+  label: {
     fontWeight: "500",
     color: "grey",
-    marginRight: 18,
+    width: "60%",
     fontSize: 16,
-    
- 
   },
   card: {
     flex: 1,
@@ -93,15 +86,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 6,
   },
-  input: {
-    width: "100%",
-    marginBottom: 10,
-    padding: 5,
-    borderWidth: 1,
-    borderColor: "transparent",
-    color: "white",
-    borderRadius: 5,
-  },
+
   text: {
     fontWeight: "bold",
     color: "white",
