@@ -13,6 +13,7 @@ import UserStack from '../c16-121-t-reactnative/src/Navigation/UserStack'
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import MapScreen from "./src/Components/map";
+import NewPassword from "./src/Screens/NewPassword";
 
 Amplify.configure({
   ...config,
@@ -70,6 +71,7 @@ export default function App() {
         {/* <MapScreen/>*/}
         
       { user ? <MyStack/>: <AuthStack/>} 
+      {/* <NewPassword /> */}
       </View>
     </AuthProvider>
     </GestureHandlerRootView>
