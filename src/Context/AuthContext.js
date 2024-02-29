@@ -17,17 +17,20 @@ const AuthContext = React.createContext({
   isLoading: false,
   hadleSignIn: () => {},
   hadleSignUp: async () => {},
+  handleChangePassword: () => {},
+  handleForgotPassword: () => {},
+  handleForgotPasswordSubmit: () => {},
   name: "",
-  setName: ()=>{},
+  setName: () => {},
   firstName: "",
   middlename: "",
-  setMiddleName: ()=>{},
+  setMiddleName: () => {},
   setFirstName: () => {},
-  lastName: "", 
-  setLastName: () => {}, 
+  lastName: "",
+  setLastName: () => {},
   date: "",
   setDate: () => {},
-  location: "", 
+  location: "",
   setLocation: () => {},
 });
 
@@ -62,13 +65,17 @@ React.useEffect(()=>{
     if (!email || !password) {
       alert("Por favor ingresa email y contraseña");
       return;
+      
     }
     try {
       setIsLoading(true);
       const user = await Auth.signIn({
         username: email,
         password,
+
       });
+      const username = user.attributes.name; 
+      console.log('USEEER',username)
       alert("inicio sesion exitoso ")
       console.log("user signed In");
       console.log(user)
@@ -87,7 +94,7 @@ React.useEffect(()=>{
       return;
     }
 
-    console.log("name, middle",  name,middlename, email )
+    console.log('NOMBRE' ,name )
     try {
       setIsLoading(true);
       const signUpResponse = await Auth.signUp({
@@ -149,6 +156,48 @@ React.useEffect(()=>{
     }
 };
 
+const handleChangePassword = async (currentUser, newPassword, confirmNewPassword) => {
+  try {
+    currentUser = await Auth.currentAuthenticatedUser();
+    await Auth.completeNewPassword(currentUser, newPassword, confirmNewPassword);
+    console.log("Contraseña cambiada exitosamente");
+    Alert.alert("Exito", "Contraseña cambiada exitosamente");
+  } catch (error) {
+    console.error("Error al cambiar la contraseña:", error);
+    Alert.alert("Error", error.message);
+  }
+};
+
+
+const handleForgotPassword = async (email) => {
+  try {
+    await Auth.forgotPassword(email);
+    console.log(
+      "Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña"
+    );
+    // Agrega aquí la navegación a la pantalla de confirmación de restablecimiento de contraseña si es necesario
+  } catch (error) {
+    console.log("este es el email: ", email);
+    console.error(
+      "Error al enviar correo electrónico de restablecimiento de contraseña:",
+      error
+    );
+    // Manejar el error aquí
+  }
+};
+
+const handleForgotPasswordSubmit = async (email, code, newPassword) => {
+  try {
+    await Auth.forgotPasswordSubmit(email, code, newPassword);
+    console.log("Contraseña restablecida exitosamente");
+    // Agrega aquí la navegación a la pantalla de inicio de sesión o una pantalla de éxito si es necesario
+  } catch (error) {
+    console.error("Error al restablecer la contraseña:", error);
+    // Manejar el error aquí
+  }
+};
+
+
 
   return (
     <Provider
@@ -162,6 +211,9 @@ React.useEffect(()=>{
         handleSignIn,
         handleSignUp,
         handleConfirmSignUp,
+        handleChangePassword,
+        handleForgotPassword,
+        handleForgotPasswordSubmit,
         verificationCode,
         setVerificationCode,
         isLoading,
