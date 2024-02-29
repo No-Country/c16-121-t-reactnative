@@ -1,6 +1,5 @@
 //MODIFICAR CAMPOS EN DB
 import { API } from "aws-amplify";
-
 import { updateUser } from "../graphql/mutations";
 
 export const updateUserDate = async (userID, date) => {
@@ -27,7 +26,7 @@ export const updateUserDate = async (userID, date) => {
         variables: {
           input: {
             id: userID,
-            status: newAge,
+            age: newAge,
           },
         },
       });
@@ -37,6 +36,7 @@ export const updateUserDate = async (userID, date) => {
     }
   };
   
+  //MODIFICAR LOCALIDAD
   export const updateUserLocation = async (userID, location) => {
     try {
       await API.graphql({
@@ -44,7 +44,7 @@ export const updateUserDate = async (userID, date) => {
         variables: {
           input: {
             id: userID,
-            firstName: location,
+            location: location,
           },
         },
       });

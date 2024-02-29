@@ -1,22 +1,31 @@
 import * as React from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet,SafeAreaView } from "react-native";
 import { Colors } from "../Constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
+// import { updateUserAge, updateUserDate, updateUserLocation } from "../Utils/UserDate";
+import { AuthContext } from "../Context/AuthContext";
 
 const ProfileDates = () => {
-  // const username = attributes && attributes.name ? attributes.name : '';
+  const { authState } = React.useContext(AuthContext);
+  const userName = authState && authState.attributes && authState.attributes.name;
+ 
 
   return (
+    <SafeAreaView>
+      
     <View style={styles.container}>
-      <Text style={styles.sectionTitle}> INFORMACION DEL USUARIO: </Text>
+      <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
 
-      <InfoDate label={"Nombre"} canEdit value={"LUCIA"} />
-      <InfoDate label={"Edad   "} canEdit value={"LUCIA"} />
-      <InfoDate label={"Nacimiento"} canEdit value={"LUCIA"} />
-      <InfoDate label={"Residencia"} canEdit value={"LUCIA"} />
+      <InfoDate label={"Nombre"} value={userName} />
+      <InfoDate label={"Edad   "} canEdit value={"28"} />
+      <InfoDate label={"Nacimiento"} canEdit value={"17/07/95"} />
+      <InfoDate label={"Ciudad"} canEdit value={"CORDOBA"} />
     </View>
+    </SafeAreaView>
   );
 };
+//en db ciudad es LOCALIDAD
+
 function InfoDate({ label, value, canEdit, handleUpDate, handleContext }) {
   const [localValue, setLocalValue] = React.useState(value);
   return (
