@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
     width: "10%",
     height: "5%",
     position: "relative",
-    top:-700,
-    left:40,
+    top:-600,
+    left:10,
     
   
   },
