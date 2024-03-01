@@ -1,18 +1,16 @@
 import * as React from "react";
-import { View, StyleSheet, SplashScreen } from "react-native";
-import Navigation from "./src/Navigation/Tabs";
+import { View, StyleSheet } from "react-native";
 import { Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
 import config from "./src/aws-exports";
 import { AuthProvider } from "./src/Context/AuthContext";
-import Background from "./src/Components/Background";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-gesture-handler";
 import AuthStack from "./src/Navigation/AuthStack";
 import MyStack from "./src/Navigation/UserStack";
-import UserStack from "../c16-121-t-reactnative/src/Navigation/UserStack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import MapScreen from "./src/Components/map";
 import ModoDarck from "./src/Components/ButtomMod";
+import { Darck } from "./src/Constants/Colors";
+import { DonorProvider } from "./src/Context/DonorContext";
 import {AlertNotificationRoot } from 'react-native-alert-notification';
 
 Amplify.configure({
@@ -26,13 +24,26 @@ Amplify.configure({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
   },
+
+  containerDarck:{
+    backgroundColor:'black'
+  }
+
+    
+  
 });
+
 
 export default function App() {
   const [user, setUser] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
   const [authState, setAuthState] = React.useState("signIn");
+
+
+  
+ 
 
   const listener = (data) => {
     switch (data.payload.event) {
@@ -61,11 +72,13 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-        <AlertNotificationRoot>
+      <AlertNotificationRoot>
+      <DonorProvider>
         <View style={styles.container}>
           {/* <MapScreen/>*/}
           {user ? <MyStack /> : <AuthStack />}
         </View>
+        </DonorProvider>
         </AlertNotificationRoot>
       </AuthProvider>
     </GestureHandlerRootView>

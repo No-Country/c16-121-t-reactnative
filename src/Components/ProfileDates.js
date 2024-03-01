@@ -4,15 +4,18 @@ import { Colors } from "../Constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 // import { updateUserAge, updateUserDate, updateUserLocation } from "../Utils/UserDate";
 import { AuthContext } from "../Context/AuthContext";
+import DonationsList from "./DonationsList";
+import DonorContext from "../Context/DonorContext";
 import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 import DialogAlert from "./DialogAlert";
 import MyBottom from "./MyBottom";
 
-
-
 const ProfileDates = () => {
   const { authState } = React.useContext(AuthContext);
   const userName = authState && authState.attributes && authState.attributes.name;
+  const { donorData } = React.useContext(DonorContext);
+
+  const donorInfo = donorData || {donaciones: []}
   const handleDialog = () => {
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
@@ -33,6 +36,7 @@ const ProfileDates = () => {
       <InfoDate label={"Ciudad"} canEdit value={"CORDOBA"} />
       <MyBottom title="Guardar" onPress={handleDialog} />
     </View>
+      {donorData && donorInfo.donaciones && ( <DonationsList/> )}
     </SafeAreaView>
   );
 };
