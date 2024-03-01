@@ -13,6 +13,7 @@ import UserStack from "../c16-121-t-reactnative/src/Navigation/UserStack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import MapScreen from "./src/Components/map";
 import ModoDarck from "./src/Components/ButtomMod";
+import { Darck } from "./src/Constants/Colors";
 
 Amplify.configure({
   ...config,
@@ -25,13 +26,26 @@ Amplify.configure({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
   },
+
+  containerDarck:{
+    backgroundColor:'black'
+  }
+
+    
+  
 });
+
 
 export default function App() {
   const [user, setUser] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
   const [authState, setAuthState] = React.useState("signIn");
+
+
+  
+ 
 
   const listener = (data) => {
     switch (data.payload.event) {
@@ -60,9 +74,10 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-        <View style={styles.container}>
+        <View style={  styles.container }>
           {/* <MapScreen/>*/}
           {user ? <MyStack /> : <AuthStack />}
+           <ModoDarck/> 
         </View>
       </AuthProvider>
     </GestureHandlerRootView>
