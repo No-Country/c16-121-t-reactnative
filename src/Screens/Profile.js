@@ -7,6 +7,7 @@ import Background from '../Components/Background';
 const Profile = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      {/* <View style={{ flex: 2 / 6 }}> */}
       <View style={{ flex: 2 / 6 }}>
         <HeaderMovil condition={false}></HeaderMovil>
       </View>
