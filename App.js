@@ -13,6 +13,7 @@ import UserStack from "../c16-121-t-reactnative/src/Navigation/UserStack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import MapScreen from "./src/Components/map";
 import ModoDarck from "./src/Components/ButtomMod";
+import {AlertNotificationRoot } from 'react-native-alert-notification';
 
 Amplify.configure({
   ...config,
@@ -60,10 +61,12 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
+        <AlertNotificationRoot>
         <View style={styles.container}>
           {/* <MapScreen/>*/}
           {user ? <MyStack /> : <AuthStack />}
         </View>
+        </AlertNotificationRoot>
       </AuthProvider>
     </GestureHandlerRootView>
   );

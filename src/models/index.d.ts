@@ -84,6 +84,9 @@ type EagerUsuarios = {
   readonly telefono?: string | null;
   readonly ReciboDonaciones?: (ReciboDonaciones | null)[] | null;
   readonly Rol?: Rol | null;
+  readonly password?: string | null;
+  readonly email?: string | null;
+  readonly edad?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly usuariosRolId?: string | null;
@@ -111,6 +114,9 @@ type LazyUsuarios = {
   readonly telefono?: string | null;
   readonly ReciboDonaciones: AsyncCollection<ReciboDonaciones>;
   readonly Rol: AsyncItem<Rol | undefined>;
+  readonly password?: string | null;
+  readonly email?: string | null;
+  readonly edad?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly usuariosRolId?: string | null;
