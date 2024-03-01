@@ -4,6 +4,7 @@
 import * as React from "react";
 import { Auth ,  DataStore, API, graphqlOperation } from "aws-amplify";
 import { Usuarios } from '../models';
+import { ALERT_TYPE,Dialog,Toast } from 'react-native-alert-notification';
 
 const AuthContext = React.createContext({
   authState: "signIn",
@@ -49,21 +50,27 @@ function AuthProvider({ children, navigation }) {
   const [isLoading, setIsLoading] = React.useState(false);
   const sub = authState?.attributes?.sub;
 
+  Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
   React.useEffect(()=> {
-    Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
-  }, [])
+    
+  }, [authState])
 
-console.log(authState, "user");
+console.log(authState, "user ");
 
 
 React.useEffect(()=>{
 
   DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setDbUser(users[0]));}, [sub])
 
-  async function handleSignIn() {
+ const handleSignIn=async()=>{
     //se puede validar que lo ingresado sea un email o contraseña correcta
     if (!email || !password) {
-      alert("Por favor ingresa email y contraseña");
+      Toast.show({
+        type: ALERT_TYPE.WARNING,
+        title: 'Error',
+        textBody: 'Por favor ingresa email y contraseña',
+        button: 'Cerrar',
+      })
       return;
       
     }
@@ -74,9 +81,15 @@ React.useEffect(()=>{
         password,
 
       });
-      const username = user.attributes.name; 
+      const username = user.attributes.name;
+      setName(username) 
       console.log('USEEER',username)
-      alert("inicio sesion exitoso ")
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody: `Bienvenido ${username[0].toUpperCase()+username.slice(1)}...`,
+        button: 'Cerrar',
+      })
       console.log("user signed In");
       console.log(user)
       setAuthState("signedIn");
