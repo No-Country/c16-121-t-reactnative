@@ -55,7 +55,7 @@ const CardHome = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: "25%",
+    marginTop: "15%",
     flexDirection: "row",
     paddingHorizontal: "10%",
     alignItems: "center",
