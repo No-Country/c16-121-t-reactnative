@@ -9,6 +9,9 @@ import AuthStack from "./src/Navigation/AuthStack";
 import MyStack from "./src/Navigation/UserStack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import ModoDarck from "./src/Components/ButtomMod";
+import { Darck } from "./src/Constants/Colors";
+import { DonorProvider } from "./src/Context/DonorContext";
+import {AlertNotificationRoot } from 'react-native-alert-notification';
 
 import { Darck } from "./src/Constants/Colors";
 
@@ -72,16 +75,16 @@ export default function App() {
     }, 2000);
   }, []);
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+   <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-
-        <DonorProvider>
-          <View style={styles.container}>
-            {user ? <MyStack /> : <AuthStack />}
-            <ModoDarck/> 
-          </View>
+      <AlertNotificationRoot>
+      <DonorProvider>
+        <View style={styles.container}>
+          {/* <MapScreen/>*/}
+          {user ? <MyStack /> : <AuthStack />}
+        </View>
         </DonorProvider>
-
+        </AlertNotificationRoot>
       </AuthProvider>
     </GestureHandlerRootView>
   );
