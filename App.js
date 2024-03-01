@@ -64,13 +64,13 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
 
-      {/* <UserStack></UserStack> */}
+      <UserStack></UserStack>
 
-      <View style={styles.container}>
+      {/* <View style={styles.container}> */}
         {/* <MapScreen/>*/}
         
-      { user ? <MyStack/>: <AuthStack/>} 
-      </View>
+      {/* { user ? <MyStack/>: <AuthStack/>}  */}
+      {/* </View> */}
     </AuthProvider>
     </GestureHandlerRootView>
   

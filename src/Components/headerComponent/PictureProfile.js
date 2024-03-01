@@ -8,7 +8,7 @@ import { TouchableOpacity } from "react-native";
 import { Colors } from "../../Constants/Colors";
 import { IconToNotification } from "../iconNotification/iconToNotification";
 
-export const PictureProfile = ({showButton}) => {
+export const PictureProfile = ({ showButton }) => {
   const [picture, setPicture] = React.useState("");
 
   React.useEffect(() => {
@@ -61,14 +61,11 @@ export const PictureProfile = ({showButton}) => {
         console.log("PROBANDING", UPLOAD_PRESET);
         console.log("PROBANDING", CLOUD_NAME);
 
-
         // Lógica para guardarlo en la base de datos
         // Guardar en localStorage
 
         await AsyncStorage.setItem("@pic", json.url);
         console.log("url", json.url);
-
-        
       } catch (e) {
         console.log(e);
       }
@@ -80,7 +77,9 @@ export const PictureProfile = ({showButton}) => {
       <View style={style.profile}>
         {showButton && (
           <TouchableOpacity onPress={pickImage} style={style.button}>
-            <Text style={{ fontSize: 18, color: "white", fontWeight:'800' }}>+</Text>
+            <Text style={{ fontSize: 18, color: "white", fontWeight: "800" }}>
+              +
+            </Text>
           </TouchableOpacity>
         )}
 
@@ -88,7 +87,7 @@ export const PictureProfile = ({showButton}) => {
           <Image source={{ uri: picture }} style={style.image}></Image>
         )}
       </View>
-      <View style= {style.iconNotification}>
+      <View style={style.iconNotification}>
         <IconToNotification></IconToNotification>
       </View>
     </View>
@@ -97,49 +96,49 @@ export const PictureProfile = ({showButton}) => {
 
 const style = StyleSheet.create({
   container: {
-    //  flexDirection:'column',
     alignItems: "center",
-
-    flex: 1,
+    width: "100%",
+    height: "100%",
     justifyContent: "center",
+    alignSelf: "center",
+    borderWidth: 1,
+    aspectRatio: 1,
+    borderRadius: 200,
   },
   profile: {
-    // width: 70,
-    // height:70,
-    flex: 1,
     aspectRatio: 1,
-    borderWidth: 2,
     borderRadius: 200,
-
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    overflow: "hidden",
+    borderColor: "black",
   },
-  iconNotification:{
-    position:'absolute',
-    right:-9
-    },
+  iconNotification: {
+    position: "absolute",
+    right: -8.5,
+  },
 
   button: {
     width: "35%",
     height: "35%",
-    borderRadius: 100,
+    borderRadius: 200,
     backgroundColor: Colors.bottonLogin,
-   
     color: "black",
     position: "absolute",
-    zIndex: 20,
+    zIndex: 25,
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
+    borderWidth:1
   },
 
   image: {
     flex: 1,
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    aspectRatio: 1,
+    borderRadius: 200,
+   
   },
 });

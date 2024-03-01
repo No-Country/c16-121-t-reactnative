@@ -68,14 +68,14 @@ const headerStyle = StyleSheet.create({
     position: "absolute",
     width: "250%",
     height: "250%",
-    backgroundColor: "green",
+ 
     bottom:0,
     borderBottomRightRadius: 500,
     borderBottomLeftRadius: 500,
     backgroundColor: Colors.background,
-    alignSelf:'center'
- 
+    alignSelf:'center',
     // flex:1
+    // backgroundColor:'blue',
   },
 
   container: {
@@ -85,11 +85,7 @@ const headerStyle = StyleSheet.create({
     padding: "9%",
     paddingTop:'5%',
     position: "relative",
-    
     paddingBottom:'12%',
- 
-  
-    
   },
  
 
@@ -98,9 +94,9 @@ const headerStyle = StyleSheet.create({
     flex:5/8,
     justifyContent: "space-between",
     flexDirection: "row",
- 
     alignItems: "center",
- 
+
+
    },
   buttonTextContainer:{
     flex: 3/8,
@@ -114,11 +110,16 @@ const headerStyle = StyleSheet.create({
   pictureProfileHome: {
     width: 70,
     height: 70,
+    // width: "100%",
+    // height: "100%",
+    padding:'2%'
   },
   // Estilos para  header de perfil
   headerToProfile: {
     flex: 4 / 7,
     position: "relative",
+ 
+
   },
 
   logoProfile: {
@@ -134,6 +135,7 @@ const headerStyle = StyleSheet.create({
     width: "80%",
     height: "80%",
     bottom: 0,
+    
   },
   containerLogo: {
     width: 80,

@@ -16,13 +16,11 @@ export const IconToNotification = ()=>{
 
 const styles = StyleSheet.create({
     container:{
-  
         position:'relative',
         justifyContent:'center',
         alignItems:'center',
-        width:28,
-         
-       
+        width:20,
+
     },
     icon:{
          width:'100%',
@@ -33,7 +31,8 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         color:'white',
         position:'absolute',
-        bottom:'35%',
+        bottom:'40%',
+        fontSize:12
         
     }
 })
