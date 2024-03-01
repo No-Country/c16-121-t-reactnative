@@ -38,7 +38,7 @@
     "usernameAttributes": [
       "email"
     ],
-    "useDefault": "defaultSocial",
+    "useDefault": "manual",
     "userPoolGroups": false,
     "userPoolGroupList": [],
     "adminQueries": false,
@@ -59,12 +59,13 @@
     "breakCircularDependency": true,
     "dependsOn": [],
     "hostedUI": true,
-    "hostedUIDomainName": "gotadevida2471fa1b-2471fa1b",
+    "hostedUIDomainName": "gotadevidaa9339d3b-a9339d3b",
     "authProvidersUserPool": [
       "Facebook"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"middle_name\":\"middle_name\",\"username\":\"id\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"exp://127.0.0.1/8081/Home/\"],\"LogoutURLs\":[\"exp://127.0.0.1:8081/\"]}",
-    "authProviders": []
+    "authProviders": [],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"exp://192.168.1.103:8081/\"],\"LogoutURLs\":[\"exp://192.168.1.103:8081/\"]}",
+    "thirdPartyAuth": false
   }
 }
