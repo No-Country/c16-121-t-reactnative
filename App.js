@@ -13,6 +13,11 @@ import { Darck } from "./src/Constants/Colors";
 import { DonorProvider } from "./src/Context/DonorContext";
 import {AlertNotificationRoot } from 'react-native-alert-notification';
 
+import { Darck } from "./src/Constants/Colors";
+
+import { DonorProvider } from "./src/Context/DonorContext";
+
+
 Amplify.configure({
   ...config,
   Analytics: { disabled: true },
@@ -70,7 +75,7 @@ export default function App() {
     }, 2000);
   }, []);
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+   <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
       <AlertNotificationRoot>
       <DonorProvider>
