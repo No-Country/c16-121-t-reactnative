@@ -53,9 +53,9 @@ function AuthProvider({ children, navigation }) {
   Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
   React.useEffect(()=> {
     
-  }, [authState])
+  }, [])
 
-console.log(authState, "user ");
+// console.log(authState, "user ");
 
 
 React.useEffect(()=>{

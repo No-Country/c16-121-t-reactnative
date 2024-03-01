@@ -29,7 +29,7 @@ const CardHome = () => {
       <View style={styles.rightButtonsContainer}>
         <TouchableOpacity
           style={styles.button1}
-          onPress={() => navigation.navigate("PorQueDonar")}
+          onPress={() => navigation.navigate("ProcesoDeDonacion")}
         >
           <ImageBackground
             source={require("../Assets/fondo3.jpg")}
@@ -39,7 +39,7 @@ const CardHome = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
-          onPress={() => navigation.navigate("ProcesoDeDonacion")}
+          onPress={() => navigation.navigate("PorQueDonar")}
         >
           <ImageBackground
             source={require("../Assets/fondo2.jpg")}
