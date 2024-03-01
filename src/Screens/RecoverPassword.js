@@ -1,12 +1,18 @@
 import * as React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import ForgotPassword from "../Components/ForgotPassword";
+import Background from "../Components/Background";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 300,
+        // marginTop: 300,
         alignItems: "center", // Centra el contenido horizontalmente
+    },
+    scrollViewContainer: {
+        // flex: 1,
+        marginTop: 290,
+        alignItems: "center",
     },
 });
 
@@ -16,6 +22,7 @@ export default function RecoverPassword() {
          * uso de la propiedad keyboardShouldPersistTaps en el componente ScrollView.
          * Esto evita que el teclado cause un desplazamiento de la vista cuando se toque un campo */
         <View style={styles.container}>
+            <Background />
             <ScrollView contentContainerStyle={styles.scrollViewContainer} keyboardShouldPersistTaps="handled" >
                 <ForgotPassword />
             </ScrollView>
