@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     },
     scrollViewContainer: {
         // flex: 1,
-        marginTop: 190,
+        marginTop: 192,
         alignItems: "center", // Centra el contenido horizontalmente
     },
 });
