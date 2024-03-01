@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-import ForgotPassword from "../Components/ChangePassword";
+import ChangePassword from "../Components/ChangePassword";
 
 const styles = StyleSheet.create({
     container: {
@@ -17,7 +17,7 @@ export default function NewPassword() {
          * Esto evita que el teclado cause un desplazamiento de la vista cuando se toque un campo */
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollViewContainer} keyboardShouldPersistTaps="handled" >
-                <ForgotPassword />
+                <ChangePassword />
             </ScrollView>
         </View>
     );

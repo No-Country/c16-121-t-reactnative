@@ -27,6 +27,10 @@ const SignIn = () => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleForgotPasswordClick = () => {
+    navigation.navigate('RecoverPassword')
+  }
   
   return (
     <React.Fragment>
@@ -48,7 +52,7 @@ const SignIn = () => {
       </View>
       <MyBottom title="Ingresar" onPress={onHandleSign} />
 
-      <Pressable>
+      <Pressable onPress={handleForgotPasswordClick}>
         <Text style={styles.textForgotPassword}>
           {" "}
           ¿Olvidaste tu contraseña?{" "}

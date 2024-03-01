@@ -1,13 +1,45 @@
-import * as React from "react";
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
-import MyBottom from "./MyBottom";
-import MyInput from "./MyInput";
-import { AuthContext } from "../Context/AuthContext";
-import { Colors } from "../Constants/Colors";
+import { useRoute } from '@react-navigation/native';
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { StyleSheet, Text , TextInput, TouchableOpacity, View} from 'react-native';
+import { AuthContext } from '../Context/AuthContext';
+import MyBottom from './MyBottom';
+import MyInput from './MyInput';
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 
-const ChangePassword = () => {
+const PasswordChangeCode = () => {
+    const { handleForgotPasswordSubmit, verificationCode } = useContext(AuthContext);
+    const [enteredCode, setEnteredCode] = useState('');
+    const verificationInputs = useRef([]);
+    const {email}=useRoute().params
+
+    useEffect(() => {
+        if (verificationCode && enteredCode.length === 6) {
+            handleVerificationChangePassword();
+        }
+    }, [verificationCode]);
+
+    const handleVerificationChangePassword = async () => {
+        console.log("Valor de verificationCode:", enteredCode);
+        try {
+            await handleForgotPasswordSubmit( email, enteredCode, newPassword);
+            Alert.alert('Éxito', 'Código de verificación correcto');
+        } catch (error) {
+            Alert.alert('Error', 'Código de verificación incorrecto');
+        }
+    };
+
+    const handleChangeText = (index, value) => {
+        setEnteredCode(prevCode => {
+            const newCode = prevCode.split('');
+            newCode[index] = value;
+            return newCode.join('');
+        });
+
+        if (value.length === 1 && index < verificationInputs.current.length - 1) {
+            verificationInputs.current[index + 1].focus();
+        }
+    };
+
     const {
         setPassword,
         handleChangePassword,
@@ -15,10 +47,8 @@ const ChangePassword = () => {
     } = React.useContext(AuthContext);
 
     // Definir estados para la nueva contraseña, confirmación y errores
-    const [email, setEmail] = React.useState("");
     const [newPassword, setNewPassword] = React.useState("");
     const [confirmNewPassword, setConfirmNewPassword] = React.useState("");
-    const [emailError, setEmailError] = React.useState("");
     const [newPasswordError, setNewPasswordError] = React.useState("");
     const [confirmNewPasswordError, setConfirmNewPasswordError] = React.useState("");
 
@@ -62,25 +92,34 @@ const ChangePassword = () => {
 
     // Función para validar todos los campos antes de enviar la solicitud de cambio de contraseña
     const validateData = () => {
-        if (emailError !== "" || newPasswordError !== "" || confirmNewPasswordError !== "") {
+        if (newPasswordError !== "" || confirmNewPasswordError !== "") {
             return false;
         }
         return true;
     };
 
     return (
-        <SafeAreaView>
-            <View>
-                <Text style={styles.text}>Correo Electrónico</Text>
-                <MyInput
-                    label={"example@gmail.com"}
-                    onChangeText={(text) => {
-                        setEmail(text.trim());
-                    }}
-                    onBlur={validateEmail}
-                />
-                <Text style={styles.error}>{emailError}</Text>
-                <Text style={styles.text}>Nueva contraseña</Text>
+        <View style={styles.container}>
+             <View style={styles.inputsContainer}>
+                {[...Array(6)].map((_, index) => (
+                    <TextInput
+                        key={index}
+                        style={styles.input}
+                        maxLength={1}
+                        onChangeText={text => handleChangeText(index, text)}
+                        ref={ref => (verificationInputs.current[index] = ref)}
+                        keyboardType="numeric"
+                        returnKeyType="next"
+                        blurOnSubmit={false}
+                        onSubmitEditing={() => {
+                            if (index === 5) {
+                                handleVerificationChangePassword();
+                            }
+                        }}
+                    />
+                ))}
+            </View>
+            <Text style={styles.text}>Nueva contraseña</Text>
                 <View style={styles.viewPassword}>
                     <MyInput
                         label={"Contraseña"}
@@ -130,40 +169,30 @@ const ChangePassword = () => {
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.error}>{confirmNewPasswordError}</Text>
-
-                <MyBottom
-                    title="Cambiar contraseña"
-                    onPress={() => {
-                        if (validateData()) {
-                            handleChangePassword(newPassword, confirmNewPassword);
-                        }
-                    }}
-                />
-            </View>
-        </SafeAreaView>
+            {/*<Button title="Verificar" onPress={handleVerificationChangePassword} /> */}
+            <MyBottom title="Verificar" onPress={handleVerificationChangePassword}/>
+        </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
-    text: {
-        fontSize: 14,
-        fontWeight: "bold",
-        color: "#F3305F",
-        marginLeft: "3%",
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    error: {
-        fontSize: 10,
-        color: "#F3305F",
-        marginLeft: "3%",
-        marginBottom: 6,
-        marginTop: -8,
+    inputsContainer: {
+        flexDirection: 'row',
+        marginBottom: 20,
     },
-    viewPassword: {
-        flexDirection: "row",
-        alignItems: "center",
+    input: {
+        width: 40,
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        textAlign: 'center',
+        marginRight: 10,
     },
-    eyeIcon: {
-        marginLeft: -40,
-    }
 });
-export default ChangePassword;
+
+export default PasswordChangeCode
