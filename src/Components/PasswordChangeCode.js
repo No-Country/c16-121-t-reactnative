@@ -100,7 +100,8 @@ const PasswordChangeCode = () => {
 
     return (
         <View style={styles.container}>
-             <View style={styles.inputsContainer}>
+            <Text style={styles.text}>Ingrese el código de verificación</Text>
+            <View style={styles.inputsContainer}>
                 {[...Array(6)].map((_, index) => (
                     <TextInput
                         key={index}
@@ -176,6 +177,13 @@ const PasswordChangeCode = () => {
 }
 
 const styles = StyleSheet.create({
+    text: {
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#F3305F",
+        alignItems: 'center',
+        marginRight: 10
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -184,6 +192,7 @@ const styles = StyleSheet.create({
     inputsContainer: {
         flexDirection: 'row',
         marginBottom: 20,
+        marginTop: 20
     },
     input: {
         width: 40,
@@ -193,6 +202,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginRight: 10,
     },
+    viewPassword: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    eyeIcon: {
+        marginLeft: -40,
+    }
 });
 
 export default PasswordChangeCode
