@@ -2,7 +2,7 @@
 //pasarse a todos mis componentes sin tener que volver a escribir codigo
 
 import * as React from "react";
-import { Auth ,  DataStore, API, graphqlOperationp } from "aws-amplify";
+import { Auth ,  DataStore, API, graphqlOperation } from "aws-amplify";
 import { Usuarios } from '../models';
 
 const AuthContext = React.createContext({
@@ -133,7 +133,7 @@ React.useEffect(()=>{
     }
   }
 
- const handleConfirmSignUp = async (verificationCode, email) => { // Ajustamos los parámetros aquí
+  const handleConfirmSignUp = async (verificationCode, email) => { 
     if (!verificationCode || !email) {
       console.log("Este es el user: ", email);
         setIsLoading(false);
@@ -143,18 +143,15 @@ React.useEffect(()=>{
     try {
         setIsLoading(true);
         await Auth.confirmSignUp(email, verificationCode);
-        const currentUser = await Auth.currentAuthenticatedUser();
-        await Auth.updateUserAttributes(currentUser, {
-            "userConfirmed": "true",
-        });
         console.log("Confirmado. Ahora puedes iniciar sesión");
         setAuthState("signIn");
+        navigation.navigate("Login");
     } catch (error) {
         console.error("Error: ", error);
     } finally {
         setIsLoading(false);
     }
-};
+  };
 
 const handleChangePassword = async (currentUser, newPassword, confirmNewPassword) => {
   try {
@@ -170,11 +167,13 @@ const handleChangePassword = async (currentUser, newPassword, confirmNewPassword
 
 
 const handleForgotPassword = async (email) => {
+  console.log("entro a forgotPassword")
   try {
     await Auth.forgotPassword(email);
     console.log(
       "Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña"
     );
+    // navigation.navigate("VerificationPasswordChange");
     // Agrega aquí la navegación a la pantalla de confirmación de restablecimiento de contraseña si es necesario
   } catch (error) {
     console.log("este es el email: ", email);
@@ -190,14 +189,13 @@ const handleForgotPasswordSubmit = async (email, code, newPassword) => {
   try {
     await Auth.forgotPasswordSubmit(email, code, newPassword);
     console.log("Contraseña restablecida exitosamente");
+    navigation.navigate("Login");
     // Agrega aquí la navegación a la pantalla de inicio de sesión o una pantalla de éxito si es necesario
   } catch (error) {
     console.error("Error al restablecer la contraseña:", error);
     // Manejar el error aquí
   }
 };
-
-
 
   return (
     <Provider

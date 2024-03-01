@@ -5,8 +5,9 @@ import { Colors } from "../Constants/Colors";
 
 import Profile from "../Screens/Profile";
 import Home from "../Screens/Home";
-import DonationForm from "../Screens/DonationForm";
+// import DonationForm from "../Screens/DonationForm";
 import Exit from "../Screens/Exit";
+import MapScreen from "../Components/Map";
 
 const Tab = createBottomTabNavigator();
 
@@ -60,11 +61,11 @@ export default function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="DonationForm"
-        component={DonationForm}
+        name="Location"
+        component={MapScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="circle" color={color} size={size} />
+            <MaterialIcons name="location-on" color={color} size={size} />
           ),
         }}
       />

@@ -4,12 +4,15 @@ import { Colors } from "../Constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 // import { updateUserAge, updateUserDate, updateUserLocation } from "../Utils/UserDate";
 import { AuthContext } from "../Context/AuthContext";
+import DonationsList from "./DonationsList";
+import DonorContext from "../Context/DonorContext";
 
 const ProfileDates = () => {
   const { authState } = React.useContext(AuthContext);
   const userName = authState && authState.attributes && authState.attributes.name;
- 
+  const { donorData } = React.useContext(DonorContext);
 
+  const donorInfo = donorData || {donaciones: []}
   return (
     <SafeAreaView>
       
@@ -21,6 +24,7 @@ const ProfileDates = () => {
       <InfoDate label={"Nacimiento"} canEdit value={"17/07/95"} />
       <InfoDate label={"Ciudad"} canEdit value={"CORDOBA"} />
     </View>
+      {donorData && donorInfo.donaciones && ( <DonationsList/> )}
     </SafeAreaView>
   );
 };
