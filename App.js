@@ -59,7 +59,8 @@ export default function App() {
       <AuthProvider>
         <DonorProvider>
           <View style={styles.container}>
-            {user ? <MyStack /> : <AuthStack />}
+            {/* {user ? <MyStack /> : <AuthStack />} */}
+            <MyStack />
           </View>
         </DonorProvider>
       </AuthProvider>
