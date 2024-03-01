@@ -2,7 +2,7 @@
 //pasarse a todos mis componentes sin tener que volver a escribir codigo
 
 import * as React from "react";
-import { Auth ,  DataStore, API, graphqlOperationp } from "aws-amplify";
+import { Auth ,  DataStore, API, graphqlOperation } from "aws-amplify";
 import { Usuarios } from '../models';
 
 const AuthContext = React.createContext({
@@ -133,7 +133,7 @@ React.useEffect(()=>{
     }
   }
 
- const handleConfirmSignUp = async (verificationCode, email) => { // Ajustamos los parámetros aquí
+  const handleConfirmSignUp = async (verificationCode, email) => { 
     if (!verificationCode || !email) {
       console.log("Este es el user: ", email);
         setIsLoading(false);
@@ -143,18 +143,15 @@ React.useEffect(()=>{
     try {
         setIsLoading(true);
         await Auth.confirmSignUp(email, verificationCode);
-        const currentUser = await Auth.currentAuthenticatedUser();
-        await Auth.updateUserAttributes(currentUser, {
-            "userConfirmed": "true",
-        });
         console.log("Confirmado. Ahora puedes iniciar sesión");
         setAuthState("signIn");
+        navigation.navigate("Login");
     } catch (error) {
         console.error("Error: ", error);
     } finally {
         setIsLoading(false);
     }
-};
+  };
 
 const handleChangePassword = async (currentUser, newPassword, confirmNewPassword) => {
   try {

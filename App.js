@@ -65,12 +65,8 @@ export default function App() {
           <View style={styles.container}>
             {/* <MapScreen/>*/}
             {user ? <MyStack /> : <AuthStack />}
-            {/* {user ? <NewPassword /> : <AuthStack />} */}
-            {/* <MyStack /> */}
-            {/* <NewPassword /> */}
           </View>
         </DonorProvider>
-        
       </AuthProvider>
     </GestureHandlerRootView>
   );
