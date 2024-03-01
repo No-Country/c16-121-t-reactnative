@@ -1,17 +1,13 @@
 import * as React from "react";
-import { View, StyleSheet, SplashScreen } from "react-native";
-import Navigation from "./src/Navigation/Tabs";
+import { View, StyleSheet } from "react-native";
 import { Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
 import config from "./src/aws-exports";
 import { AuthProvider } from "./src/Context/AuthContext";
-import Background from "./src/Components/Background";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "react-native-gesture-handler";
 import AuthStack from "./src/Navigation/AuthStack";
 import MyStack from "./src/Navigation/UserStack";
-import UserStack from "../c16-121-t-reactnative/src/Navigation/UserStack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import MapScreen from "./src/Components/map";
 import ModoDarck from "./src/Components/ButtomMod";
 import { DonorProvider } from "./src/Context/DonorContext";
 
@@ -63,7 +59,6 @@ export default function App() {
       <AuthProvider>
         <DonorProvider>
           <View style={styles.container}>
-            {/* <MapScreen/>*/}
             {user ? <MyStack /> : <AuthStack />}
           </View>
         </DonorProvider>
