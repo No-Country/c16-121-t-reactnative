@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
 import { Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
@@ -25,11 +26,30 @@ Amplify.configure({
     authModeStrategyType: AuthModeStrategyType.MULTI_AUTH,
   },
 });
+=======
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+>>>>>>> origin
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+<<<<<<< HEAD
     
+=======
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+>>>>>>> origin
   },
 
   containerDarck:{
@@ -39,6 +59,7 @@ const styles = StyleSheet.create({
     
   
 });
+<<<<<<< HEAD
 
 
 export default function App() {
@@ -89,3 +110,5 @@ export default function App() {
     </GestureHandlerRootView>
   );
 }
+=======
+>>>>>>> origin
