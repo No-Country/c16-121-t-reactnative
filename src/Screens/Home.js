@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, SafeAreaView, FlatList,ScrollView } from "react-native";
+import { View, Text, SafeAreaView, FlatList, ScrollView } from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
@@ -67,24 +67,22 @@ const data = [
 
 const Home = () => {
   return (
-
-    <ScrollView>
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ flex: 3 / 5 }}>
         <HeaderMovil condition={true}></HeaderMovil>
       </View>
-      <View style={{ marginTop: 30 }}>
-        <FlatList
-          data={data}
-          renderItem={({ item }) => <PostCard itemProfile={item}></PostCard>}
-          keyExtractor={(item) => item.name}
-        ></FlatList>
-        <View style={{ marginTop: -70 }}>
-          <CardHome />
-        </View>
-      </View>
 
-      {/* <View style={{ flex: 5/7}}>
+      <FlatList
+        data={data}
+        renderItem={({ item }) => <PostCard itemProfile={item}></PostCard>}
+        keyExtractor={(item) => item.name}
+        style={{ marginTop: 110, marginBottom: -390 }}
+      ></FlatList>
+
+      <CardHome />
+    </SafeAreaView>
+    /* <View style={{ flex: 5/7
+    }}>
 
           <FlatList
           horizontal={true}
@@ -93,10 +91,8 @@ const Home = () => {
           keyExtractor={(item) => item.name}
         ></FlatList>
      
-      </View>  */}
-    </SafeAreaView>
-    </ScrollView>
+      </View>  */
   );
 };
 
-export default Home;
+export default Home;
