@@ -6,8 +6,8 @@ import { IconToDonate } from "../iconNotification/iconToDonate";
 
 const infoProfile = {
   name: "laura lopez",
-  city: "Buenos Aires",
-  country: "",
+  // city: "Buenos Aires",
+ 
   location: "Hospital General del Niño",
   contact: "4645564156",
   coment:
@@ -53,14 +53,14 @@ export const PostCard = ({ itemProfile }) => {
 
           <View style={style.infoRequired}>
             <View style={style.infoDetail}>
-              <InfoDetail
+              {/* <InfoDetail
                 value={itemProfile.city}
                 option="Ciudad :"
-              ></InfoDetail>
-              <InfoDetail
+              ></InfoDetail> */}
+              {/* <InfoDetail
                 value={itemProfile.country}
                 option="País :"
-              ></InfoDetail>
+              ></InfoDetail> */}
               <InfoDetail
                 value={itemProfile.location}
                 option="Localización :"

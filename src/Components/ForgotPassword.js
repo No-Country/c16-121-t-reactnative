@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity,TextInput } from "react-native";
 import MyBottom from "./MyBottom";
 import MyInput from "./MyInput";
 import { AuthContext } from "../Context/AuthContext";
@@ -35,14 +35,15 @@ const ForgotPassword = () => {
     };
 
     return (
-        <SafeAreaView>
-            <View style={styles.container}>
+        <React.Fragment>
+            
                 <Text style={styles.text}>Correo Electrónico</Text>
-                <MyInput
-                    label={"example@gmail.com"}
-                    onChangeText={(text) => setEmail(text.trim())}
-                    onBlur={validateEmail}
-                />
+                <TextInput
+        placeholder="example@gmail.com"
+        onChangeText={(text) => setEmail(text.trim())}
+        onBlur={validateEmail}
+        style={styles.input}
+      />
                 <Text style={styles.error}>{emailError}</Text>
 
                 <MyBottom
@@ -55,14 +56,14 @@ const ForgotPassword = () => {
                         }
                     }}
                 />
-            </View>
-        </SafeAreaView>
+           
+           </React.Fragment>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+       backgroundColor:'red'
     },
     text: {
         fontSize: 14,
@@ -77,6 +78,17 @@ const styles = StyleSheet.create({
         marginBottom: 6,
         marginTop: -8,
     },
+    input: {
+        paddingHorizontal: 10,
+        width: "90%",
+        height: 45,
+        justifyContent: "center",
+        margin: 10,
+        backgroundColor: "transparent",
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: Colors.input,
+      },
 });
 
 export default ForgotPassword;

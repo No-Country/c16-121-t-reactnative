@@ -7,8 +7,8 @@ import CardHome from "../Components/CardHome";
 const data = [
   {
     name: "laura lopez",
-    city: "Buenos Aires",
-    country: "",
+    // city: "Buenos Aires",
+    // country: "",
     location: "Hospital General del Niño",
     contact: "4645564156",
     coment:
@@ -68,21 +68,22 @@ const data = [
 const Home = () => {
   return (
 
-    <ScrollView>
+   
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ flex: 3 / 5 }}>
         <HeaderMovil condition={true}></HeaderMovil>
       </View>
-      <View style={{ marginTop: 30 }}>
+      
         <FlatList
           data={data}
           renderItem={({ item }) => <PostCard itemProfile={item}></PostCard>}
           keyExtractor={(item) => item.name}
+          style={{marginTop:110, marginBottom:-390}}
         ></FlatList>
-        <View style={{ marginTop: -70 }}>
-          <CardHome />
-        </View>
-      </View>
+       
+          <CardHome  />
+        
+     
 
       {/* <View style={{ flex: 5/7}}>
 
@@ -95,7 +96,7 @@ const Home = () => {
      
       </View>  */}
     </SafeAreaView>
-    </ScrollView>
+   
   );
 };
 
