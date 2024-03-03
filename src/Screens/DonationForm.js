@@ -1,20 +1,31 @@
 import * as React from "react";
-import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import DonorForm from "../Components/DonorForm";
 import { Colors } from "../Constants/Colors";
 import { useDonorContext } from "../Context/DonorContext";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "white",
+    borderRadius: 10,
+    elevation: 5, // Para crear el efecto de elevación
+    margin: 15,
+    marginTop: "13%",
+    height: "85%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   textStyle: {
-    marginTop: 150,
-    fontSize: 18,
+    marginTop: 50,
+    fontSize: 25,
     fontWeight: "bold",
     color: Colors.input,
-    marginBottom: -20,
   },
   scrollViewContainer: {
     flex: 1,
@@ -27,11 +38,12 @@ export default function DonationForm() {
   const { donorData } = useDonorContext();
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+    <View style={{ backgroundColor: "#FFEBF0", flex: 1 }}>
+      <View style={styles.container}>
         <Text style={styles.textStyle}>¡Conviértete en donador!</Text>
+
         <DonorForm />
-      </ScrollView>
+      </View>
     </View>
   );
 }
