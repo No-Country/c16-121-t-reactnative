@@ -1,42 +1,49 @@
 import * as React from "react";
-import { View, Text, TextInput, StyleSheet,SafeAreaView,Button } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  SafeAreaView,
+  Button,
+} from "react-native";
 import { Colors } from "../Constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 // import { updateUserAge, updateUserDate, updateUserLocation } from "../Utils/UserDate";
 import { AuthContext } from "../Context/AuthContext";
 import DonationsList from "./DonationsList";
 import DonorContext from "../Context/DonorContext";
-import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import DialogAlert from "./DialogAlert";
 import MyBottom from "./MyBottom";
 
 const ProfileDates = () => {
   const { authState } = React.useContext(AuthContext);
-  const userName = authState && authState.attributes && authState.attributes.name;
+  const userName =
+    authState && authState.attributes && authState.attributes.name;
   const { donorData } = React.useContext(DonorContext);
 
-  const donorInfo = donorData || {donaciones: []}
+  const donorInfo = donorData || { donaciones: [] };
   const handleDialog = () => {
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
-      title: 'Success',
-      textBody: 'Se guardaron los cambios',
-      button: 'close',
-    })
+      title: "Success",
+      textBody: "Se guardaron los cambios",
+      button: "close",
+    });
   };
 
   return (
     <SafeAreaView>
-      
-    <View style={styles.container}>
-      <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
-      <InfoDate label={"Nombre"} value={userName} />
-      <InfoDate label={"Edad   "} canEdit value={"28"} />
-      <InfoDate label={"Nacimiento"} canEdit value={"17/07/95"} />
-      <InfoDate label={"Ciudad"} canEdit value={"CORDOBA"} />
-      <MyBottom title="Guardar" onPress={handleDialog} />
-    </View>
-      {donorData && donorInfo.donaciones && ( <DonationsList/> )}
+      <View style={styles.container}>
+        <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
+        <InfoDate label={"Nombre"} value={userName} />
+        <InfoDate label={"Edad   "} canEdit value={"28"} />
+        <InfoDate label={"Nacimiento"} canEdit value={"17/07/95"} />
+        <InfoDate label={"Ciudad"} canEdit value={"CORDOBA"} />
+        <MyBottom title="Guardar" onPress={handleDialog} />
+      </View>
+      {donorData && donorInfo.donaciones && <DonationsList />}
     </SafeAreaView>
   );
 };
@@ -120,4 +127,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileDates;
-
