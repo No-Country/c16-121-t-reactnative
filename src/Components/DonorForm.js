@@ -165,7 +165,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    width: "90%",
+    width: "95%",
+    marginTop:'-4%'
   },
   text: {
     fontSize: 14,

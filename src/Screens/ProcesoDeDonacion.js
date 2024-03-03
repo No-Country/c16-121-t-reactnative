@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ScrollView, Image } from "react-native";
 
 const ProcesoDeDonacion = () => {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:'#FFEBF0'}}>
       <View style={styles.container2}>
         <Text style={styles.textTitle}>PROCESO DE DONACIÓN</Text>
         <View style={styles.backgroundItem}>
@@ -57,11 +57,15 @@ const ProcesoDeDonacion = () => {
 
 const styles = StyleSheet.create({
   container2: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 50,
-    marginBottom: 50,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    elevation: 5, 
+    margin: 10,
+    padding: 10,
+    alignItems:'center',
+    justifyContent:'center',
+    height:'95%',
+    marginTop:'10%'
   },
 
   backgroundItem: {
@@ -71,6 +75,8 @@ const styles = StyleSheet.create({
     width: 300,
     flexDirection: "row",
     marginTop: 10,
+    justifyContent:'center',
+    alignItems:'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
