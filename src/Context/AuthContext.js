@@ -5,6 +5,7 @@ import * as React from "react";
 import { Auth ,  DataStore, API, graphqlOperation } from "aws-amplify";
 import { Usuarios } from '../models';
 import { ALERT_TYPE,Dialog,Toast } from 'react-native-alert-notification';
+import "@azure/core-asynciterator-polyfill";
 
 const AuthContext = React.createContext({
   authState: "signIn",
@@ -60,7 +61,10 @@ function AuthProvider({ children, navigation }) {
 
 React.useEffect(()=>{
 
-  DataStore.query(Usuarios, (user) => user.sub.eq(sub)).then((users) => setDbUser(users[0]));}, [sub])
+  DataStore.query(Usuarios, (user) => user.sub.eq(sub))
+    .then((users) => setDbUser(users[0]))
+    .catch((error) => console.error('Error fetching user data: ', error));
+  }, [sub])
 
  const handleSignIn=async()=>{
     //se puede validar que lo ingresado sea un email o contraseña correcta
