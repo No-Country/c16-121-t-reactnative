@@ -44,7 +44,7 @@ const ProcesoDeDonacion = () => {
           </Text>
         </View>
         <View style={styles.backgroundItem}>
-              <Image source={require("../Assets/5.png")} style={styles.image} />
+              <Image source={require("../Assets/6.png")} style={styles.image} />
           <Text style={styles.text}>
             Se medirá tu temperatura corporal, presión arterial, frecuencia
             cardíaca y nivel de hemoglobina en la sangre.
