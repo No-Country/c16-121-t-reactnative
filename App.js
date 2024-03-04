@@ -80,14 +80,12 @@ export default function App() {
     }, 2000);
   }, []);
   return (
+
+
    <GestureHandlerRootView style={{ flex: 1 }}>
     
       <AuthProvider>
 
-
-      <View style={styles.container}>
-       
-        
      
 
       <AlertNotificationRoot>  

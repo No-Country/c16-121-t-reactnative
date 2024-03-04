@@ -9,8 +9,9 @@ import BottonRegistro from "./BottonRegistro";
 import { Colors } from "../Constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
+import { signInWithFacebook } from "../Utils/authSocial";
 const { width, height } = Dimensions.get("window");
-import { signInWithFacebook } from "../utils/authSocial";
+
 const SignIn = () => {
 const [loading, setLoading] = React.useState(false);
  const [showPassword, setShowPassword] = React.useState(false);
@@ -69,7 +70,7 @@ const [loading, setLoading] = React.useState(false);
       ) : (
       <MyBottom title="Ingresar" onPress={onHandleSign} />
       )}
-      <Pressable>
+     
 
 
 
