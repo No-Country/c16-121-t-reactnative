@@ -56,7 +56,8 @@ function AuthProvider({ children, navigation }) {
     
   }, [])
 
-// console.log(authState, "user ");
+console.log(authState, "user aquiii");
+
 
 
 React.useEffect(()=>{

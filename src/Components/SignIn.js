@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, TouchableOpacity, Text, StyleSheet, Pressable,Dimensions } from "react-native";
+import {ActivityIndicator, View, TouchableOpacity, Text, StyleSheet, Pressable,Dimensions } from "react-native";
 import MyBottom from "./MyBottom";
 import { Feather } from "@expo/vector-icons";
 import MyInput from "./MyInput";
@@ -10,19 +10,33 @@ import { Colors } from "../Constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("window");
-
+import { signInWithFacebook } from "../utils/authSocial";
 const SignIn = () => {
-  const [showPassword, setShowPassword] = React.useState(false);
+const [loading, setLoading] = React.useState(false);
+ const [showPassword, setShowPassword] = React.useState(false);
   const { authState, setAuthState, setEmail, setPassword, handleSignIn } = React.useContext(AuthContext);
   const navigation = useNavigation();
-
+  
+  
   const onHandleSign = async () => {
     try {
+      setLoading(true);
       await handleSignIn();
     } catch (err) {
       console.log("Error", err);
+    } finally {
+      setLoading(false); 
     }
   };
+  const handleSignInWithFacebook = async () => {
+    setLoading(true); 
+    try {
+      await signInWithFacebook();
+    } finally {
+      setLoading(false); 
+    }
+  };
+
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -50,16 +64,30 @@ const SignIn = () => {
           <Feather name={showPassword ? "eye" : "eye-off"} size={24} color="#323646" />
         </TouchableOpacity>
       </View>
+      {loading ? ( 
+        <ActivityIndicator size="large" color="#F3305F" />
+      ) : (
       <MyBottom title="Ingresar" onPress={onHandleSign} />
+      )}
+      <Pressable>
+
+
+
 
       <Pressable onPress={handleForgotPasswordClick}>
+
         <Text style={styles.textForgotPassword}>
           {" "}
           ¿Olvidaste tu contraseña?{" "}
         </Text>
       </Pressable>
+
+
       <View style={styles.line}></View>
-      <MyBottonGoogle title="Google" />
+      <MyBottonGoogle title="Facebook"onPress={handleSignInWithFacebook}  />
+
+
+
 
       <Pressable>
         <Text style={styles.textPass}> ¿No tienes una cuenta? </Text>

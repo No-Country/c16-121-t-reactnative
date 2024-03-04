@@ -1,6 +1,8 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
 import { Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
+
+
 import config from "./src/aws-exports";
 import { AuthProvider } from "./src/Context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,6 +16,7 @@ import ModoDarck from "./src/Components/ButtomMod";
 import {AlertNotificationRoot } from 'react-native-alert-notification';
 import { DonorProvider } from "./src/Context/DonorContext";
 import { DarckProvider } from "./src/Context/DarckContext";
+
 
 Amplify.configure({
   ...config,
@@ -42,14 +45,24 @@ export default function App() {
   
  
 
+
+
+  
+  const [signedIn, setSignedIn] = React.useState(false);
+
   const listener = (data) => {
+    console.log('Evento recibido:', data.payload);
     switch (data.payload.event) {
       case "signIn":
         const { attributes } = data.payload.data;
         setUser(attributes);
+        setSignedIn(true); 
         break;
       case "signOut":
         setUser(null);
+
+        setSignedIn(false); 
+
         break;
       default:
         break;
@@ -70,16 +83,24 @@ export default function App() {
    <GestureHandlerRootView style={{ flex: 1 }}>
     
       <AuthProvider>
+
+
+      <View style={styles.container}>
+       
+        
+     
+
       <AlertNotificationRoot>  
       <DonorProvider>
         <View style={styles.container}>
           {/* <MapScreen/>*/}
-          {user ? <MyStack /> : <AuthStack />}
+          { signedIn ? <MyStack/>: <AuthStack/>} 
           <ModoDarck/>
         </View>
         </DonorProvider>
         </AlertNotificationRoot>
       </AuthProvider>
+
     </GestureHandlerRootView>
   );
 }
