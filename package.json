@@ -41,10 +41,10 @@
 
     "react-native-web": "^0.19.10",
     "expo-web-browser": "~12.8.2",
-    "expo-linking": "~6.2.2"
+    "expo-linking": "~6.2.2",
 
-    "react-native-swiper": "^1.6.0",
-    "react-native-web": "^0.19.10"
+    "react-native-swiper": "^1.6.0"
+
 
   },
   "devDependencies": {
