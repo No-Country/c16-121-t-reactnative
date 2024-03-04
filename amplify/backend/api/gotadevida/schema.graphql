@@ -1,3 +1,11 @@
+type Publicacion @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  publicacion: String
+  Usuarios: Usuarios @hasOne
+  fecha: AWSDate
+  habilitada: Boolean
+}
+
 type Rol @model @auth(rules: [{allow: public}]) {
   id: ID!
   tipo_rol: String

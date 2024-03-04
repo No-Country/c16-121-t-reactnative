@@ -14,6 +14,9 @@
     "categories": {
       "auth": {
         "gotadevida": {}
+      },
+      "storage": {
+        "s3gotadevidastorage5daf82d0": {}
       }
     }
   }

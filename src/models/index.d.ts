@@ -1,10 +1,46 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@aws-amplify/datastore";
 
 
 
 
+
+type EagerPublicacion = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Publicacion, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly publicacion?: string | null;
+  readonly Usuarios?: Usuarios | null;
+  readonly fecha?: string | null;
+  readonly habilitada?: boolean | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly publicacionUsuariosId?: string | null;
+}
+
+type LazyPublicacion = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Publicacion, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly publicacion?: string | null;
+  readonly Usuarios: AsyncItem<Usuarios | undefined>;
+  readonly fecha?: string | null;
+  readonly habilitada?: boolean | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly publicacionUsuariosId?: string | null;
+}
+
+export declare type Publicacion = LazyLoading extends LazyLoadingDisabled ? EagerPublicacion : LazyPublicacion
+
+export declare const Publicacion: (new (init: ModelInit<Publicacion>) => Publicacion) & {
+  copyOf(source: Publicacion, mutator: (draft: MutableModel<Publicacion>) => MutableModel<Publicacion> | void): Publicacion;
+}
 
 type EagerRol = {
   readonly [__modelMeta__]: {

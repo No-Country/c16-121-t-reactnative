@@ -16,28 +16,34 @@ import DonorContext from "../Context/DonorContext";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import DialogAlert from "./DialogAlert";
 import MyBottom from "./MyBottom";
+import { createUser, getAllUsers, updateUserDate } from "../Utils/UserDate";
 
 const ProfileDates = () => {
-  const { authState } = React.useContext(AuthContext);
-  const userName =
-    authState && authState.attributes && authState.attributes.name;
+  //const { authState } = React.useContext(AuthContext);
+  //const userName = authState && authState.attributes && authState.attributes.name;
+  //const idUser = authState && authState.attributes && authState.attributes.sub;
   const { donorData } = React.useContext(DonorContext);
-
+console.log("profile")
   const donorInfo = donorData || { donaciones: [] };
-  const handleDialog = () => {
+  const handleDialog = async() => {
+    try{
+    await createUser()
+    await getAllUsers()
+    await updateUserDate("51cbf5e0-8031-7089-8eee-d1463ad65583","german")
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
       title: "Success",
       textBody: "Se guardaron los cambios",
       button: "close",
     });
+  }catch(error){console.log(error.menssage)}
   };
 
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
-        <InfoDate label={"Nombre"} value={userName} />
+        <InfoDate label={"Nombre"} value={"userName"} />
         <InfoDate label={"Edad   "} canEdit value={"28"} />
         <InfoDate label={"Nacimiento"} canEdit value={"17/07/95"} />
         <InfoDate label={"Ciudad"} canEdit value={"CORDOBA"} />

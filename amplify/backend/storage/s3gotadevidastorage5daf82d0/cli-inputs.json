@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3gotadevidastorage5daf82d0",
+  "bucketName": "gotadevida-storage-5daf82d0",
+  "policyUUID": "70a4b002",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}
