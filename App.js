@@ -12,11 +12,8 @@ import ModoDarck from "./src/Components/ButtomMod";
 // import { Darck } from "./src/Constants/Colors";
 // import { DonorProvider } from "./src/Context/DonorContext";
 import {AlertNotificationRoot } from 'react-native-alert-notification';
-
-import { Darck } from "./src/Constants/Colors";
-
 import { DonorProvider } from "./src/Context/DonorContext";
-
+import { DarckProvider } from "./src/Context/DarckContext";
 
 Amplify.configure({
   ...config,
@@ -32,11 +29,6 @@ const styles = StyleSheet.create({
     
   },
 
-  containerDarck:{
-    backgroundColor:'black'
-  }
-
-    
   
 });
 
@@ -76,12 +68,14 @@ export default function App() {
   }, []);
   return (
    <GestureHandlerRootView style={{ flex: 1 }}>
+    
       <AuthProvider>
-      <AlertNotificationRoot>
+      <AlertNotificationRoot>  
       <DonorProvider>
         <View style={styles.container}>
           {/* <MapScreen/>*/}
           {user ? <MyStack /> : <AuthStack />}
+          <ModoDarck/>
         </View>
         </DonorProvider>
         </AlertNotificationRoot>

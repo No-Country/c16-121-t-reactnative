@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TouchableOpacity, StyleSheet, Image } from "react-native";
+import { DarckContext, Darck,Ligth, toggleTheme } from "../Context/DarckContext";
+
 
 const ModoDarck = () => {
+
+
+  const theme = useContext(DarckContext)  
   const [darkMode, setDarkMode] = useState(false);
 
+  console.log (theme);
+  
   const toggleMode = () => {
-    setDarkMode(!darkMode); // 
+
+    setDarkMode( theme === Ligth ? Darck : Ligth); 
+    console.log(darkMode)
+
   };
 
   return (
@@ -21,6 +31,7 @@ const ModoDarck = () => {
         }
         style={styles.image}
       />
+      <Image/>
     </TouchableOpacity>
   );
 };
@@ -57,4 +68,5 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
+
  export default ModoDarck;
