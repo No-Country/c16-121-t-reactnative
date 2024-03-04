@@ -1,9 +1,15 @@
 import React from "react";
-import { StyleSheet, View, Text, ScrollView, Image } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Image,Pressable  } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
 const ProcesoDeDonacion = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView style={{backgroundColor:'#FFEBF0'}}>
+      <Pressable style={{marginTop:30, marginHorizontal:20, marginBottom:-40}} onPress={navigation.goBack}>
+      <AntDesign name="arrowleft" size={24} color="black" />
+      </Pressable>
       <View style={styles.container2}>
         <Text style={styles.textTitle}>PROCESO DE DONACIÓN</Text>
         <View style={styles.backgroundItem}>
