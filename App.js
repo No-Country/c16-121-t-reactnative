@@ -15,6 +15,7 @@ import {AlertNotificationRoot } from 'react-native-alert-notification';
 import { DonorProvider } from "./src/Context/DonorContext";
 import { DarckProvider } from "./src/Context/DarckContext";
 
+
 Amplify.configure({
   ...config,
   Analytics: { disabled: true },
@@ -42,14 +43,24 @@ export default function App() {
   
  
 
+
+
+  
+  const [signedIn, setSignedIn] = React.useState(false);
+
   const listener = (data) => {
+    // console.log('Evento recibido:', data.payload);
     switch (data.payload.event) {
       case "signIn":
         const { attributes } = data.payload.data;
         setUser(attributes);
+        setSignedIn(true); 
         break;
       case "signOut":
         setUser(null);
+
+        setSignedIn(false); 
+
         break;
       default:
         break;
@@ -67,19 +78,21 @@ export default function App() {
     }, 2000);
   }, []);
   return (
-   <GestureHandlerRootView style={{ flex: 1 }}>
-    
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-      <AlertNotificationRoot>  
-      <DonorProvider>
-        <View style={styles.container}>
-          {/* <MapScreen/>*/}
-          {user ? <MyStack /> : <AuthStack />}
-          <ModoDarck/>
-        </View>
-        </DonorProvider>
+        <AlertNotificationRoot>
+          <DonorProvider>
+            <DarckProvider>
+              <View style={styles.container}>
+                {/* <MapScreen/>*/}
+                {user ? <MyStack /> : <AuthStack />}
+                <ModoDarck/>
+              </View>
+            </DarckProvider>
+          </DonorProvider>
         </AlertNotificationRoot>
       </AuthProvider>
+
     </GestureHandlerRootView>
   );
 }
