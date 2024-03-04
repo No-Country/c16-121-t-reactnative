@@ -12,8 +12,8 @@ import { ScrollView } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("window");
 import { signInWithFacebook } from "../utils/authSocial";
 const SignIn = () => {
-  const [loading, setLoading] = React.useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
+const [loading, setLoading] = React.useState(false);
+ const [showPassword, setShowPassword] = React.useState(false);
   const { authState, setAuthState, setEmail, setPassword, handleSignIn } = React.useContext(AuthContext);
   const navigation = useNavigation();
   
@@ -41,6 +41,10 @@ const SignIn = () => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleForgotPasswordClick = () => {
+    navigation.navigate('RecoverPassword')
+  }
   
   return (
     <React.Fragment>
@@ -67,6 +71,10 @@ const SignIn = () => {
       )}
       <Pressable>
 
+
+
+
+      <Pressable onPress={handleForgotPasswordClick}>
 
         <Text style={styles.textForgotPassword}>
           {" "}

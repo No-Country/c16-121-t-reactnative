@@ -1,7 +1,8 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
-import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, TextInput, Text, StyleSheet, Alert } from 'react-native';
 import { AuthContext } from '../Context/AuthContext';
 import { useRoute } from '@react-navigation/native';
+import MyBottom from "./MyBottom";
 
 const VerificationScreen = () => {
     const { handleConfirmSignUp, email, verificationCode } = useContext(AuthContext);
@@ -40,6 +41,7 @@ const VerificationScreen = () => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.text}>Ingrese el código de verificación</Text>
             <View style={styles.inputsContainer}>
                 {[...Array(6)].map((_, index) => (
                     <TextInput
@@ -59,12 +61,19 @@ const VerificationScreen = () => {
                     />
                 ))}
             </View>
-            <Button title="Verificar" onPress={handleVerification} />
+            <MyBottom title="Verificar" onPress={handleVerification} />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    text: {
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#F3305F",
+        alignItems: 'center',
+        marginRight: 10
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -73,6 +82,7 @@ const styles = StyleSheet.create({
     inputsContainer: {
         flexDirection: 'row',
         marginBottom: 20,
+        marginTop: 30
     },
     input: {
         width: 40,

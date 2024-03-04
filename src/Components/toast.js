@@ -1,50 +1,41 @@
 import * as React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  SafeAreaView,
-  Button,
-} from "react-native";
+import { View, Text, TextInput, StyleSheet, SafeAreaView, Button } from "react-native";
 import { Colors } from "../Constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
 // import { updateUserAge, updateUserDate, updateUserLocation } from "../Utils/UserDate";
 import { AuthContext } from "../Context/AuthContext";
-import DonationsList from "./DonationsList";
-import DonorContext from "../Context/DonorContext";
-import { ALERT_TYPE, Toast } from "react-native-alert-notification";
-import DialogAlert from "./DialogAlert";
-import MyBottom from "./MyBottom";
+import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
 
 const ProfileDates = () => {
-  const { authState } = React.useContext(AuthContext);
-  const userName =
-    authState && authState.attributes && authState.attributes.name;
-  const { donorData } = React.useContext(DonorContext);
-
-  const donorInfo = donorData || { donaciones: [] };
-  const handleDialog = () => {
-    Toast.show({
-      type: ALERT_TYPE.SUCCESS,
-      title: "Success",
-      textBody: "Se guardaron los cambios",
-      button: "close",
-    });
-  };
+  const { authState, name } = React.useContext(AuthContext);
+  const userName = authState && authState.attributes && authState.attributes.name;
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
-        <InfoDate label={"Nombre"} value={userName} />
-        <InfoDate label={"Edad   "} canEdit value={"28"} />
-        <InfoDate label={"Nacimiento"} canEdit value={"17/07/95"} />
-        <InfoDate label={"Ciudad"} canEdit value={"CORDOBA"} />
-        <MyBottom title="Guardar" onPress={handleDialog} />
+    <AlertNotificationRoot>
+      <View>
+        <Button
+          title={'dialog box'}
+          onPress={() =>
+            Dialog.show({
+              type: ALERT_TYPE.SUCCESS,
+              title: 'Success',
+              textBody: 'Congrats! this is dialog box success',
+              button: 'close',
+            })
+          }
+        />
+        <Button
+          title={'toast notification'}
+          onPress={() =>
+            Toast.show({
+              type: ALERT_TYPE.SUCCESS,
+              title: 'Success',
+              textBody: 'Congrats! this is toast notification success',
+            })
+          }
+        />
       </View>
-      {donorData && donorInfo.donaciones && <DonationsList />}
-    </SafeAreaView>
+    </AlertNotificationRoot>
   );
 };
 //en db ciudad es LOCALIDAD

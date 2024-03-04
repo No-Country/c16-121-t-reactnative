@@ -1,15 +1,21 @@
 import * as React from "react";
-import { View, StyleSheet, SplashScreen } from "react-native";
-import Navigation from "./src/Navigation/Tabs";
+import { View, StyleSheet } from "react-native";
 import { Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
-import config from './src/aws-exports';
-import { AuthProvider } from './src/Context/AuthContext';
-import Background from "./src/Components/Background";
-import 'react-native-gesture-handler';
+
+
+import config from "./src/aws-exports";
+import { AuthProvider } from "./src/Context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import "react-native-gesture-handler";
 import AuthStack from "./src/Navigation/AuthStack";
 import MyStack from "./src/Navigation/UserStack";
-import UserStack from '../c16-121-t-reactnative/src/Navigation/UserStack'
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import ModoDarck from "./src/Components/ButtomMod";
+// import { Darck } from "./src/Constants/Colors";
+// import { DonorProvider } from "./src/Context/DonorContext";
+import {AlertNotificationRoot } from 'react-native-alert-notification';
+import { DonorProvider } from "./src/Context/DonorContext";
+import { DarckProvider } from "./src/Context/DarckContext";
 
 
 Amplify.configure({
@@ -20,17 +26,24 @@ Amplify.configure({
   },
 });
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
   },
+
+  
 });
 
 
 export default function App() {
   const [user, setUser] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [authState, setAuthState] = React.useState("signIn");
+
+
+  
+ 
 
 
 
@@ -47,7 +60,9 @@ export default function App() {
         break;
       case "signOut":
         setUser(null);
+
         setSignedIn(false); 
+
         break;
       default:
         break;
@@ -64,21 +79,28 @@ export default function App() {
       setIsLoading(false);
     }, 2000);
   }, []);
-
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+   <GestureHandlerRootView style={{ flex: 1 }}>
+    
       <AuthProvider>
 
-      {/* <UserStack></UserStack> */}
 
       <View style={styles.container}>
        
         
-      { signedIn ? <MyStack/>: <AuthStack/>} 
-      </View>
-    </AuthProvider>
+     
+
+      <AlertNotificationRoot>  
+      <DonorProvider>
+        <View style={styles.container}>
+          {/* <MapScreen/>*/}
+          { signedIn ? <MyStack/>: <AuthStack/>} 
+          <ModoDarck/>
+        </View>
+        </DonorProvider>
+        </AlertNotificationRoot>
+      </AuthProvider>
+
     </GestureHandlerRootView>
-  
-    
   );
 }
