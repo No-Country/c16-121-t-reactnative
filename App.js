@@ -67,17 +67,18 @@ export default function App() {
     }, 2000);
   }, []);
   return (
-   <GestureHandlerRootView style={{ flex: 1 }}>
-    
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-      <AlertNotificationRoot>  
-      <DonorProvider>
-        <View style={styles.container}>
-          {/* <MapScreen/>*/}
-          {user ? <MyStack /> : <AuthStack />}
-          <ModoDarck/>
-        </View>
-        </DonorProvider>
+        <AlertNotificationRoot>
+          <DonorProvider>
+            <DarckProvider>
+              <View style={styles.container}>
+                {/* <MapScreen/>*/}
+                {user ? <MyStack /> : <AuthStack />}
+                <ModoDarck/>
+              </View>
+            </DarckProvider>
+          </DonorProvider>
         </AlertNotificationRoot>
       </AuthProvider>
     </GestureHandlerRootView>
