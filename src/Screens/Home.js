@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, FlatList, ScrollView } from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
-
+import { DarckProvider } from "../Context/DarckContext";
 const data = [
   {
     name: "laura lopez",
