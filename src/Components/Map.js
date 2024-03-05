@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Alert, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Alert,
+  Text,
+  Image,
+  Linking,
+  TouchableOpacity,
+} from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -41,6 +49,18 @@ const MapScreen = () => {
     } catch (error) {
       console.error("Error buscando Hospitales cercanos:", error);
     }
+  };
+
+  const getDirections = () => {
+    if (!selectedPlace) return;
+
+    // Construir la URL de Google Maps con las coordenadas del lugar seleccionado
+    const latitude = selectedPlace.geometry.location.lat;
+    const longitude = selectedPlace.geometry.location.lng;
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+
+    // Abrir la URL en la aplicación de mapas del dispositivo o en el navegador
+    Linking.openURL(url);
   };
 
   const handleMarkerPress = (hospital) => {
@@ -124,6 +144,24 @@ const MapScreen = () => {
               </Text>
               <Text>{selectedPlace.name}</Text>
               <Text>{selectedPlace.vicinity}</Text>
+
+              {selectedPlace.photos && selectedPlace.photos.length > 0 ? (
+        <Image
+          source={{ uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${selectedPlace.photos[0].photo_reference}&key=YOUR_API_KEY` }}
+          style={{ width: 200, height: 200, marginTop: 10 }}
+        />
+      ) : (
+        <View style={{ width: 200, height: 200, marginTop: 10, backgroundColor:  "#FC688B", justifyContent: 'center', alignItems: 'center' }}>
+          <Text>Imagen no disponible</Text>
+         
+           <Image source={require('../Assets/Logo.png')} style={{ width: 100, height: 100 }} /> 
+        </View>
+      )}
+              <TouchableOpacity onPress={getDirections} style={styles.buttonD}>
+                <Text style={{ color: "#FC688B", fontWeight: "bold" }}>
+                  Obtener Direcciones
+                </Text>
+              </TouchableOpacity>
             </>
           )}
         </View>
@@ -141,6 +179,15 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     width: "100%",
+  },
+  buttonD: {
+    backgroundColor: "#FFF",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: "#FC688B",
   },
 });
 export default MapScreen;

@@ -163,9 +163,15 @@ function AuthProvider({ children, navigation }) {
         },
       });
 
+<<<<<<< HEAD
       let sub = signUpResponse.userSub
 
       await createUser(email, name, middlename, sub)
+=======
+      let sub=signUpResponse.userSub
+
+      await createUser(email,name,middlename,sub)
+>>>>>>> fe563f0855307fb76cc934b2684e5902bc91f6d4
 
       // await API.graphql(graphqlOperationp(createUsuarios, {
       //   input: {

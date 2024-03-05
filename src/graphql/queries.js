@@ -1,47 +1,218 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getPublicacion = /* GraphQL */ `
-  query GetPublicacion($id: ID!) {
-    getPublicacion(id: $id) {
+export const getUserByEmail = /* GraphQL */ `
+  query GetUserByEmail($email: String!) {
+    getUserByEmail(email: $email) {
       id
-      publicacion
-      Usuarios {
+      nombre
+      apellido
+      imagen
+      pais
+      provincia
+      localidad
+      id_ubicacion
+      sub
+      notificaciones
+      publicaciones
+      dni
+      backup
+      bloqueado
+      telefono
+      ReciboDonaciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      Rol {
         id
-        nombre
-        apellido
-        imagen
-        pais
-        provincia
-        localidad
-        id_ubicacion
-        sub
-        notificaciones
-        publicaciones
-        dni
-        backup
-        bloqueado
-        telefono
-        password
-        email
-        edad
+        tipo_rol
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        usuariosRolId
-        owner
         __typename
       }
-      fecha
-      habilitada
+      password
+      email
+      edad
+      habilitado
+      Publicacions {
+        nextToken
+        startedAt
+        __typename
+      }
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      publicacionUsuariosId
+      usuariosRolId
+      owner
+      __typename
+    }
+  }
+`;
+export const getReacciones = /* GraphQL */ `
+  query GetReacciones($id: ID!) {
+    getReacciones(id: $id) {
+      id
+      usuariosID
+      publicacionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const listReacciones = /* GraphQL */ `
+  query ListReacciones(
+    $filter: ModelReaccionesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listReacciones(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        usuariosID
+        publicacionID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const syncReacciones = /* GraphQL */ `
+  query SyncReacciones(
+    $filter: ModelReaccionesFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncReacciones(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        usuariosID
+        publicacionID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const reaccionesByUsuariosID = /* GraphQL */ `
+  query ReaccionesByUsuariosID(
+    $usuariosID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelReaccionesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    reaccionesByUsuariosID(
+      usuariosID: $usuariosID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        usuariosID
+        publicacionID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const reaccionesByPublicacionID = /* GraphQL */ `
+  query ReaccionesByPublicacionID(
+    $publicacionID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelReaccionesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    reaccionesByPublicacionID(
+      publicacionID: $publicacionID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        usuariosID
+        publicacionID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const getPublicacion = /* GraphQL */ `
+  query GetPublicacion($id: ID!) {
+    getPublicacion(id: $id) {
+      id
+      publicacion
+      fecha
+      habilitada
+      cantidadRequeridos
+      usuariosID
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -58,12 +229,14 @@ export const listPublicacions = /* GraphQL */ `
         publicacion
         fecha
         habilitada
+        cantidadRequeridos
+        usuariosID
+        tipoSangre
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        publicacionUsuariosId
         __typename
       }
       nextToken
@@ -90,12 +263,50 @@ export const syncPublicacions = /* GraphQL */ `
         publicacion
         fecha
         habilitada
+        cantidadRequeridos
+        usuariosID
+        tipoSangre
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-        publicacionUsuariosId
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const publicacionsByUsuariosID = /* GraphQL */ `
+  query PublicacionsByUsuariosID(
+    $usuariosID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelPublicacionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    publicacionsByUsuariosID(
+      usuariosID: $usuariosID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        publicacion
+        fecha
+        habilitada
+        cantidadRequeridos
+        usuariosID
+        tipoSangre
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       nextToken
@@ -175,6 +386,7 @@ export const getReciboDonaciones = /* GraphQL */ `
     getReciboDonaciones(id: $id) {
       id
       usuariosID
+      fecha
       createdAt
       updatedAt
       _version
@@ -198,6 +410,7 @@ export const listReciboDonaciones = /* GraphQL */ `
       items {
         id
         usuariosID
+        fecha
         createdAt
         updatedAt
         _version
@@ -227,6 +440,7 @@ export const syncReciboDonaciones = /* GraphQL */ `
       items {
         id
         usuariosID
+        fecha
         createdAt
         updatedAt
         _version
@@ -258,6 +472,7 @@ export const reciboDonacionesByUsuariosID = /* GraphQL */ `
       items {
         id
         usuariosID
+        fecha
         createdAt
         updatedAt
         _version
@@ -337,6 +552,18 @@ export const getUsuarios = /* GraphQL */ `
       password
       email
       edad
+      habilitado
+      Publicacions {
+        nextToken
+        startedAt
+        __typename
+      }
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
@@ -374,6 +601,8 @@ export const listUsuarios = /* GraphQL */ `
         password
         email
         edad
+        habilitado
+        tipoSangre
         createdAt
         updatedAt
         _version
@@ -421,6 +650,8 @@ export const syncUsuarios = /* GraphQL */ `
         password
         email
         edad
+        habilitado
+        tipoSangre
         createdAt
         updatedAt
         _version
@@ -436,3 +667,85 @@ export const syncUsuarios = /* GraphQL */ `
     }
   }
 `;
+
+export const getUserBySubQuery = /* GraphQL */ `
+  query GetUserBySub($sub: String!) {
+    listUsuarios(filter: { sub: { eq: $sub } }) {
+      items {
+        id
+        nombre
+        apellido
+        imagen
+        pais
+        provincia
+        localidad
+        id_ubicacion
+        sub
+        notificaciones
+        publicaciones
+        dni
+        backup
+        bloqueado
+        telefono
+        password
+        email
+        edad
+        habilitado
+        tipoSangre
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
+export const getAllPublicationsTodayQuery = /* GraphQL */ `
+    query GetAllPublications($date: AWSDate!) {
+      listPublicacions(
+        filter: {
+          fecha: {
+            eq: $date
+          }
+        }
+        limit: 1000
+      ) {
+      items {
+        id
+        publicacion
+        fecha
+        habilitada
+        cantidadRequeridos
+        usuariosID
+        tipoSangre
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
+export const getAllPublicationsQuery = /* GraphQL */ `
+    query GetAllPublications($startDate: AWSDate!, $endDate: AWSDate!) {
+      listPublicacions(
+        filter: {
+          fecha: {
+            between: [$startDate, $endDate]
+          }
+        }
+        limit: 1000
+      ) {
+      items {
+        id
+        publicacion
+        fecha
+        habilitada
+        cantidadRequeridos
+        usuariosID
+        tipoSangre
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
