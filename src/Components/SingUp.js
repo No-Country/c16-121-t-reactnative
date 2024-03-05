@@ -154,10 +154,10 @@ const SingUp = () => {
 
         <MyBottom
           title="Registrarse"
-          onPress={() => {
+          onPress={async () => {
             if (validateData()) {
-              handleSignUp();
-              navigation.navigate("Verification",{correo:correo});
+              let response= await handleSignUp();
+              response && navigation.navigate("Verification",{correo:correo});
             }
           }}
         />

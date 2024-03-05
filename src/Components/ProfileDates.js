@@ -19,24 +19,28 @@ import MyBottom from "./MyBottom";
 import { createUser, getAllUsers, updateUserDate } from "../Utils/UserDate";
 
 const ProfileDates = () => {
-  //const { authState } = React.useContext(AuthContext);
-  //const userName = authState && authState.attributes && authState.attributes.name;
-  //const idUser = authState && authState.attributes && authState.attributes.sub;
+  const { sub,authState,userSub } = React.useContext(AuthContext);
+  const userName = authState && authState.attributes && authState.attributes.name;
+ const idUser = authState && authState.attributes && authState.attributes.sub;
   const { donorData } = React.useContext(DonorContext);
-console.log("profile")
+
   const donorInfo = donorData || { donaciones: [] };
   const handleDialog = async() => {
     try{
-    await createUser()
-    await getAllUsers()
-    await updateUserDate("51cbf5e0-8031-7089-8eee-d1463ad65583","german")
+    console.log("essssss"+userSub)
+   // await createUser()
+   // await getAllUsers()
+   // await updateUserDate("51cbf5e0-8031-7089-8eee-d1463ad65583","german")
+
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
       title: "Success",
       textBody: "Se guardaron los cambios",
       button: "close",
     });
-  }catch(error){console.log(error.menssage)}
+  }catch(error){
+    console.log(error.menssage)
+  }
   };
 
   return (
@@ -71,6 +75,7 @@ function InfoDate({ label, value, canEdit, handleUpDate, handleContext }) {
           flexShrink: 1,
           marginHorizontal: 50,
           flex: 1,
+          width:"40%",
         }}
       />
     </View>
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: "500",
     color: "grey",
-    width: "60%",
+    width: "50%",
     fontSize: 16,
   },
   card: {
@@ -123,6 +128,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 6,
+  },
+  infoUser: {
+   width: "40%",
   },
 
   text: {

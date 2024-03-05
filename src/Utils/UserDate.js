@@ -3,24 +3,24 @@ import { API } from "aws-amplify";
 import * as mutations  from '../graphql/mutations';
 import * as queries from '../graphql/queries';
 
-export const createUser = async () => {
+export const createUser = async (email,name,middlename,sub) => {
 
   const todoDetails = {
-      nombre: "Cesar",
-      apellido: "Apellido",
-      imagen: "ruta/de/imagen.jpg",
-      pais: "País",
+      nombre: name,
+      apellido: middlename,
+      imagen: "agregar imagen",
+      pais: "ingresar pais",
       provincia: "Provincia",
       localidad: "Localidad",
       id_ubicacion: "id_de_ubicacion",
-      sub: "sub_valor",
+      sub: sub,
       notificaciones: "notificaciones_valor",
       publicaciones: "publicaciones_valor",
       dni: 12345678, // Recuerda que "dni" es un Int
       backup: ["ruta/de/backup1", "ruta/de/backup2"], // Recuerda que "backup" es una lista de String
       bloqueado: false,
       password: "contraseña",
-      email: "correo@ejemplo.com",
+      email: email,
       edad: 30 // Recuerda que "edad" es un Int
   };
   
