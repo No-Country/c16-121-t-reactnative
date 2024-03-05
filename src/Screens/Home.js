@@ -3,7 +3,8 @@ import { View, Text, SafeAreaView, FlatList, ScrollView } from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
-import { DarckProvider } from "../Context/DarckContext";
+import { DarckContext } from "../Context/DarckContext";
+import { useContext } from "react";
 const data = [
   {
     name: "laura lopez",
@@ -66,8 +67,11 @@ const data = [
 ];
 
 const Home = () => {
+
+  const { theme } = useContext(DarckContext);
+  const { background, margin,  height, borderBottomLeftRadius, borderBottomRightRadius } = theme;
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <SafeAreaView style={[{ flex: 1, backgroundColor: "white" }]}>
       <View style={{ flex: 3 / 5 }}>
         <HeaderMovil condition={true}></HeaderMovil>
       </View>

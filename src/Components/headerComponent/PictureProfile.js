@@ -7,10 +7,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity } from "react-native";
 import { Colors } from "../../Constants/Colors";
 import { IconToNotification } from "../iconNotification/iconToNotification";
-
+import { useContext } from "react";
+import { DarckContext} from "../../Context/DarckContext";
 export const PictureProfile = ({showButton}) => {
   const [picture, setPicture] = React.useState("");
-
+  const { theme } = useContext(DarckContext);
+    const { borderDarck } = theme;
   React.useEffect(() => {
     const getPhoto = async () => {
       const photo = await AsyncStorage.getItem("@pic");
@@ -20,6 +22,7 @@ export const PictureProfile = ({showButton}) => {
   });
 
   const pickImage = async () => {
+  
     if (Platform.OS !== "web") {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -73,11 +76,12 @@ export const PictureProfile = ({showButton}) => {
         console.log(e);
       }
     }
+    
   };
 
   return (
     <View style={style.container}>
-      <View style={style.profile}>
+      <View style={[style.profile, {borderColor: borderDarck }]}>
         {showButton && (
           <TouchableOpacity onPress={pickImage} style={style.button}>
             <Text style={{ fontSize: 18, color: "white", fontWeight:'800' }}>+</Text>
@@ -101,23 +105,24 @@ const style = StyleSheet.create({
   container: {
     //  flexDirection:'column',
     alignItems: "center",
-
     flex: 1,
     justifyContent: "center",
+    
   },
   profile: {
     // width: 70,
     // height:70,
     flex: 1,
     aspectRatio: 1,
-    borderWidth: 2,
+    borderWidth: 3,
     borderRadius: 200,
-
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
     overflow: "hidden",
+    borderColor:'black',
+    
   },
   iconNotification:{
     position:'absolute',
@@ -129,7 +134,6 @@ const style = StyleSheet.create({
     height: "35%",
     borderRadius: 100,
     backgroundColor: Colors.bottonLogin,
-   
     color: "black",
     position: "absolute",
     zIndex: 20,
