@@ -1,13 +1,29 @@
 import React from "react";
 
 const Darck = {
-  background: "black",
-  color: "white",
+  
+ 
+    background: "black",
+    colorText: "white",
+    inputDarck:'white',
+    borderDarck: 'white',
+    height: '%100',
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0,
+    margin:565,
+
+
+  
 };
 
 const Ligth = {
-    background: "white",
+    background: "#F3305F",
     color: "black",
+    height: 210,
+    borderBottomRightRadius: 900,
+    borderBottomLeftRadius: 900,
+    
+    
 };
 
 const DarckContext = React.createContext();
@@ -69,3 +85,5 @@ export { DarckContext, Darck, Ligth };
 
 // // export const useDarckContext = () => React.useContext(DarckContext);
 // export {DarckContext}
+
+

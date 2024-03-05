@@ -1,10 +1,16 @@
 import * as React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "../Constants/Colors";
-
+import { DarckContext } from "../Context/DarckContext";
+import { useContext } from "react";
 const BottonRegistro = ({ title, onPress }) => {
+
+  const { theme } = useContext(DarckContext);
+  const { background} = theme;
+
+  
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, {backgroundColor: background}]} onPress={onPress}>
       <Text style={styles.buttonText}> {title}</Text>
     </TouchableOpacity>
   );
@@ -30,3 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 export default BottonRegistro ;
+

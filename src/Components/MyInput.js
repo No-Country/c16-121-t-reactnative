@@ -1,13 +1,22 @@
 import React from "react";
+import { useContext } from "react";
 import { TextInput, View, StyleSheet } from "react-native";
+
+
+
 import { Colors } from "../Constants/Colors";
+import { DarckContext } from "../Context/DarckContext";
 
 const MyInput = ({ label, value, onChangeText, secureTextEntry, onBlur }) => {
+  const { theme } = useContext(DarckContext);
+  const { inputDarck } = theme;
+
+  
   return (
     
       <TextInput
         placeholder={label}
-        style={styles.input}
+        style={[styles.input,{ backgroundColor: inputDarck}]}
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
@@ -31,3 +40,8 @@ const styles = StyleSheet.create({
   },
 });
 export default MyInput;
+
+
+
+
+
