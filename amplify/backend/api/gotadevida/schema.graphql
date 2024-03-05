@@ -26,7 +26,7 @@ type ReciboDonaciones @model @auth(rules: [{allow: public}]) {
   fecha: AWSDate
 }
 
-type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}]) {
+type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
   id: ID!
   nombre: String!
   apellido: String!
@@ -42,14 +42,18 @@ type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}]) {
   backup: [String]
   bloqueado: Boolean
   telefono: AWSPhone
-  ReciboDonaciones: [ReciboDonaciones] @hasMany(indexName: "byUsuarios", fields: ["id"])
+  ReciboDonaciones: [Publicacion] @hasMany(indexName: "byUsuarios", fields: ["id"])
   Rol: Rol @hasOne
   password: String
   email: String
   edad: Int
   habilitado: Boolean
   Publicacions: [Publicacion] @hasMany(indexName: "byUsuarios", fields: ["id"])
+<<<<<<< HEAD
+  Reacciones: [Publicacion] @hasMany(indexName: "byUsuarios", fields: ["id"])
+=======
   Reacciones: [Reacciones] @hasMany(indexName: "byUsuarios", fields: ["id"])
+>>>>>>> fe563f0855307fb76cc934b2684e5902bc91f6d4
   tipoSangre: String
 }
  

@@ -154,14 +154,18 @@ type EagerUsuarios = {
   readonly backup?: (string | null)[] | null;
   readonly bloqueado?: boolean | null;
   readonly telefono?: string | null;
-  readonly ReciboDonaciones?: (ReciboDonaciones | null)[] | null;
+  readonly ReciboDonaciones?: (Publicacion | null)[] | null;
   readonly Rol?: Rol | null;
   readonly password?: string | null;
   readonly email?: string | null;
   readonly edad?: number | null;
   readonly habilitado?: boolean | null;
   readonly Publicacions?: (Publicacion | null)[] | null;
+<<<<<<< HEAD
+  readonly Reacciones?: (Publicacion | null)[] | null;
+=======
   readonly Reacciones?: (Reacciones | null)[] | null;
+>>>>>>> fe563f0855307fb76cc934b2684e5902bc91f6d4
   readonly tipoSangre?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -188,14 +192,18 @@ type LazyUsuarios = {
   readonly backup?: (string | null)[] | null;
   readonly bloqueado?: boolean | null;
   readonly telefono?: string | null;
-  readonly ReciboDonaciones: AsyncCollection<ReciboDonaciones>;
+  readonly ReciboDonaciones: AsyncCollection<Publicacion>;
   readonly Rol: AsyncItem<Rol | undefined>;
   readonly password?: string | null;
   readonly email?: string | null;
   readonly edad?: number | null;
   readonly habilitado?: boolean | null;
   readonly Publicacions: AsyncCollection<Publicacion>;
+<<<<<<< HEAD
+  readonly Reacciones: AsyncCollection<Publicacion>;
+=======
   readonly Reacciones: AsyncCollection<Reacciones>;
+>>>>>>> fe563f0855307fb76cc934b2684e5902bc91f6d4
   readonly tipoSangre?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

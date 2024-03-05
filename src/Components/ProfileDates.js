@@ -17,21 +17,27 @@ import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import DialogAlert from "./DialogAlert";
 import MyBottom from "./MyBottom";
 import { createUser, getAllUsers, updateUserDate } from "../Utils/UserDate";
+import { useEffect, useState } from "react";
 
 const ProfileDates = () => {
-  const { sub,authState,userSub } = React.useContext(AuthContext);
-  const userName = authState && authState.attributes && authState.attributes.name;
- const idUser = authState && authState.attributes && authState.attributes.sub;
+  const { userSub,dbUserInfo } = React.useContext(AuthContext);
   const { donorData } = React.useContext(DonorContext);
+  
+
+  useEffect(()=>{
+   
+  },[])
+  
 
   const donorInfo = donorData || { donaciones: [] };
   const handleDialog = async() => {
     try{
-    console.log("essssss"+userSub)
-   // await createUser()
+    
+    //console.log("essssss"+userSub)
+    //await createUser("cesarrhalier@gmail.com","cesar","haa","e15ba570-00a1-700c-92e2-cfff1d3c6d45")
    // await getAllUsers()
-   // await updateUserDate("51cbf5e0-8031-7089-8eee-d1463ad65583","german")
-
+   //await updateUserDate(userSub,"german")
+   console.log(dbUserInfo)
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
       title: "Success",
@@ -43,14 +49,22 @@ const ProfileDates = () => {
   }
   };
 
+  const {id,nombre,apellido,edad,email,telefono,tipoSangre,dni,localidad,provincia,pais}=dbUserInfo
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
-        <InfoDate label={"Nombre"} value={"userName"} />
-        <InfoDate label={"Edad   "} canEdit value={"28"} />
-        <InfoDate label={"Nacimiento"} canEdit value={"17/07/95"} />
-        <InfoDate label={"Ciudad"} canEdit value={"CORDOBA"} />
+        <InfoDate label={"nombre"} value={nombre} />
+        <InfoDate label={"apellido"} value={apellido} />
+        <InfoDate label={"edad"} canEdit value={edad} />
+        <InfoDate label={"email"} canEdit value={email} />
+        <InfoDate label={"telefono"} canEdit value={telefono} />
+        <InfoDate label={"tipoSangre"} canEdit value={tipoSangre} />
+        <InfoDate label={"dni"} canEdit value={dni} />
+        <InfoDate label={"Ciudad"} canEdit value={localidad} />
+        <InfoDate label={"provincia"} canEdit value={provincia} />
+        <InfoDate label={"pais"} canEdit value={pais} />
         <MyBottom title="Guardar" onPress={handleDialog} />
       </View>
       {donorData && donorInfo.donaciones && <DonationsList />}
@@ -59,23 +73,34 @@ const ProfileDates = () => {
 };
 //en db ciudad es LOCALIDAD
 
-function InfoDate({ label, value, canEdit, handleUpDate, handleContext }) {
+function InfoDate({ label, value, canEdit }) {
   const [localValue, setLocalValue] = React.useState(value);
+  const [info, setInfo] = React.useState({});
+  console.log(info)
+
+  const handleInfoChange = (newValue) => {
+    setLocalValue(newValue);
+    setInfo(prevState => ({
+      ...prevState,
+      [label]: newValue
+    }));
+  };
+
   return (
     <View style={styles.fielContainer}>
       <Text style={styles.label}> {label}</Text>
       <TextInput
         placeholder={label}
         keyboardType={canEdit ? "web-search" : "default"}
-        onChangeText={canEdit && setLocalValue}
+        onChangeText={canEdit && handleInfoChange}
         value={localValue}
         onSubmitEditing={() => alert("hello")}
         style={{
           fontWeight: "500",
           flexShrink: 1,
-          marginHorizontal: 50,
+          marginHorizontal: 10,
           flex: 1,
-          width:"40%",
+          width:"auto",
         }}
       />
     </View>
@@ -110,6 +135,7 @@ const styles = StyleSheet.create({
     color: "grey",
     width: "50%",
     fontSize: 16,
+    marginLeft:10,
   },
   card: {
     flex: 1,

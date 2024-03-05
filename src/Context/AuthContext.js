@@ -2,39 +2,42 @@
 //pasarse a todos mis componentes sin tener que volver a escribir codigo
 
 import * as React from "react";
-import { Auth ,  DataStore, API, graphqlOperation } from "aws-amplify";
+import { Auth, DataStore, API, graphqlOperation } from "aws-amplify";
 import { Usuarios } from '../models';
-import { ALERT_TYPE,Dialog,Toast } from 'react-native-alert-notification';
+import { ALERT_TYPE, Dialog, Toast } from 'react-native-alert-notification';
 import { createUser } from "../Utils/UserDate";
+import * as queries from '../graphql/queries';
 //import "@azure/core-asynciterator-polyfill";
 
 const AuthContext = React.createContext({
+  dbUserInfo: {},
+  setDbUserInfo: () => { },
   authState: "signIn",
-  setAuthState: () => {},
+  setAuthState: () => { },
   email: "",
-  setEmail: () => {},
+  setEmail: () => { },
   password: "",
-  setPassword: () => {},
+  setPassword: () => { },
   verificationCode: "",
-  setVerificationCode: () => {},
+  setVerificationCode: () => { },
   isLoading: false,
-  hadleSignIn: () => {},
-  hadleSignUp: async () => {},
-  handleChangePassword: () => {},
-  handleForgotPassword: () => {},
-  handleForgotPasswordSubmit: () => {},
+  hadleSignIn: () => { },
+  hadleSignUp: async () => { },
+  handleChangePassword: () => { },
+  handleForgotPassword: () => { },
+  handleForgotPasswordSubmit: () => { },
   name: "",
-  setName: () => {},
+  setName: () => { },
   firstName: "",
   middlename: "",
-  setMiddleName: () => {},
-  setFirstName: () => {},
+  setMiddleName: () => { },
+  setFirstName: () => { },
   lastName: "",
-  setLastName: () => {},
+  setLastName: () => { },
   date: "",
-  setDate: () => {},
+  setDate: () => { },
   location: "",
-  setLocation: () => {},
+  setLocation: () => { },
   userSub: "",
 });
 
@@ -52,10 +55,11 @@ function AuthProvider({ children, navigation }) {
   const [verificationCode, setVerificationCode] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const sub = authState?.attributes?.sub;
-  const [userSub,setUserSub]=React.useState("");
-  
-  
-  React.useEffect(()=> {
+  const [userSub, setUserSub] = React.useState("");
+  const [dbUserInfo, setDbUserInfo] = React.useState({});
+
+
+  React.useEffect(() => {
 
     Auth.currentAuthenticatedUser()
       .then((user) => {
@@ -67,30 +71,45 @@ function AuthProvider({ children, navigation }) {
         setUserSub("");
       });
 
-  }, [handleSignIn])
+    // Buscar el usuario por su ID
+    const readInfoUser = async () => {
 
-// console.log(authState, "user aquiii");
+      if (userSub) {
+        const oneTodo = await API.graphql({
+          query: queries.getUserBySubQuery,
+          variables: { sub: userSub }
+        });
+        let userdb = oneTodo.data.listUsuarios.items[0]
+        console.log(userdb)
+        setDbUserInfo(userdb)
+      }
+    }
+    readInfoUser()
+
+  }, [handleSignIn, userSub])
+
+  // console.log(authState, "user aquiii");
 
 
 
-// React.useEffect(()=>{
+  // React.useEffect(()=>{
 
-//   DataStore.query(Usuarios, (user) => user.sub.eq(sub))
-//     .then((users) => setDbUser(users[0]))
-//     .catch((error) => console.error('Error fetching user data: ', error));
-//   }, [sub])
+  //   DataStore.query(Usuarios, (user) => user.sub.eq(sub))
+  //     .then((users) => setDbUser(users[0]))
+  //     .catch((error) => console.error('Error fetching user data: ', error));
+  //   }, [sub])
 
- const handleSignIn=async()=>{
+  const handleSignIn = async () => {
     //se puede validar que lo ingresado sea un email o contraseña correcta
     if (!email || !password) {
-      Toast.show({
+      Dialog.show({
         type: ALERT_TYPE.WARNING,
         title: 'Error',
         textBody: 'Por favor ingresa email y contraseña',
         button: 'Cerrar',
       })
       return;
-      
+
     }
     try {
       setIsLoading(true);
@@ -100,19 +119,18 @@ function AuthProvider({ children, navigation }) {
 
       });
       const username = user.attributes.name;
-      setName(username) 
-      console.log('USEEER',username)
+      setName(username)
+      console.log('USEEER', username)
       Dialog.show({
         type: ALERT_TYPE.SUCCESS,
         title: 'Success',
-        textBody: `Bienvenido ${username[0].toUpperCase()+username.slice(1)}...`,
+        textBody: `Bienvenido ${username[0].toUpperCase() + username.slice(1)}...`,
         button: 'Cerrar',
       })
       console.log("user signed In");
-      console.log(user)
+      //console.log(user)
       setAuthState("signedIn");
 
-      //hay que guardar este user en BD
     } catch (e) {
       Dialog.show({
         type: ALERT_TYPE.WARNING,
@@ -122,17 +140,17 @@ function AuthProvider({ children, navigation }) {
       })
       setIsLoading(false);
       console.log(e);
-      
+
     }
   }
-  
+
   const handleSignUp = async () => {
-   
+
     try {
       if (!email || !password) {
         throw Error('Por favor completar los campos vacios');
       }
-      console.log('NOMBRE' ,name )
+      console.log('NOMBRE', name)
 
       setIsLoading(true);
       const signUpResponse = await Auth.signUp({
@@ -145,9 +163,15 @@ function AuthProvider({ children, navigation }) {
         },
       });
 
+<<<<<<< HEAD
+      let sub = signUpResponse.userSub
+
+      await createUser(email, name, middlename, sub)
+=======
       let sub=signUpResponse.userSub
 
       await createUser(email,name,middlename,sub)
+>>>>>>> fe563f0855307fb76cc934b2684e5902bc91f6d4
 
       // await API.graphql(graphqlOperationp(createUsuarios, {
       //   input: {
@@ -180,84 +204,92 @@ function AuthProvider({ children, navigation }) {
     }
   }
 
-  const handleConfirmSignUp = async (verificationCode, email) => { 
+  const handleConfirmSignUp = async (verificationCode, email) => {
     if (!verificationCode || !email) {
       console.log("Este es el user: ", email);
-        setIsLoading(false);
-        Dialog.show({
-          type: ALERT_TYPE.WARNING,
-          title: 'Error',
-          textBody: "Por favor ingresa el código de verificación",
-          button: 'Cerrar',
-        })
-        return;
+      setIsLoading(false);
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: 'Error',
+        textBody: "Por favor ingresa el código de verificación",
+        button: 'Cerrar',
+      })
+      return;
     }
     try {
-        setIsLoading(true);
-        await Auth.confirmSignUp(email, verificationCode);
-        console.log("Confirmado. Ahora puedes iniciar sesión");
-        setAuthState("signIn");
-        navigation.navigate("Login");
+      setIsLoading(true);
+      await Auth.confirmSignUp(email, verificationCode);
+      console.log("Confirmado. Ahora puedes iniciar sesión");
+      setAuthState("signIn");
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: 'Success',
+        textBody: 'Código de verificación correcto',
+        button: 'Cerrar',
+      })
+      navigation.navigate("Login");
     } catch (error) {
-        console.error("Error: ", error);
-        Dialog.show({
-          type: ALERT_TYPE.WARNING,
-          title: 'Error',
-          textBody: error.message,
-          button: 'Cerrar',
-        })
+      console.error("Error: ", error);
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: 'Error',
+        textBody: error.message,
+        button: 'Cerrar',
+      })
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
-const handleChangePassword = async (currentUser, newPassword, confirmNewPassword) => {
-  try {
-    currentUser = await Auth.currentAuthenticatedUser();
-    await Auth.completeNewPassword(currentUser, newPassword, confirmNewPassword);
-    console.log("Contraseña cambiada exitosamente");
-    Alert.alert("Exito", "Contraseña cambiada exitosamente");
-  } catch (error) {
-    console.error("Error al cambiar la contraseña:", error);
-    Alert.alert("Error", error.message);
-  }
-};
+  const handleChangePassword = async (currentUser, newPassword, confirmNewPassword) => {
+    try {
+      currentUser = await Auth.currentAuthenticatedUser();
+      await Auth.completeNewPassword(currentUser, newPassword, confirmNewPassword);
+      console.log("Contraseña cambiada exitosamente");
+      Alert.alert("Exito", "Contraseña cambiada exitosamente");
+    } catch (error) {
+      console.error("Error al cambiar la contraseña:", error);
+      Alert.alert("Error", error.message);
+    }
+  };
 
 
-const handleForgotPassword = async (email) => {
-  console.log("entro a forgotPassword")
-  try {
-    await Auth.forgotPassword(email);
-    console.log(
-      "Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña"
-    );
-    // navigation.navigate("VerificationPasswordChange");
-    // Agrega aquí la navegación a la pantalla de confirmación de restablecimiento de contraseña si es necesario
-  } catch (error) {
-    console.log("este es el email: ", email);
-    console.error(
-      "Error al enviar correo electrónico de restablecimiento de contraseña:",
-      error
-    );
-    // Manejar el error aquí
-  }
-};
+  const handleForgotPassword = async (email) => {
+    console.log("entro a forgotPassword")
+    try {
+      await Auth.forgotPassword(email);
+      console.log(
+        "Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña"
+      );
+      // navigation.navigate("VerificationPasswordChange");
+      // Agrega aquí la navegación a la pantalla de confirmación de restablecimiento de contraseña si es necesario
+    } catch (error) {
+      console.log("este es el email: ", email);
+      console.error(
+        "Error al enviar correo electrónico de restablecimiento de contraseña:",
+        error
+      );
+      // Manejar el error aquí
+    }
+  };
 
-const handleForgotPasswordSubmit = async (email, code, newPassword) => {
-  try {
-    await Auth.forgotPasswordSubmit(email, code, newPassword);
-    console.log("Contraseña restablecida exitosamente");
-    navigation.navigate("Login");
-    // Agrega aquí la navegación a la pantalla de inicio de sesión o una pantalla de éxito si es necesario
-  } catch (error) {
-    console.error("Error al restablecer la contraseña:", error);
-    // Manejar el error aquí
-  }
-};
+  const handleForgotPasswordSubmit = async (email, code, newPassword) => {
+    try {
+      await Auth.forgotPasswordSubmit(email, code, newPassword);
+      console.log("Contraseña restablecida exitosamente");
+      navigation.navigate("Login");
+      // Agrega aquí la navegación a la pantalla de inicio de sesión o una pantalla de éxito si es necesario
+    } catch (error) {
+      console.error("Error al restablecer la contraseña:", error);
+      // Manejar el error aquí
+    }
+  };
 
   return (
     <Provider
       value={{
+        dbUserInfo,
+        setDbUserInfo,
         userSub,
         authState,
         setAuthState,
@@ -286,4 +318,4 @@ const handleForgotPasswordSubmit = async (email, code, newPassword) => {
     </Provider>
   );
 }
-export {AuthContext,AuthProvider};
+export { AuthContext, AuthProvider };
