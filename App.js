@@ -51,7 +51,7 @@ export default function App() {
   const [signedIn, setSignedIn] = React.useState(false);
 
   const listener = (data) => {
-    console.log('Evento recibido:', data.payload);
+    // console.log('Evento recibido:', data.payload);
     switch (data.payload.event) {
       case "signIn":
         const { attributes } = data.payload.data;

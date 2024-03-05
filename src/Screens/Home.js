@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, SafeAreaView, FlatList, ScrollView } from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
 import { DarckProvider } from "../Context/DarckContext";
+import Publication from "../Components/Publication";
+import { DataStore } from '@aws-amplify/datastore';
+import { Publicacion } from '../models';
+import { getPublicacion } from "../graphql/queries";
+import { fetchUserByEmail, getPost, getUser } from "../Utils/userPublication";
 const data = [
   {
     name: "laura lopez",
@@ -66,20 +71,38 @@ const data = [
 ];
 
 const Home = () => {
+
+  const [publicationOn, setPublicationOn] = useState(true);
+
+  // const models = async () => await DataStore.query(Publicacion);
+  // const models = getPublicacion("8a6d3d3a-f5b7-4d08-8056-98f3f6dd896c")
+  // console.log("models", models);
+
+  const userEmail = 'marpotichkin@gmail.com'; 
+const userInfo = fetchUserByEmail(userEmail);
+console.log('Datos del usuario:', userInfo);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ flex: 3 / 5 }}>
         <HeaderMovil condition={true}></HeaderMovil>
       </View>
-
-      <FlatList
+      <ScrollView style={{ marginTop: 250, marginBottom: 40}}>
+        {publicationOn && 
+          <View style={{alignItems: "center"}}>
+            <Text>¿Buscas donador?</Text>
+            <Publication/>
+          </View>
+        }
+      </ScrollView>
+       {/* <FlatList
         data={data}
         renderItem={({ item }) => <PostCard itemProfile={item}></PostCard>}
         keyExtractor={(item) => item.name}
         style={{ marginTop: 110, marginBottom: -390 }}
-      ></FlatList>
+      ></FlatList> 
 
-      <CardHome />
+      <CardHome />   */}
     </SafeAreaView>
     /* <View style={{ flex: 5/7
     }}>

@@ -50,22 +50,21 @@ function AuthProvider({ children, navigation }) {
   const [verificationCode, setVerificationCode] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const sub = authState?.attributes?.sub;
-
-  Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
+  
   React.useEffect(()=> {
-    
-  }, [])
+    Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
+  }, [handleSignIn])
 
-console.log(authState, "user aquiii");
+// console.log(authState, "user aquiii");
 
 
 
-React.useEffect(()=>{
+// React.useEffect(()=>{
 
-  DataStore.query(Usuarios, (user) => user.sub.eq(sub))
-    .then((users) => setDbUser(users[0]))
-    .catch((error) => console.error('Error fetching user data: ', error));
-  }, [sub])
+//   DataStore.query(Usuarios, (user) => user.sub.eq(sub))
+//     .then((users) => setDbUser(users[0]))
+//     .catch((error) => console.error('Error fetching user data: ', error));
+//   }, [sub])
 
  const handleSignIn=async()=>{
     //se puede validar que lo ingresado sea un email o contraseña correcta
@@ -124,7 +123,7 @@ React.useEffect(()=>{
           middle_name: middlename,
         },
       });
-
+      subUser = signUpResponse.userSub
       // await API.graphql(graphqlOperationp(createUsuarios, {
       //   input: {
       //     email: email,
