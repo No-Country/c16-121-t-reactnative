@@ -104,21 +104,22 @@ export const getPublications = async () => {
   try {
     const post = await API.graphql({
       query: queries.listPublicacions,
-      // variables: {
-      //   filter: {
-      //     fecha: { between: [fechaLimiteFormateada, fechaActual] },
-      //   },
-      //   limit: 10,
-      // },
-      filter: {
-            fecha: { between: [fechaLimiteFormateada, fechaActual] },
-          }
-      // variables: {
-      //   startDate: fechaLimiteFormateada,
-      //   endDate: fechaFormateada,
-      // },
+      variables: {
+        filter: {
+          fecha: { between: [fechaLimiteFormateada, fechaActual] }, 
+          _deleted: { ne: true },
+        },
+        // limit: 100,
+        // sort: {
+        //   field: "fecha",
+        //   direction: "desc",
+        // },
+      },
     });
-    console.log("PUBLICACIONES:", post.data.listPublicacions.items.length);
+
+    console.log("publicaciones", post.data.listPublicacions.items.length);
+    return post.data.listPublicacions.items
+    
   } catch (e) {
     console.log(e);
   }

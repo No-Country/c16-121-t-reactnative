@@ -61,14 +61,14 @@ getPublications().then((publicaciones) => {
         <TouchableOpacity onPress={handleSearchDonor}>
           <Text>¿Buscas donador?{">"}</Text>
         </TouchableOpacity>
-        <FlatList
+        {/* <FlatList
           data={data}
           renderItem={({ item }) => <PostCard itemProfile={item}></PostCard>}
           keyExtractor={(item) => item.name}
           style={{ marginTop: 110, marginBottom: -390 }}
-        ></FlatList>
+        ></FlatList> */}
 
-        {/* <CardHome /> */}
+        <CardHome />
       </View>
     </SafeAreaView>
     /* <View style={{ flex: 5/7
