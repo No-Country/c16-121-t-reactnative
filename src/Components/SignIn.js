@@ -10,7 +10,9 @@ import { Colors } from "../Constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { signInWithFacebook } from "../Utils/authSocial";
+import { useContext } from "react";
 const { width, height } = Dimensions.get("window");
+import { DarckContext } from "../Context/DarckContext";
 
 const SignIn = () => {
 const [loading, setLoading] = React.useState(false);
@@ -20,6 +22,8 @@ const [loading, setLoading] = React.useState(false);
   
   
   const onHandleSign = async () => {
+
+   
     try {
       setLoading(true);
       await handleSignIn();
@@ -46,8 +50,10 @@ const [loading, setLoading] = React.useState(false);
   const handleForgotPasswordClick = () => {
     navigation.navigate('RecoverPassword')
   }
-  
+  const { theme } = useContext(DarckContext);
+  const { colorText} = theme;
   return (
+    
     <React.Fragment>
       <ScrollView>
         <View style={styles.cont}>
@@ -77,7 +83,7 @@ const [loading, setLoading] = React.useState(false);
 
       <Pressable onPress={handleForgotPasswordClick}>
 
-        <Text style={styles.textForgotPassword}>
+        <Text style={[styles.textForgotPassword, {color: colorText }]}>
           {" "}
           ¿Olvidaste tu contraseña?{" "}
         </Text>
@@ -91,7 +97,7 @@ const [loading, setLoading] = React.useState(false);
 
 
       <Pressable>
-        <Text style={styles.textPass}> ¿No tienes una cuenta? </Text>
+        <Text style={[styles.textPass, {color: colorText }]}> ¿No tienes una cuenta? </Text>
       </Pressable>
 
       <BottonRegistro

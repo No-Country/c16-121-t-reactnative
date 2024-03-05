@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, scr } from "react-native";
 import { Colors } from "../Constants/Colors";
 import { DarckContext } from "../Context/DarckContext";
 
 const Background = () => {
   const { theme } = useContext(DarckContext);
-  const { background } = theme;
+  const { background, margin,  height, borderBottomLeftRadius, borderBottomRightRadius } = theme;
 
   return (
-    <View style={[styles.background, { backgroundColor: background }]}>
+    <View style={[styles.background, { backgroundColor: background, height,borderBottomLeftRadius, borderBottomRightRadius  }]}>
       <Image
         source={require("../Assets/Logo.png")}
-        style={styles.backgroundImage}
+        style={[styles.backgroundImage, { marginBottom:margin }]}
       />
     </View>
   );
@@ -29,11 +29,15 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 900,
     zIndex: -1,
     alignItems: "center",
+    
   },
   backgroundImage: {
     flex: 1,
     width: 200,
     resizeMode: "contain",
+    
+
+    
   },
 });
 

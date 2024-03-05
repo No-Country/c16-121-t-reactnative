@@ -10,11 +10,8 @@ import {
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
-import { DarckProvider } from "../Context/DarckContext";
-import Publication from "../Components/Publication";
-import { DataStore } from "@aws-amplify/datastore";
-import { Publicacion } from "../models";
-import { getPublicacion } from "../graphql/queries";
+import { DarckContext } from "../Context/DarckContext";
+import { useContext } from "react";
 import {
   fetchUserByEmail,
   getAllPublications,
@@ -24,7 +21,7 @@ import {
   getUser,
 } from "../Utils/userPublication";
 import { useNavigation } from "@react-navigation/native";
-import { AWSDates } from 'aws-amplify';
+
 
 const data = [
   {
@@ -42,6 +39,10 @@ const data = [
 ];
 
 const Home = () => {
+
+  const { theme } = useContext(DarckContext);
+  const { background, margin,  height, borderBottomLeftRadius, borderBottomRightRadius } = theme;
+
   const navigation = useNavigation();
   const handleSearchDonor = () => {
     navigation.navigate("DonorSearchForm");
@@ -52,7 +53,7 @@ getPublications().then((publicaciones) => {
 });
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <SafeAreaView style={[{ flex: 1, backgroundColor: "white" }]}>
       <View style={{ flex: 3 / 5 }}>
         <HeaderMovil condition={true}></HeaderMovil>
       </View>

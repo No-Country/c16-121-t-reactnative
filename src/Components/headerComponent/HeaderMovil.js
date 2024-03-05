@@ -11,19 +11,24 @@ import {
 } from "react-native";
 import { Colors } from "../../Constants/Colors";
 import { PictureProfile } from "./PictureProfile";
-
+import { DarckContext } from "../../Context/DarckContext";
+import { useContext } from "react";
+import Background from "../Background";
 export const HeaderMovil = ({ condition }) => {
 
   const toggleForm = () => {
     console.log("abriendo formulario");
   };
 
+  const { theme } = useContext(DarckContext);
+  const { background } = theme;
+
   return (
-    <View style={headerStyle.background}>
-      {/* <View style={condition ? headerStyle.headerToHome : headerStyle.headerToProfile}> */}
+    <View style={[headerStyle.background,{backgroundColor:background}]}>
+     
       <View style={headerStyle.logoProfileContainer}>
         <View style={headerStyle.containerLogo}>
-          {/* <Image style={[headerStyle.logo, condition ? headerStyle.logoHome : headerStyle.logoProfile,]} source={require("../../../assets/logo.png")}></Image> */}
+         
           <Image style={headerStyle.logo} source={require("../../../assets/logo.png")}></Image>
         </View>
         {condition ? (
@@ -92,6 +97,7 @@ const headerStyle = StyleSheet.create({
   containerLogo: {
     width: 80,
     height: 80,
+
   },
   logo: {
     width: "100%",

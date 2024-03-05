@@ -98,10 +98,11 @@ const DonorForm = () => {
       {!isEditing ?
         <>
           <View style={styles.donorContainer}>
-          <TouchableOpacity  onPress={toggleEdit}>
-            <Text style={styles.textUpdate}>Actualizar los datos {">"}</Text>
-          </TouchableOpacity>
+          
             <DonorInfo canDonate={canDonate}/>
+            <TouchableOpacity  onPress={toggleEdit}>
+            <Text style={styles.textUpdate}>{"<"}Actualizar los datos </Text>
+          </TouchableOpacity>
           </View>
         </>
       :
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   donorContainer: {
-    width: "90%",
+    width: "98%",
     height: "100%",
     justifyContent: "flex-start",
     gap: 20,
