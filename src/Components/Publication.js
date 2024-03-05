@@ -5,12 +5,17 @@ import MyBottom from "./MyBottom";
 import MyInput from "./MyInput";
 import { Picker } from "@react-native-picker/picker";
 import { ScrollView } from "react-native-gesture-handler";
-import {createPublication} from "../Utils/userPublication"
+import { createPublication, getUser } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
 
 const Publication = () => {
-  const { subUser } = React.useContext(AuthContext);
-  // console.log("subUser", subUser);
+  const { userSub } = React.useContext(AuthContext);
+
+  getUser(userSub).then((userInfo) => {
+    console.log("Datos del usuario:", userInfo);
+    userId = userInfo;
+  });
+
   //DE BASE DE DATOS
   const tipoSangre = ["+ A", "- A", "+ B", "- B", "+ AB", "- AB", "+ O", "- O"];
 
@@ -19,6 +24,7 @@ const Publication = () => {
   const [ciudad, setCiudad] = useState("");
   const [telefono, setTelefono] = useState("");
   const [publicacion, setPublicacion] = useState("");
+  const [cant, setCant] = useState("");
   const [formData, setFormData] = useState({});
 
   const handleFormData = (field, value) => {
@@ -31,36 +37,47 @@ const Publication = () => {
   };
 
   function validation() {
-    // if(!selectSangre || !centro || !ciudad || !telefono || !publicacion){
-    //   alert("Faltan campos por completar")
-    // } else {
-    //   // handleSubmit()
+    if (!selectSangre || !centro || !ciudad || !telefono || !publicacion || !cant) {
+      alert("Faltan campos por completar");
+    } else {
+      // // handleSubmit()
       // createPublication()
-    // }
-  }
+      const fechaActual = new Date();
+      const fechaFormateada = fechaActual.toISOString().split("T")[0];
 
-  
+      const publicationDetails = {
+        publicacion: publicacion,
+        fecha: fechaFormateada,
+        habilitada: true,
+        cantidadRequeridos: cant,
+        usuariosID: userId,
+        tipoSangre: selectSangre,
+      };
+      console.log("handlesubmit ", publicationDetails);
+      createPublication(publicationDetails);
+    }
+  }
 
   const handleSubmit = () => {
     const fechaActual = new Date();
-    const fechaFormateada = fechaActual.toISOString().split('T')[0]
+    const fechaFormateada = fechaActual.toISOString().split("T")[0];
 
-    const todoDetails = {
+    const publicationDetails = {
       publicacion: publicacion,
       fecha: fechaFormateada,
       habilitada: true,
       // cantidadRequeridos: 10,
-      usuariosID: sub,
-      tipoSangre: selectSangre
+      usuariosID: userId,
+      tipoSangre: selectSangre,
     };
-    console.log("handlesubmit ",todoDetails);
-    createPublication(todoDetails);
+    console.log("handlesubmit ", publicationDetails);
+    createPublication(publicationDetails);
   };
 
   return (
     <View style={styles.publicationContainer}>
       <View style={styles.columnContainer}>
-        <View style={{ flex: 1/2 }}>
+        <View style={{ flex: 1 / 2 }}>
           <Text style={styles.text}>Tipo de sangre</Text>
           <View style={styles.pickerContainer}>
             <Picker
@@ -76,34 +93,55 @@ const Publication = () => {
             </Picker>
           </View>
           <Text style={styles.text}>Centro de donación</Text>
-          <TextInput style={styles.input} value={centro}
+          <TextInput
+            style={styles.input}
+            value={centro}
             onChangeText={(text) => {
               setCentro(text), handleFormData("centro", text);
-            }}/>
+            }}
+          />
+          <Text style={styles.text}>Cantidad de donantes</Text>
+          <TextInput
+            style={styles.input}
+            value={cant}
+            onChangeText={(text) => {
+              setCant(text), handleFormData("cant", text);
+            }}
+          />
         </View>
 
-        <View style={{ flex: 1/2 }}>
+        <View style={{ flex: 1 / 2 }}>
           <Text style={styles.text}>Ciudad</Text>
-          <TextInput style={styles.input} value={ciudad}
+          <TextInput
+            style={styles.input}
+            value={ciudad}
             onChangeText={(text) => {
               setCiudad(text), handleFormData("ciudad", text);
-            }}/>
+            }}
+          />
           <Text style={styles.text}>Contacto</Text>
-          <TextInput style={styles.input} value={telefono}
+          <TextInput
+            style={styles.input}
+            value={telefono}
             onChangeText={(text) => {
               setTelefono(text), handleFormData("telefono", text);
-            }}/>
+            }}
+          />
         </View>
       </View>
 
       <Text>Deja tu mensaje aquí</Text>
       <ScrollView style={styles.textInputContainer}>
-        <TextInput style={styles.textInput} multiline={true} value={publicacion}
+        <TextInput
+          style={styles.textInput}
+          multiline={true}
+          value={publicacion}
           onChangeText={(text) => {
             setPublicacion(text), handleFormData("publicacion", text);
-          }}></TextInput>
+          }}
+        ></TextInput>
       </ScrollView>
-      <MyBottom title="Publicar" onPress={() => handleSubmit()}/>
+      <MyBottom title="Publicar" onPress={() => validation()} />
     </View>
   );
 };
@@ -118,16 +156,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
-  columnContainer:{
+  columnContainer: {
     flexDirection: "row",
     width: "90%",
-    gap: 14
+    gap: 14,
   },
-  text:{
+  text: {
     width: "100%",
-    marginVertical: 8
+    marginVertical: 8,
   },
-  input:{
+  input: {
     paddingHorizontal: 10,
     width: "100%",
     height: 45,
@@ -136,7 +174,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: Colors.input,
-    marginBottom: 4
+    marginBottom: 4,
   },
   pickerContainer: {
     // paddingHorizontal: 10,
@@ -148,7 +186,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: Colors.input,
-    marginBottom: 4
+    marginBottom: 4,
   },
   picker: {
     width: "100%",
