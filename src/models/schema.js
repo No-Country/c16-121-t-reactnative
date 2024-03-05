@@ -528,11 +528,7 @@ export const schema = {
                     "name": "Reacciones",
                     "isArray": true,
                     "type": {
-<<<<<<< HEAD
-                        "model": "Publicacion"
-=======
                         "model": "Reacciones"
->>>>>>> fe563f0855307fb76cc934b2684e5902bc91f6d4
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -625,9 +621,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-<<<<<<< HEAD
-    "version": "d6687a135c3f9c6e723d1a5c822332d5"
-=======
     "version": "7c23c30008096dd5baa261873d2766d2"
->>>>>>> fe563f0855307fb76cc934b2684e5902bc91f6d4
 };
