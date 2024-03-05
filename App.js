@@ -1,8 +1,6 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
-import { Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
-
-
+import { Amplify, Hub, AuthModeStrategyType,  API, graphqlOperation } from "aws-amplify";
 import config from "./src/aws-exports";
 import { AuthProvider } from "./src/Context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";

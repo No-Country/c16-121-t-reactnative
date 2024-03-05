@@ -5,7 +5,8 @@ import * as React from "react";
 import { Auth ,  DataStore, API, graphqlOperation } from "aws-amplify";
 import { Usuarios } from '../models';
 import { ALERT_TYPE,Dialog,Toast } from 'react-native-alert-notification';
-import "@azure/core-asynciterator-polyfill";
+import { createUser } from "../Utils/UserDate";
+//import "@azure/core-asynciterator-polyfill";
 
 const AuthContext = React.createContext({
   authState: "signIn",
@@ -34,6 +35,7 @@ const AuthContext = React.createContext({
   setDate: () => {},
   location: "",
   setLocation: () => {},
+  userSub: "",
 });
 
 const { Provider } = AuthContext;
@@ -50,9 +52,21 @@ function AuthProvider({ children, navigation }) {
   const [verificationCode, setVerificationCode] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const sub = authState?.attributes?.sub;
+  const [userSub,setUserSub]=React.useState("");
+  
   
   React.useEffect(()=> {
-    Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthState);
+
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        setAuthState("signedIn");
+        setUserSub(user.attributes.sub);
+      })
+      .catch(() => {
+        setAuthState("signIn");
+        setUserSub("");
+      });
+
   }, [handleSignIn])
 
 // console.log(authState, "user aquiii");
@@ -97,22 +111,29 @@ function AuthProvider({ children, navigation }) {
       console.log("user signed In");
       console.log(user)
       setAuthState("signedIn");
+
       //hay que guardar este user en BD
     } catch (e) {
-      alert(e.message);
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: 'Error',
+        textBody: e.message,
+        button: 'Cerrar',
+      })
       setIsLoading(false);
       console.log(e);
+      
     }
   }
   
   const handleSignUp = async () => {
-    if (!email || !password) {
-      alert("Por favor ingresa email y contraseña");
-      return;
-    }
-
-    console.log('NOMBRE' ,name )
+   
     try {
+      if (!email || !password) {
+        throw Error('Por favor completar los campos vacios');
+      }
+      console.log('NOMBRE' ,name )
+
       setIsLoading(true);
       const signUpResponse = await Auth.signUp({
         username: email.trim(),
@@ -123,7 +144,11 @@ function AuthProvider({ children, navigation }) {
           middle_name: middlename,
         },
       });
-      subUser = signUpResponse.userSub
+
+      let sub=signUpResponse.userSub
+     
+      await createUser(email,name,middlename,sub)
+
       // await API.graphql(graphqlOperationp(createUsuarios, {
       //   input: {
       //     email: email,
@@ -140,13 +165,18 @@ function AuthProvider({ children, navigation }) {
       setAuthState("confirmSignUp");
       setIsLoading(false);
 
-      // Redirigir a la pantalla de verificación
-      //navigation.navigate("Verification");
+      return true
+
     } catch (err) {
       setIsLoading(false);
-      alert(err.message);
-
-      console.log(e);
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: 'Error',
+        textBody: err.message,
+        button: 'Cerrar',
+      })
+      return false
+      console.log(err);
     }
   }
 
@@ -154,7 +184,12 @@ function AuthProvider({ children, navigation }) {
     if (!verificationCode || !email) {
       console.log("Este es el user: ", email);
         setIsLoading(false);
-        Alert.alert("Error", "Por favor ingresa el código de verificación");
+        Dialog.show({
+          type: ALERT_TYPE.WARNING,
+          title: 'Error',
+          textBody: "Por favor ingresa el código de verificación",
+          button: 'Cerrar',
+        })
         return;
     }
     try {
@@ -165,6 +200,12 @@ function AuthProvider({ children, navigation }) {
         navigation.navigate("Login");
     } catch (error) {
         console.error("Error: ", error);
+        Dialog.show({
+          type: ALERT_TYPE.WARNING,
+          title: 'Error',
+          textBody: error.message,
+          button: 'Cerrar',
+        })
     } finally {
         setIsLoading(false);
     }
@@ -217,6 +258,7 @@ const handleForgotPasswordSubmit = async (email, code, newPassword) => {
   return (
     <Provider
       value={{
+        userSub,
         authState,
         setAuthState,
         email,
