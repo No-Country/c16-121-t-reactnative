@@ -21,12 +21,7 @@ const VerificationScreen = () => {
         console.log("Valor de verificationCode:", enteredCode);
         try {
             await handleConfirmSignUp(enteredCode, correo);
-            Dialog.show({
-                type: ALERT_TYPE.SUCCESS,
-                title: 'Success',
-                textBody: 'Código de verificación correcto',
-                button: 'Cerrar',
-              })
+            
         } catch (error) {
             Dialog.show({
                 type: ALERT_TYPE.WARNING,

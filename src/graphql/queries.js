@@ -271,6 +271,36 @@ export const reciboDonacionesByUsuariosID = /* GraphQL */ `
     }
   }
 `;
+export const getUserBySubQuery = /* GraphQL */ `
+  query GetUserBySub($sub: String!) {
+    listUsuarios(filter: { sub: { eq: $sub } }) {
+      items {
+        id
+        nombre
+        apellido
+        imagen
+        pais
+        provincia
+        localidad
+        id_ubicacion
+        sub
+        notificaciones
+        publicaciones
+        dni
+        backup
+        bloqueado
+        telefono
+        password
+        email
+        edad
+        habilitado
+        tipoSangre
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
 export const getUsuarios = /* GraphQL */ `
   query GetUsuarios($id: ID!) {
     getUsuarios(id: $id) {
