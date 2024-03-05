@@ -9,6 +9,7 @@ import ProcesoDeDonacion from "../Screens/ProcesoDeDonacion";
 import Login from "../Screens/Login";
 import MyTabs from "./Tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import DonorSearchForm from "../Screens/DonorSearchForm";
 
 const UserStack = createStackNavigator();
 
@@ -34,6 +35,7 @@ export default function MyStack() {
         <UserStack.Screen name="Login" component={Login} />
         <UserStack.Screen name="PorQueDonar" component={PorqueDonar} />
         <UserStack.Screen name="ProcesoDeDonacion" component={ProcesoDeDonacion} />
+        <UserStack.Screen name="DonorSearchForm" component={DonorSearchForm} />
 
       </UserStack.Navigator>
     </NavigationContainer>

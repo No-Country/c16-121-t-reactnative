@@ -4,9 +4,10 @@ import { schema } from './schema';
 
 
 
-const { Publicacion, Rol, ReciboDonaciones, Usuarios } = initSchema(schema);
+const { Reacciones, Publicacion, Rol, ReciboDonaciones, Usuarios } = initSchema(schema);
 
 export {
+  Reacciones,
   Publicacion,
   Rol,
   ReciboDonaciones,

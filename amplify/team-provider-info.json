@@ -17,6 +17,9 @@
       },
       "storage": {
         "s3gotadevidastorage5daf82d0": {}
+      },
+      "api": {
+        "gotadevida": {}
       }
     }
   }

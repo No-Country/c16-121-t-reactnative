@@ -1,6 +1,57 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateReacciones = /* GraphQL */ `
+  subscription OnCreateReacciones(
+    $filter: ModelSubscriptionReaccionesFilterInput
+  ) {
+    onCreateReacciones(filter: $filter) {
+      id
+      usuariosID
+      publicacionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateReacciones = /* GraphQL */ `
+  subscription OnUpdateReacciones(
+    $filter: ModelSubscriptionReaccionesFilterInput
+  ) {
+    onUpdateReacciones(filter: $filter) {
+      id
+      usuariosID
+      publicacionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteReacciones = /* GraphQL */ `
+  subscription OnDeleteReacciones(
+    $filter: ModelSubscriptionReaccionesFilterInput
+  ) {
+    onDeleteReacciones(filter: $filter) {
+      id
+      usuariosID
+      publicacionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
 export const onCreatePublicacion = /* GraphQL */ `
   subscription OnCreatePublicacion(
     $filter: ModelSubscriptionPublicacionFilterInput
@@ -8,42 +59,21 @@ export const onCreatePublicacion = /* GraphQL */ `
     onCreatePublicacion(filter: $filter) {
       id
       publicacion
-      Usuarios {
-        id
-        nombre
-        apellido
-        imagen
-        pais
-        provincia
-        localidad
-        id_ubicacion
-        sub
-        notificaciones
-        publicaciones
-        dni
-        backup
-        bloqueado
-        telefono
-        password
-        email
-        edad
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        usuariosRolId
-        owner
-        __typename
-      }
       fecha
       habilitada
+      cantidadRequeridos
+      usuariosID
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      publicacionUsuariosId
       __typename
     }
   }
@@ -55,42 +85,21 @@ export const onUpdatePublicacion = /* GraphQL */ `
     onUpdatePublicacion(filter: $filter) {
       id
       publicacion
-      Usuarios {
-        id
-        nombre
-        apellido
-        imagen
-        pais
-        provincia
-        localidad
-        id_ubicacion
-        sub
-        notificaciones
-        publicaciones
-        dni
-        backup
-        bloqueado
-        telefono
-        password
-        email
-        edad
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        usuariosRolId
-        owner
-        __typename
-      }
       fecha
       habilitada
+      cantidadRequeridos
+      usuariosID
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      publicacionUsuariosId
       __typename
     }
   }
@@ -102,42 +111,21 @@ export const onDeletePublicacion = /* GraphQL */ `
     onDeletePublicacion(filter: $filter) {
       id
       publicacion
-      Usuarios {
-        id
-        nombre
-        apellido
-        imagen
-        pais
-        provincia
-        localidad
-        id_ubicacion
-        sub
-        notificaciones
-        publicaciones
-        dni
-        backup
-        bloqueado
-        telefono
-        password
-        email
-        edad
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        usuariosRolId
-        owner
-        __typename
-      }
       fecha
       habilitada
+      cantidadRequeridos
+      usuariosID
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      publicacionUsuariosId
       __typename
     }
   }
@@ -191,6 +179,7 @@ export const onCreateReciboDonaciones = /* GraphQL */ `
     onCreateReciboDonaciones(filter: $filter) {
       id
       usuariosID
+      fecha
       createdAt
       updatedAt
       _version
@@ -207,6 +196,7 @@ export const onUpdateReciboDonaciones = /* GraphQL */ `
     onUpdateReciboDonaciones(filter: $filter) {
       id
       usuariosID
+      fecha
       createdAt
       updatedAt
       _version
@@ -223,6 +213,7 @@ export const onDeleteReciboDonaciones = /* GraphQL */ `
     onDeleteReciboDonaciones(filter: $filter) {
       id
       usuariosID
+      fecha
       createdAt
       updatedAt
       _version
@@ -271,6 +262,18 @@ export const onCreateUsuarios = /* GraphQL */ `
       password
       email
       edad
+      habilitado
+      Publicacions {
+        nextToken
+        startedAt
+        __typename
+      }
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
@@ -321,6 +324,18 @@ export const onUpdateUsuarios = /* GraphQL */ `
       password
       email
       edad
+      habilitado
+      Publicacions {
+        nextToken
+        startedAt
+        __typename
+      }
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
@@ -371,6 +386,18 @@ export const onDeleteUsuarios = /* GraphQL */ `
       password
       email
       edad
+      habilitado
+      Publicacions {
+        nextToken
+        startedAt
+        __typename
+      }
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
