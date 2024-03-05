@@ -108,9 +108,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textInfo: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
-    color: Colors.input,
+    color: 'black',
     marginBottom: 8,
     paddingHorizontal: 20,
   },
