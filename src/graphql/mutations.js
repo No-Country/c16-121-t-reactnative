@@ -73,6 +73,8 @@ export const createPublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -100,6 +102,8 @@ export const updatePublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -127,6 +131,8 @@ export const deletePublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -196,6 +202,7 @@ export const createReciboDonaciones = /* GraphQL */ `
       id
       usuariosID
       fecha
+      centroDonacion
       createdAt
       updatedAt
       _version
@@ -214,6 +221,7 @@ export const updateReciboDonaciones = /* GraphQL */ `
       id
       usuariosID
       fecha
+      centroDonacion
       createdAt
       updatedAt
       _version
@@ -232,6 +240,7 @@ export const deleteReciboDonaciones = /* GraphQL */ `
       id
       usuariosID
       fecha
+      centroDonacion
       createdAt
       updatedAt
       _version
@@ -424,6 +433,76 @@ export const deleteUsuarios = /* GraphQL */ `
       usuariosRolId
       owner
       __typename
+    }
+  }
+`;
+export const disableUser = /* GraphQL */ `
+  mutation DisableUser($id: ID!, $habilitado: Boolean) {
+    updateUsuarios(input: { id: $id, habilitado: $habilitado }) {
+        id
+        nombre
+        apellido
+        imagen
+        pais
+        provincia
+        localidad
+        id_ubicacion
+        sub
+        notificaciones
+        publicaciones
+        dni
+        backup
+        bloqueado
+        telefono
+        ReciboDonaciones {
+          nextToken
+          startedAt
+          __typename
+        }
+        Rol {
+          id
+          tipo_rol
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
+        }
+        password
+        email
+        edad
+        habilitado
+        Publicacions {
+          nextToken
+          startedAt
+          __typename
+        }
+        Reacciones {
+          nextToken
+          startedAt
+          __typename
+        }
+        tipoSangre
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        usuariosRolId
+        owner
+        __typename
+      }
+    }
+  `;
+  export const updateHabilitado = /* GraphQL */ `
+  mutation UpdateUsuarios(
+    $input: UpdateUsuariosInput!
+    $condition: ModelUsuariosConditionInput
+  ) {
+    updateUsuarios(input: $input, condition: $condition) {
+      id
+      habilitado
     }
   }
 `;

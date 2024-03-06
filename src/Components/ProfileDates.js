@@ -67,7 +67,8 @@ const ProfileDates = () => {
         <InfoDate label={"pais"} canEdit value={pais} />
         <MyBottom title="Guardar" onPress={handleDialog} />
       </View>
-      {donorData && donorInfo.donaciones && <DonationsList />}
+      {/* {donorData && donorInfo.donaciones && <DonationsList />} */}
+      <DonationsList />
     </SafeAreaView>
   );
 };

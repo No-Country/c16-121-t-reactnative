@@ -152,6 +152,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "centroDonacion": {
+                    "name": "centroDonacion",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "ciudad": {
+                    "name": "ciudad",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -283,6 +297,13 @@ export const schema = {
                     "name": "fecha",
                     "isArray": false,
                     "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "centroDonacion": {
+                    "name": "centroDonacion",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -621,5 +642,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "d6687a135c3f9c6e723d1a5c822332d5"
+    "version": "1b69b2c8e7d2bcf4ae7a7fe7bc18050b"
 };

@@ -13,6 +13,8 @@ type Publicacion @model @auth(rules: [{allow: public}]) {
   usuariosID: ID! @index(name: "byUsuarios")
   Reacciones: [Reacciones] @hasMany(indexName: "byPublicacion", fields: ["id"])
   tipoSangre: String
+  centroDonacion: String
+  ciudad: String
 }
 
 type Rol @model @auth(rules: [{allow: public}]) {
@@ -24,6 +26,7 @@ type ReciboDonaciones @model @auth(rules: [{allow: public}]) {
   id: ID!
   usuariosID: ID! @index(name: "byUsuarios")
   fecha: AWSDate
+  centroDonacion: String
 }
 
 type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
@@ -49,11 +52,7 @@ type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: priv
   edad: Int
   habilitado: Boolean
   Publicacions: [Publicacion] @hasMany(indexName: "byUsuarios", fields: ["id"])
-<<<<<<< HEAD
   Reacciones: [Publicacion] @hasMany(indexName: "byUsuarios", fields: ["id"])
-=======
-  Reacciones: [Reacciones] @hasMany(indexName: "byUsuarios", fields: ["id"])
->>>>>>> fe563f0855307fb76cc934b2684e5902bc91f6d4
   tipoSangre: String
 }
  

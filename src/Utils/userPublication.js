@@ -85,7 +85,7 @@ export const getAllPublications = async (startDate, endDate) => {
     return response.data.listPublicacions.items;
   } catch (error) {
     console.error("Error fetching all publications:", error);
-    return null;
+    return null; 
   }
 };
 
@@ -109,18 +109,35 @@ export const getPublications = async () => {
           fecha: { between: [fechaLimiteFormateada, fechaActual] }, 
           _deleted: { ne: true },
         },
-        // limit: 100,
-        // sort: {
-        //   field: "fecha",
-        //   direction: "desc",
-        // },
+        limit: 2,
       },
     });
 
-    console.log("publicaciones", post.data.listPublicacions.items.length);
-    return post.data.listPublicacions.items
-    
+    const publicationsWithUser = await Promise.all(post.data.listPublicacions.items.map(async (publication) => {
+      const usuarioID = publication.usuariosID;
+      const userData = await getUserData(usuarioID, ['nombre', 'telefono']);
+      return { ...publication, usuario: userData };
+    }));
+
+    const publicationsSorted = publicationsWithUser.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+ 
+    return publicationsSorted;
+
   } catch (e) {
     console.log(e);
+  }
+};
+
+// Función para obtener los datos del usuario
+const getUserData = async (userId) => {
+  try {
+    const userData = await API.graphql({
+      query: queries.getDatosUsuarios, 
+      variables: { id: userId },
+    });
+    return userData.data.getUsuarios; 
+  } catch (error) {
+    console.error('Error obteniendo datos del usuario:', error);
+    throw error;
   }
 };

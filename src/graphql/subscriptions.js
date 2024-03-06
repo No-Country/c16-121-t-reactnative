@@ -69,6 +69,8 @@ export const onCreatePublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -95,6 +97,8 @@ export const onUpdatePublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -121,6 +125,8 @@ export const onDeletePublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -180,6 +186,7 @@ export const onCreateReciboDonaciones = /* GraphQL */ `
       id
       usuariosID
       fecha
+      centroDonacion
       createdAt
       updatedAt
       _version
@@ -197,6 +204,7 @@ export const onUpdateReciboDonaciones = /* GraphQL */ `
       id
       usuariosID
       fecha
+      centroDonacion
       createdAt
       updatedAt
       _version
@@ -214,6 +222,7 @@ export const onDeleteReciboDonaciones = /* GraphQL */ `
       id
       usuariosID
       fecha
+      centroDonacion
       createdAt
       updatedAt
       _version

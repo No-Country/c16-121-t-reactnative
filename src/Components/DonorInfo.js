@@ -5,9 +5,12 @@ import DateInput from "./DateInput";
 import MyInput from "./MyInput";
 import MyBottom from "./MyBottom";
 import { useDonorContext } from "../Context/DonorContext";
+import { AuthContext } from "../Context/AuthContext";
+import { createRecibo } from "../Utils/userDonor";
 
 const DonorInfo = ({ canDonate }) => {
   const { donorData, setDonorData } = useDonorContext();
+  const { dbUserInfo } = React.useContext(AuthContext);
 
   //Guardar las donaciones en el context
   const [date, setDate] = useState("");
@@ -16,15 +19,24 @@ const DonorInfo = ({ canDonate }) => {
 
   const handleSave = () => {
     if (date && location) {
-      const newDonation = { date, location };
-      setDonorData((prevDonorData) => {
-        const updateData = {
-          ...donorData,
-          donaciones: [...(prevDonorData.donaciones || []), newDonation],
-        };
-        alert("Donación guardada con éxito");
-        return updateData;
-      });
+      // const newDonation = { date, location };
+      // setDonorData((prevDonorData) => {
+      //   const updateData = {
+      //     ...donorData,
+      //     donaciones: [...(prevDonorData.donaciones || []), newDonation],
+      //   };
+      //   alert("Donación guardada con éxito");
+      //   return updateData;
+      
+      const fechaFormateada = date.toISOString().split("T")[0];
+
+      const reciboDetalles = {
+        usuariosID: dbUserInfo.id,
+        fecha: fechaFormateada,
+        centroDonacion: location
+      };
+
+      createRecibo(reciboDetalles)
     } else {
       alert("Faltan ingresar datos");
     }
