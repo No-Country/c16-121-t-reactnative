@@ -721,7 +721,7 @@ export const getDatosUsuarios = /* GraphQL */ `
     getUsuarios(id: $id) {
       nombre
       imagen
-      provincia
+      localidad
       telefono
     }
   }
