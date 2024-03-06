@@ -387,6 +387,7 @@ export const getReciboDonaciones = /* GraphQL */ `
       id
       usuariosID
       fecha
+      centroDonacion
       createdAt
       updatedAt
       _version
@@ -441,6 +442,7 @@ export const syncReciboDonaciones = /* GraphQL */ `
         id
         usuariosID
         fecha
+        centroDonacion
         createdAt
         updatedAt
         _version
@@ -671,15 +673,8 @@ export const getUserBySubQuery = /* GraphQL */ `
 `;
 
 export const getAllPublicationsTodayQuery = /* GraphQL */ `
-    query GetAllPublications($date: AWSDate!) {
-      listPublicacions(
-        filter: {
-          fecha: {
-            eq: $date
-          }
-        }
-        limit: 1000
-      ) {
+  query GetAllPublications($date: AWSDate!) {
+    listPublicacions(filter: { fecha: { eq: $date } }, limit: 1000) {
       items {
         id
         publicacion
@@ -696,15 +691,11 @@ export const getAllPublicationsTodayQuery = /* GraphQL */ `
 `;
 
 export const getAllPublicationsQuery = /* GraphQL */ `
-    query GetAllPublications($startDate: AWSDate!, $endDate: AWSDate!) {
-      listPublicacions(
-        filter: {
-          fecha: {
-            between: [$startDate, $endDate]
-          }
-        }
-        limit: 1000
-      ) {
+  query GetAllPublications($startDate: AWSDate!, $endDate: AWSDate!) {
+    listPublicacions(
+      filter: { fecha: { between: [$startDate, $endDate] } }
+      limit: 1000
+    ) {
       items {
         id
         publicacion
