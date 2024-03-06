@@ -46,18 +46,17 @@
           "SMS"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [
-            "REQUIRES_NUMBERS",
-            "REQUIRES_UPPERCASE"
-          ],
-          "passwordPolicyMinLength": 6
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
           "EMAIL",
           "NAME",
           "MIDDLE_NAME"
         ],
-        "socialProviders": [],
+        "socialProviders": [
+          "FACEBOOK"
+        ],
         "usernameAttributes": [
           "EMAIL"
         ],

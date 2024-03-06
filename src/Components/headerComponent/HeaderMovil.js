@@ -9,158 +9,112 @@ import {
   SafeAreaView,
   StyleSheet,
 } from "react-native";
-// import { headerStyle } from "./styleHeader";
 import { Colors } from "../../Constants/Colors";
 import { PictureProfile } from "./PictureProfile";
 
 export const HeaderMovil = ({ condition }) => {
+
   const toggleForm = () => {
     console.log("abriendo formulario");
   };
 
   return (
-    <SafeAreaView style={headerStyle.container}>
-      <View style={headerStyle.background}></View>
-      <View
-        style={
-          condition ? headerStyle.headerToHome : headerStyle.headerToProfile
-        }
-      >
+    <View style={headerStyle.background}>
+      {/* <View style={condition ? headerStyle.headerToHome : headerStyle.headerToProfile}> */}
+      <View style={headerStyle.logoProfileContainer}>
         <View style={headerStyle.containerLogo}>
-          <Image
-            style={[
-              headerStyle.logo,
-              condition ? headerStyle.logoHome : headerStyle.logoProfile,
-            ]}
-            source={require("../../../assets/logo.png")}
-          ></Image>
+          {/* <Image style={[headerStyle.logo, condition ? headerStyle.logoHome : headerStyle.logoProfile,]} source={require("../../../assets/logo.png")}></Image> */}
+          <Image style={headerStyle.logo} source={require("../../../assets/logo.png")}></Image>
         </View>
-
-        <View
-          style={
-            condition
-              ? headerStyle.pictureProfileHome
-              : headerStyle.pictureProfileProfile
-          }
-        >
-          <PictureProfile
-            showButton={condition ? false : true}
-          ></PictureProfile>
-        </View>
+        {condition ? (
+          <View style={headerStyle.pictureProfileHome}>
+            <PictureProfile showButton={false}></PictureProfile>
+          </View>
+        ) : (
+          <View style={[headerStyle.pictureProfileProfile, {alignSelf: "center"}]}>
+            <PictureProfile showButton={true}></PictureProfile>
+          </View>
+        )}
+        
       </View>
-      <View style={headerStyle.buttonTextContainer} >
-        <Text style={headerStyle.textContainer}>¿Buscas donador?</Text>
-        <TouchableOpacity
-          style={headerStyle.buttonContainer}
-          onPress={toggleForm}
-        >
-          <Text style={{ color: "white", fontSize: 15, fontWeight: "500" }}>
-            Publica
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      {condition && 
+        <View style={headerStyle.buttonContainer} >
+          <Text style={headerStyle.textContainer}>¿Buscas donador?</Text>
+          <TouchableOpacity style={headerStyle.button} onPress={toggleForm} >
+            <Text style={{ color: "white", fontSize: 15, fontWeight: "500" }}>
+              Publica
+            </Text>
+          </TouchableOpacity>
+        </View> 
+      }
+    </View>
   );
 };
 
 const headerStyle = StyleSheet.create({
   background: {
     position: "absolute",
-    width: "250%",
-    height: "250%",
- 
-    bottom:0,
-    borderBottomRightRadius: 500,
-    borderBottomLeftRadius: 500,
+    top: -100,
+    left: -180,
+    right: -180,
+    bottom: 0,
+    height: 350,
     backgroundColor: Colors.background,
-    alignSelf:'center',
-    // flex:1
-    // backgroundColor:'blue',
+    alignSelf: "center",
+    overflow: "hidden",
+    borderBottomRightRadius: 350,
+    borderBottomLeftRadius: 350,
+    justifyContent: "center",
+    alignItems: "center"
   },
-
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    padding: "9%",
-    paddingTop:'5%',
-    position: "relative",
-    paddingBottom:'12%',
-  },
- 
-
-  // Estilos para header Home
-  headerToHome: {
-    flex:5/8,
+  logoProfileContainer: {
+    flexDirection: "row", 
+    alignItems: "center", 
+    width: "45%", 
     justifyContent: "space-between",
-    flexDirection: "row",
-    alignItems: "center",
-
-
-   },
-  buttonTextContainer:{
-    flex: 3/8,
- 
-    flexDirection:'column',
-    alignItems:'center',
-    justifyContent:'center',
-    paddingLeft:'5%',
-    paddingRight:'5%',
-   },
+  },
   pictureProfileHome: {
-    width: 70,
-    height: 70,
-    // width: "100%",
-    // height: "100%",
-    padding:'2%'
+    width: 75,
+    height: 75,
   },
-  // Estilos para  header de perfil
-  headerToProfile: {
-    flex: 4 / 7,
-    position: "relative",
- 
-
-  },
-
   logoProfile: {
     position: "absolute",
     top: 0,
     left: 0,
     flex: 0,
   },
-
   pictureProfileProfile: {
-    alignSelf: "center",
     position: "absolute",
-    width: "80%",
-    height: "80%",
-    bottom: 0,
-    
+    width: "100%",
+    height: "170%",
+    top: 55,
   },
   containerLogo: {
     width: 80,
     height: 80,
   },
-
   logo: {
     width: "100%",
     height: "100%",
     resizeMode: "contain",
   },
-
+  buttonContainer: {
+    position: "absolute",
+    bottom: 35,
+    width: "60%",
+    alignItems: "center",
+  },
   textContainer: {
-    flex: 1 / 3,
     fontWeight: "600",
     color: "white",
-    alignSelf: 'flex-start',
+    width: "60%",
+    marginBottom: 10,
+    fontSize: 14,
   },
-
-  buttonContainer: {
+  button: {
     backgroundColor: Colors.background,
-    flex: 2 / 3,
-    width: "100%",
-    alignSelf: "center",
-    alignContent: "center",
+    width: "60%",
+    height: 50,
     alignItems: "center",
     justifyContent: "center",
     borderColor: "white",
@@ -174,5 +128,5 @@ const headerStyle = StyleSheet.create({
     shadowOpacity: 2,
     shadowRadius: 0,
     elevation: 5,
-  },
+  }
 });

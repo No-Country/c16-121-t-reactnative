@@ -87,9 +87,11 @@ export const PictureProfile = ({ showButton }) => {
           <Image source={{ uri: picture }} style={style.image}></Image>
         )}
       </View>
-      <View style={style.iconNotification}>
+      {!showButton && (
+      <View style= {style.iconNotification}>
         <IconToNotification></IconToNotification>
       </View>
+      )}
     </View>
   );
 };

@@ -153,7 +153,7 @@ const SingUp = () => {
         <Text style={styles.error}>{confirmarContraseñaError}</Text>
 
         <MyBottom
-          title="Guardar"
+          title="Registrarse"
           onPress={() => {
             if (validateData()) {
               handleSignUp();
