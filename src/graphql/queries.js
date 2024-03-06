@@ -208,6 +208,8 @@ export const getPublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -232,6 +234,8 @@ export const listPublicacions = /* GraphQL */ `
         cantidadRequeridos
         usuariosID
         tipoSangre
+        centroDonacion
+        ciudad
         createdAt
         updatedAt
         _version
@@ -266,6 +270,8 @@ export const syncPublicacions = /* GraphQL */ `
         cantidadRequeridos
         usuariosID
         tipoSangre
+        centroDonacion
+        ciudad
         createdAt
         updatedAt
         _version
@@ -302,6 +308,8 @@ export const publicacionsByUsuariosID = /* GraphQL */ `
         cantidadRequeridos
         usuariosID
         tipoSangre
+        centroDonacion
+        ciudad
         createdAt
         updatedAt
         _version
@@ -412,6 +420,7 @@ export const listReciboDonaciones = /* GraphQL */ `
         id
         usuariosID
         fecha
+        centroDonacion
         createdAt
         updatedAt
         _version
@@ -475,6 +484,7 @@ export const reciboDonacionesByUsuariosID = /* GraphQL */ `
         id
         usuariosID
         fecha
+        centroDonacion
         createdAt
         updatedAt
         _version
@@ -488,7 +498,6 @@ export const reciboDonacionesByUsuariosID = /* GraphQL */ `
     }
   }
 `;
-
 export const getUsuarios = /* GraphQL */ `
   query GetUsuarios($id: ID!) {
     getUsuarios(id: $id) {
@@ -640,7 +649,6 @@ export const syncUsuarios = /* GraphQL */ `
     }
   }
 `;
-
 export const getUserBySubQuery = /* GraphQL */ `
   query GetUserBySub($sub: String!) {
     listUsuarios(filter: { sub: { eq: $sub } }) {
@@ -671,7 +679,6 @@ export const getUserBySubQuery = /* GraphQL */ `
     }
   }
 `;
-
 export const getAllPublicationsTodayQuery = /* GraphQL */ `
   query GetAllPublications($date: AWSDate!) {
     listPublicacions(filter: { fecha: { eq: $date } }, limit: 1000) {
@@ -689,7 +696,6 @@ export const getAllPublicationsTodayQuery = /* GraphQL */ `
     }
   }
 `;
-
 export const getAllPublicationsQuery = /* GraphQL */ `
   query GetAllPublications($startDate: AWSDate!, $endDate: AWSDate!) {
     listPublicacions(
@@ -710,4 +716,13 @@ export const getAllPublicationsQuery = /* GraphQL */ `
     }
   }
 `;
-
+export const getDatosUsuarios = /* GraphQL */ `
+  query GetUsuarios($id: ID!) {
+    getUsuarios(id: $id) {
+      nombre
+      imagen
+      provincia
+      telefono
+    }
+  }
+`;
