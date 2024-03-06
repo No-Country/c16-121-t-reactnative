@@ -48,9 +48,9 @@ const Home = () => {
     navigation.navigate("DonorSearchForm");
   };
 
-getPublications().then((publicaciones) => {
-  console.log("publicaciones:", publicaciones);
-});
+// getPublications().then((publicaciones) => {
+//   console.log("publicaciones:", publicaciones);
+// });
 
   return (
     <SafeAreaView style={[{ flex: 1, backgroundColor: "white" }]}>

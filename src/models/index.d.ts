@@ -49,6 +49,8 @@ type EagerPublicacion = {
   readonly usuariosID: string;
   readonly Reacciones?: (Reacciones | null)[] | null;
   readonly tipoSangre?: string | null;
+  readonly centroDonacion?: string | null;
+  readonly ciudad?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -66,6 +68,8 @@ type LazyPublicacion = {
   readonly usuariosID: string;
   readonly Reacciones: AsyncCollection<Reacciones>;
   readonly tipoSangre?: string | null;
+  readonly centroDonacion?: string | null;
+  readonly ciudad?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -112,6 +116,7 @@ type EagerReciboDonaciones = {
   readonly id: string;
   readonly usuariosID: string;
   readonly fecha?: string | null;
+  readonly centroDonacion?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -124,6 +129,7 @@ type LazyReciboDonaciones = {
   readonly id: string;
   readonly usuariosID: string;
   readonly fecha?: string | null;
+  readonly centroDonacion?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

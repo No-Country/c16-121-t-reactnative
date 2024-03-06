@@ -109,7 +109,7 @@ export const getPublications = async () => {
           fecha: { between: [fechaLimiteFormateada, fechaActual] }, 
           _deleted: { ne: true },
         },
-        // limit: 100,
+        limit: 1,
         // sort: {
         //   field: "fecha",
         //   direction: "desc",
@@ -117,10 +117,32 @@ export const getPublications = async () => {
       },
     });
 
-    console.log("publicaciones", post.data.listPublicacions.items.length);
-    return post.data.listPublicacions.items
+    // console.log("publicaciones", post.data.listPublicacions.items.length);
+    // return post.data.listPublicacions.items
     
+    const publicationsWithUser = await Promise.all(post.data.listPublicacions.items.map(async (publication) => {
+      const usuarioID = publication.usuariosID;
+      const userData = await getUserData(usuarioID);
+      return { ...publication, usuario: userData };
+    }));
+
+    return publicationsWithUser;
+
   } catch (e) {
     console.log(e);
+  }
+};
+
+// Función para obtener los datos del usuario
+const getUserData = async (userId) => {
+  try {
+    const userData = await API.graphql({
+      query: queries.getUsuarios, 
+      variables: { id: userId },
+    });
+    return userData.data.getUsuarios; 
+  } catch (error) {
+    console.error('Error obteniendo datos del usuario:', error);
+    throw error;
   }
 };
