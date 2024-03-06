@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
+  Image
 } from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
@@ -87,7 +88,12 @@ const Home = () => {
       </View>
       <View style={{ marginTop: "65%", height: "50%" }}>
         <TouchableOpacity onPress={handleSearchDonor}>
-          <Text>¿Buscas donador?{">"}</Text>
+          <View style={styles.searchContainer}>
+          <Text style={styles.buscar}>¿Buscas donador?{""}</Text>
+          <Image   
+          source={require("../Assets/lupa.png")}
+          style={styles.lupa}></Image>
+          </View>
         </TouchableOpacity>
         <FlatList
           data={publications}
@@ -96,25 +102,41 @@ const Home = () => {
           contentContainerStyle={{ paddingHorizontal: 10 }}
         ></FlatList>
 
-        <View style={{ marginLeft: "21%" }}>
+       
           <CardHome style={{ marginTop: 15}}/>
-        </View>
+        
       </View>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding:'3%',
+    backgroundColor: '#FFB6C1',
+  },
+
+  
   card: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#F8F9F9",
-    padding: 15,
+    backgroundColor: Colors.profileCard,
+    padding: 20,
+    marginTop:10,
     marginBottom: 8,
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "black",
     elevation: 3,
+    
+  },
+  buscar:{
+    fontSize:20,
+    textAlign:'center',
+    fontWeight: "bold",
+    color:'#808080'
+    
   },
   icono: {
     marginTop: 10,
@@ -130,13 +152,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   usuario: {
-    fontSize: 15,
-    color: "black",
+    fontSize: 18,
+    color: "white",
     marginBottom: 5,
-    textDecorationLine: "underline",
+    fontWeight: "bold"
   },
   publicacionContainer: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "white",
     borderRadius: 8,
     padding: 10,
     marginTop: 10,
@@ -147,13 +169,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#666",
     marginBottom: 5,
-
-    fontWeight: "bold",
+    color:'white'
   },
   fecha: {
     fontSize: 14,
     color: "#999",
     marginTop: 10,
+    color:'white'
   },
+  lupa:{
+    width:'10%',
+    height:'100%',
+    margin:5
+  }
 });
 export default Home;

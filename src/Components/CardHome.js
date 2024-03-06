@@ -8,46 +8,48 @@ const CardHome = () => {
 
   return (
     <View style={styles.container}>
+     
+     {/* card formulario */}
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate("DonationForm")}
       >
         <View style={styles.imageContainer}>
           <ImageBackground
-            source={require("../Assets/formulario.jpg")}
+            source={require("../Assets/formulario.png")}
             style={styles.imageBackground}
             resizeMode="cover"
           />
+          
         </View>
       </TouchableOpacity>
-      <View style={{ width: 10 }} />
-
-      <View style={styles.rightButtonsContainer}>
+      {/* card proceso de donacion */}
         <TouchableOpacity
           style={styles.button1}
           onPress={() => navigation.navigate("ProcesoDeDonacion")}
         >
           <View style={styles.imageContainer}>
             <ImageBackground
-              source={require("../Assets/proceso.jpg")}
+              source={require("../Assets/proceso.png")}
               style={styles.imageBackground}
               resizeMode="cover"
             />
           </View>
         </TouchableOpacity>
+        {/* card porque donar */}
         <TouchableOpacity
           style={styles.button2}
           onPress={() => navigation.navigate("PorQueDonar")}
         >
           <View style={styles.imageContainer}>
             <ImageBackground
-              source={require("../Assets/porque.jpg")}
+              source={require("../Assets/porque.png")}
               style={styles.imageBackground}
               resizeMode="cover"
             />
           </View>
         </TouchableOpacity>
-      </View>
+       
     </View>
   );
 };
@@ -55,19 +57,21 @@ const CardHome = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: "40%",
+    top:50,
     flexDirection: "row",
-    paddingHorizontal: "10%",
+    paddingHorizontal: "15%",
     alignItems: "center",
-    justifyContent:'center',
+    justifyContent:'space-between',
     borderRadius: 15,
-    marginBottom:'10%',
+   
+ 
   },
-  button: {
-    backgroundColor: "#FFB6C1",
-    borderRadius: 15,
-    width: 130,
-    height: 200,
+  button: { 
+    backgroundColor: "#FC688B",
+    borderRadius: 100,
+    marginBottom: 10,
+    width: 50,
+    height: 50,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -78,11 +82,11 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   button1: {
-    backgroundColor: "#FFDEAD",
-    borderRadius: 20,
+    backgroundColor: "#FC688B",
+    borderRadius: 100,
     marginBottom: 10,
-    width: 190,
-    height: 90,
+    width: 50,
+    height: 50,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -93,11 +97,11 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   button2: {
-    backgroundColor: "#CD5C5C",
-    borderRadius: 15,
+    backgroundColor: "#FC688B",
+    borderRadius: 100,
     marginBottom: 10,
-    width: 190,
-    height: 90,
+    width: 50,
+    height:50,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -119,11 +123,15 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 15,
     overflow: "hidden", 
+  
+
   },
   imageBackground: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    
+
   },
 });
 
