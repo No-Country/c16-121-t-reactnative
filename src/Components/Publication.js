@@ -9,12 +9,12 @@ import { createPublication, getUser } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
 
 const Publication = () => {
-  const { userSub } = React.useContext(AuthContext);
+  const { dbUserInfo } = React.useContext(AuthContext);
 
-  getUser(userSub).then((userInfo) => {
-    console.log("Datos del usuario:", userInfo);
-    userId = userInfo;
-  });
+  // getUser(userSub).then((userInfo) => {
+  //   console.log("Datos del usuario:", userInfo);
+  //   userId = userInfo;
+  // });
 
   //DE BASE DE DATOS
   const tipoSangre = ["+ A", "- A", "+ B", "- B", "+ AB", "- AB", "+ O", "- O"];
@@ -50,7 +50,7 @@ const Publication = () => {
         fecha: fechaFormateada,
         habilitada: true,
         cantidadRequeridos: cant,
-        usuariosID: userId,
+        usuariosID: dbUserInfo.id,
         tipoSangre: selectSangre,
       };
       console.log("handlesubmit ", publicationDetails);

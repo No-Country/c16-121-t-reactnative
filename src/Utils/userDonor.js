@@ -12,15 +12,15 @@ export const updateUsuarioHabilitado = async (userId, newHabilitadoValue) => {
 
   try {
     const response = await API.graphql({
-      query: mutations.updateHabilitado, 
+      query: mutations.updateUsuarios, 
       variables: {
-        input: newDates 
+        input:newDates
       }
-    });
-    console.log("Updated user data:", response.data);
+  });
+    console.log("Update:", response.data);
     return response.data;
   } catch (error) {
-    console.error('Error updating user habilitado:', error);
+    console.error('Error:', error);
     throw error;
   }
 };
@@ -29,11 +29,28 @@ export const updateUsuarioHabilitado = async (userId, newHabilitadoValue) => {
 export const createRecibo = async (reciboDetalles) => {
   try {
     await API.graphql({
-      query: mutations.createReciboDonaciones,
+      query: mutations.createReciboDonaciones, 
       variables: { input: reciboDetalles },
     });
-    console.log("se crea recibo");
+
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const getRecibosPorUsuario = async (userId) => {
+  try {
+    const recibosUsuario =  await API.graphql({
+      query: queries.reciboDonacionesByUsuariosID,
+      variables: {
+        usuariosID: userId,
+        sortDirection: { direction: "desc", field: "fecha"}
+      },
+    });
+
+    return recibosUsuario.data.reciboDonacionesByUsuariosID.items;
+
+  } catch (e) {
+    console.log(e);
   }
 };
