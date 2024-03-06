@@ -109,7 +109,7 @@ export const getPublications = async () => {
           fecha: { between: [fechaLimiteFormateada, fechaActual] }, 
           _deleted: { ne: true },
         },
-        limit: 2,
+        limit: 100,
       },
     });
 

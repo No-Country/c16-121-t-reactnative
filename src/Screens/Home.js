@@ -15,8 +15,7 @@ import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
 import { DarckContext } from "../Context/DarckContext";
 import { useContext } from "react";
-
-
+import Background from "../Components/Background";
 
 import {
   fetchUserByEmail,
@@ -83,10 +82,11 @@ const Home = () => {
   return (
     <SafeAreaView style={[{ flex: 1, backgroundColor: "white" }]}>
       <View>
+        <Background/>
 
-        <HeaderMovil condition={true}></HeaderMovil>
+        {/* <HeaderMovil condition={true}></HeaderMovil> */}
       </View>
-      <View style={{ marginTop: "65%", height: "50%" , backgroundColor:'grey'}}>
+      <View style={{ marginTop: "55%" , backgroundColor:'white'}}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
           <Text style={styles.buscar}>¿Buscas donador?{""}</Text>
@@ -99,11 +99,10 @@ const Home = () => {
           data={publications}
           renderItem={renderPublicationItem}
           keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{ paddingHorizontal: 10 }}
+          contentContainerStyle={{ paddingHorizontal: 15 }}
         ></FlatList>
 
-       
-          <CardHome style={{ marginTop: 15}}/>
+        {/* <CardHome style={{ marginTop: 10}}/> */}
         
       </View>
     </SafeAreaView>
@@ -123,10 +122,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: Colors.profileCard,
+    backgroundColor: 'white',
+    borderColor:'#999999',
+    borderWidth:1,
     padding: 20,
     marginTop:10,
-    marginBottom: 8,
     borderRadius: 10,
     elevation: 5,
     
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     fontWeight: "bold",
     color:'#808080'
+
     
   },
   icono: {
@@ -150,32 +151,38 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     marginBottom: 10,
+   
   },
   usuario: {
     fontSize: 18,
-    color: "white",
+    color: "black",
     marginBottom: 5,
     fontWeight: "bold"
   },
   publicacionContainer: {
-    backgroundColor: "white",
+    backgroundColor: "#f2f2f2",
     borderRadius: 8,
-    padding: 10,
+    padding:15,
     marginTop: 10,
     marginBottom: 10,
-    width: "110%",
+    width: "115%",
+
   },
   tipoSangre: {
     fontSize: 16,
-    color: "#666",
+    color: '#595959',
     marginBottom: 5,
-    color:'white'
+    backgroundColor:'red',
+    width:'100%',
+    padding:5,
+    
   },
   fecha: {
     fontSize: 14,
     color: "#999",
     marginTop: 10,
-    color:'white'
+    color:'#595959'
+
   },
   lupa:{
     width:'10%',
