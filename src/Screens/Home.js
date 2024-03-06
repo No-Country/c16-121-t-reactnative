@@ -5,7 +5,17 @@ import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
 import { DarckContext } from "../Context/DarckContext";
 import { useContext } from "react";
-import { fetchUserByEmail, getAllPublications, getAllPublicationsToday, getPost, getPublications, getUser, } from "../Utils/userPublication";
+import Background from "../Components/Background";
+
+
+import {
+  fetchUserByEmail,
+  getAllPublications,
+  getAllPublicationsToday,
+  getPost,
+  getPublications,
+  getUser,
+} from "../Utils/userPublication";
 import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../Constants/Colors";
 import { IconToDonate } from "../Components/iconNotification/iconToDonate";
@@ -65,9 +75,10 @@ const Home = () => {
   return (
     <SafeAreaView style={[{ flex: 1, backgroundColor: "white" }]}>
       <View>
-        <HeaderMovil condition={true}></HeaderMovil>
+    <Background/>
+        {/* <HeaderMovil condition={true}></HeaderMovil> */}
       </View>
-      <View style={{ marginTop: "55%", height: "50%" }}>
+      <View style={{ marginTop: "55%" }}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
           <Text style={styles.buscar}>¿Buscas donador?{""}</Text>
@@ -80,11 +91,10 @@ const Home = () => {
           data={publications}
           renderItem={renderPublicationItem}
           keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{ paddingHorizontal: 10 }}
+          contentContainerStyle={{ paddingHorizontal: 15 }}
         ></FlatList>
 
-       
-          <CardHome style={{ marginTop: 15}}/>
+        {/* <CardHome style={{ marginTop: 10}}/> */}
         
       </View>
     </SafeAreaView>
@@ -92,29 +102,33 @@ const Home = () => {
 };
 const styles = StyleSheet.create({
   searchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "3%",
-    backgroundColor: "#FFB6C1",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding:'3%',
+    backgroundColor: '#FFB6C1',
   },
 
   card: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: Colors.profileCard,
+    backgroundColor: 'white',
+    borderColor:'#999999',
+    borderWidth:1,
     padding: 20,
-    marginTop: 10,
+    marginTop:10,
     marginBottom: 8,
     borderRadius: 10,
     elevation: 3,
+    
   },
   buscar: {
     fontSize: 20,
     textAlign: "center",
     fontWeight: "bold",
-    color: "#808080",
+    color:'#808080'
+    
   },
   icono: {
     marginTop: 10,
@@ -128,32 +142,34 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     marginBottom: 10,
+   
   },
   usuario: {
     fontSize: 18,
-    color: "white",
+    color: "black",
     marginBottom: 5,
     fontWeight: "bold",
   },
   publicacionContainer: {
-    backgroundColor: "white",
+    backgroundColor: "#f2f2f2",
     borderRadius: 8,
-    padding: 10,
+    padding:15,
     marginTop: 10,
     marginBottom: 10,
-    width: "110%",
+    width: "115%",
+
   },
   tipoSangre: {
     fontSize: 16,
-    color: "#666",
+    color: '#595959',
     marginBottom: 5,
-    color: "white",
+    color:'black'
   },
   fecha: {
     fontSize: 14,
     color: "#999",
     marginTop: 10,
-    color: "white",
+    color:'black'
   },
   lupa: {
     width: "10%",
@@ -162,13 +178,13 @@ const styles = StyleSheet.create({
   },
   contacto: {
     fontSize: 18,
-    color: "white",
+    color: "black",
     marginBottom: 5,
     fontWeight: "bold",
   },
   localidad: {
     fontSize: 18,
-    color: "white",
+    color: "black",
     marginBottom: 5,
     fontWeight: "bold",
   },
