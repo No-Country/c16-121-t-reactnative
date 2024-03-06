@@ -14,6 +14,9 @@ import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
 import { DarckContext } from "../Context/DarckContext";
 import { useContext } from "react";
+
+
+
 import {
   fetchUserByEmail,
   getAllPublications,
@@ -79,6 +82,7 @@ const Home = () => {
   return (
     <SafeAreaView style={[{ flex: 1, backgroundColor: "white" }]}>
       <View>
+
         <HeaderMovil condition={true}></HeaderMovil>
       </View>
       <View style={{ marginTop: "65%", height: "50%" }}>
@@ -97,17 +101,6 @@ const Home = () => {
         </View>
       </View>
     </SafeAreaView>
-    /* <View style={{ flex: 5/7
-    }}>
-
-          <FlatList
-          horizontal={true}
-          data={data}
-          renderItem={({ item }) => <PostCard itemProfile={item}></PostCard>}
-          keyExtractor={(item) => item.name}
-        ></FlatList>
-     
-      </View>  */
   );
 };
 const styles = StyleSheet.create({

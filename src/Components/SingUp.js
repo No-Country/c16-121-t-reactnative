@@ -77,7 +77,7 @@ const SingUp = () => {
 
   return (
     <SafeAreaView>
-      <View>
+      <View >
         <Text style={styles.text}>Nombre</Text>
         <MyInput
           label={"Sofía"}
@@ -193,6 +193,9 @@ const styles = StyleSheet.create({
   },
   eyeIcon: {
     marginLeft: -40,
+  },
+  background:{
+    backgroundColor:'red',
   }
 });
 
