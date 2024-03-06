@@ -10,14 +10,14 @@ const Darck = {
     height: '%100',
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
-    margin:565,
+
 
 
   
 };
 
 const Ligth = {
-    background: "#F3305F",
+    background: "white",
     color: "black",
     height: 210,
     borderBottomRightRadius: 900,
