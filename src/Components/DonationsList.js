@@ -44,8 +44,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text:{
-    fontSize: 16,
-    width: "90%"
+    fontSize: 17,
+    fontWeight:'bold',
+    width: "90%",
+    textDecorationLine: "underline",
   },
   donationsContainer: {
     width: "90%",

@@ -1,6 +1,60 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createReacciones = /* GraphQL */ `
+  mutation CreateReacciones(
+    $input: CreateReaccionesInput!
+    $condition: ModelReaccionesConditionInput
+  ) {
+    createReacciones(input: $input, condition: $condition) {
+      id
+      usuariosID
+      publicacionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const updateReacciones = /* GraphQL */ `
+  mutation UpdateReacciones(
+    $input: UpdateReaccionesInput!
+    $condition: ModelReaccionesConditionInput
+  ) {
+    updateReacciones(input: $input, condition: $condition) {
+      id
+      usuariosID
+      publicacionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
+export const deleteReacciones = /* GraphQL */ `
+  mutation DeleteReacciones(
+    $input: DeleteReaccionesInput!
+    $condition: ModelReaccionesConditionInput
+  ) {
+    deleteReacciones(input: $input, condition: $condition) {
+      id
+      usuariosID
+      publicacionID
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+  }
+`;
 export const createPublicacion = /* GraphQL */ `
   mutation CreatePublicacion(
     $input: CreatePublicacionInput!
@@ -9,42 +63,21 @@ export const createPublicacion = /* GraphQL */ `
     createPublicacion(input: $input, condition: $condition) {
       id
       publicacion
-      Usuarios {
-        id
-        nombre
-        apellido
-        imagen
-        pais
-        provincia
-        localidad
-        id_ubicacion
-        sub
-        notificaciones
-        publicaciones
-        dni
-        backup
-        bloqueado
-        telefono
-        password
-        email
-        edad
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        usuariosRolId
-        owner
-        __typename
-      }
       fecha
       habilitada
+      cantidadRequeridos
+      usuariosID
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      publicacionUsuariosId
       __typename
     }
   }
@@ -57,42 +90,21 @@ export const updatePublicacion = /* GraphQL */ `
     updatePublicacion(input: $input, condition: $condition) {
       id
       publicacion
-      Usuarios {
-        id
-        nombre
-        apellido
-        imagen
-        pais
-        provincia
-        localidad
-        id_ubicacion
-        sub
-        notificaciones
-        publicaciones
-        dni
-        backup
-        bloqueado
-        telefono
-        password
-        email
-        edad
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        usuariosRolId
-        owner
-        __typename
-      }
       fecha
       habilitada
+      cantidadRequeridos
+      usuariosID
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      publicacionUsuariosId
       __typename
     }
   }
@@ -105,42 +117,21 @@ export const deletePublicacion = /* GraphQL */ `
     deletePublicacion(input: $input, condition: $condition) {
       id
       publicacion
-      Usuarios {
-        id
-        nombre
-        apellido
-        imagen
-        pais
-        provincia
-        localidad
-        id_ubicacion
-        sub
-        notificaciones
-        publicaciones
-        dni
-        backup
-        bloqueado
-        telefono
-        password
-        email
-        edad
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        usuariosRolId
-        owner
-        __typename
-      }
       fecha
       habilitada
+      cantidadRequeridos
+      usuariosID
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-      publicacionUsuariosId
       __typename
     }
   }
@@ -204,6 +195,7 @@ export const createReciboDonaciones = /* GraphQL */ `
     createReciboDonaciones(input: $input, condition: $condition) {
       id
       usuariosID
+      fecha
       createdAt
       updatedAt
       _version
@@ -221,6 +213,7 @@ export const updateReciboDonaciones = /* GraphQL */ `
     updateReciboDonaciones(input: $input, condition: $condition) {
       id
       usuariosID
+      fecha
       createdAt
       updatedAt
       _version
@@ -238,6 +231,7 @@ export const deleteReciboDonaciones = /* GraphQL */ `
     deleteReciboDonaciones(input: $input, condition: $condition) {
       id
       usuariosID
+      fecha
       createdAt
       updatedAt
       _version
@@ -286,6 +280,18 @@ export const createUsuarios = /* GraphQL */ `
       password
       email
       edad
+      habilitado
+      Publicacions {
+        nextToken
+        startedAt
+        __typename
+      }
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
@@ -336,6 +342,18 @@ export const updateUsuarios = /* GraphQL */ `
       password
       email
       edad
+      habilitado
+      Publicacions {
+        nextToken
+        startedAt
+        __typename
+      }
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
@@ -386,6 +404,18 @@ export const deleteUsuarios = /* GraphQL */ `
       password
       email
       edad
+      habilitado
+      Publicacions {
+        nextToken
+        startedAt
+        __typename
+      }
+      Reacciones {
+        nextToken
+        startedAt
+        __typename
+      }
+      tipoSangre
       createdAt
       updatedAt
       _version
