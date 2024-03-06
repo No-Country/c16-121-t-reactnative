@@ -86,7 +86,7 @@ const Home = () => {
 
         <HeaderMovil condition={true}></HeaderMovil>
       </View>
-      <View style={{ marginTop: "65%", height: "50%" }}>
+      <View style={{ marginTop: "65%", height: "50%" , backgroundColor:'grey'}}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
           <Text style={styles.buscar}>¿Buscas donador?{""}</Text>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding:'3%',
+    padding:'1%',
     backgroundColor: '#FFB6C1',
   },
 
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     marginTop:10,
     marginBottom: 8,
     borderRadius: 10,
-    elevation: 3,
+    elevation: 5,
     
   },
   buscar:{

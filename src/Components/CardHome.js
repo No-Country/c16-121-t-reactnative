@@ -67,22 +67,19 @@ const styles = StyleSheet.create({
  
   },
   button: { 
-    backgroundColor: "#FC688B",
     borderRadius: 100,
     marginBottom: 10,
     width: 50,
     height: 50,
-    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 3,
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
-    elevation: 6,
   },
   button1: {
-    backgroundColor: "#FC688B",
+   
     borderRadius: 100,
     marginBottom: 10,
     width: 50,
@@ -92,12 +89,11 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+
+
   },
   button2: {
-    backgroundColor: "#FC688B",
+  
     borderRadius: 100,
     marginBottom: 10,
     width: 50,
@@ -107,9 +103,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+  
+   
   },
   rightButtonsContainer: {},
   topButton: {
