@@ -67,7 +67,7 @@ export default function MyTabs() {
           }}
         >
           <Tab.Screen
-            name="Home"
+            name="Inicio"
             component={Home}
             options={{
               tabBarIcon: ({ color, size }) => (
@@ -76,7 +76,7 @@ export default function MyTabs() {
             }}
           />
           <Tab.Screen
-            name="Profile"
+            name="Perfil"
             component={Profile}
             options={{
               tabBarIcon: ({ color, size }) => (
@@ -85,7 +85,7 @@ export default function MyTabs() {
             }}
           />
           <Tab.Screen
-            name="Location"
+            name="Ubicación"
             component={MapScreen}
             options={{
               tabBarIcon: ({ color, size }) => (
@@ -94,7 +94,7 @@ export default function MyTabs() {
             }}
           />
           <Tab.Screen
-            name="MisPublicaciones"
+            name="Mis publicaciones"
             component={MisPublicaciones}
             options={{
               tabBarIcon: ({ color, size }) => (
