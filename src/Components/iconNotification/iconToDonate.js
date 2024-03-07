@@ -13,22 +13,32 @@ import iconToDonate1 from "../../../assets/iconToDonate1.png";
 import iconToDonate2 from "../../../assets/iconToDonate2.png";
 import MyBottom from "../MyBottom";
 import { ModalComponent } from "../modal";
+import { createReaccion, deleteReaccion } from "../../Utils/userPublication";
+import { AuthContext } from "../../Context/AuthContext";
 
-export const IconToDonate = () => {
+export const IconToDonate = ({itemId}) => {
   const [iconState1, setIconState1] = useState(true);
   const [iconState2, setIconState2] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
+  const { dbUserInfo } = React.useContext(AuthContext);
 
+  const infoReaccion = {
+    publicacionID: itemId,
+    usuariosID: dbUserInfo.id,
+  };
   const toggleIcon = () => {
     setVisibleModal(true);
+    // createReacion(infoReaccion)
   };
   // Función para hacer contacto y enviar notidicación
   const sendNotification = () => {
+    createReaccion(infoReaccion)
     console.log("se envió solicitud");
   };
 
   // Función para hacer solicitud de eliminar contactar
   const deleteNotification = () =>{
+    deleteReaccion(itemId)
     console.log('eliminando notificación')
   }
 
