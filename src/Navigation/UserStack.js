@@ -5,6 +5,7 @@ import Home from "../Screens/Home";
 import DonationForm from "../Screens/DonationForm";
 import PorqueDonar from "../Screens/PorqueDonar";
 import ProcesoDeDonacion from "../Screens/ProcesoDeDonacion";
+import MisPublicaciones from "../Screens/MisPublicaciones";
 
 import Login from "../Screens/Login";
 import MyTabs from "./Tabs";
@@ -33,6 +34,7 @@ export default function MyStack() {
         <UserStack.Screen name="Profile" component={Profile} />
         <UserStack.Screen name="DonationForm" component={DonationForm} />
         <UserStack.Screen name="Login" component={Login} />
+        <UserStack.Screen name="MisPublicaciones" component={MisPublicaciones} />
         <UserStack.Screen name="PorQueDonar" component={PorqueDonar} />
         <UserStack.Screen name="ProcesoDeDonacion" component={ProcesoDeDonacion} />
         <UserStack.Screen name="DonorSearchForm" component={DonorSearchForm} />

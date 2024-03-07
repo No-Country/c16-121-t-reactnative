@@ -18,11 +18,14 @@ import DialogAlert from "./DialogAlert";
 import MyBottom from "./MyBottom";
 import { createUser, getAllUsers, updateUserDate } from "../Utils/UserDate";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { DarckContext } from "../Context/DarckContext";
 
 const ProfileDates = () => {
   const { userSub,dbUserInfo } = React.useContext(AuthContext);
   const { donorData } = React.useContext(DonorContext);
-  
+  const { theme } = useContext(DarckContext);
+  const { colorText } = theme;
 
   useEffect(()=>{
    
@@ -54,10 +57,10 @@ const ProfileDates = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
+        <Text style={[styles.sectionTitle, { color: colorText }]}> DATOS DEL USUARIO: </Text>
         <InfoDate label={"Nombre"} value={nombre} />
         <InfoDate label={"Apellido"} value={apellido} />
-        <InfoDate label={"Edad"} canEdit value={edad} />
+        <InfoDate  label={"Edad"} canEdit value={edad}  />
         <InfoDate label={"Email"} canEdit value={email} />
         <InfoDate label={"Telefono"} canEdit value={telefono} />
         <InfoDate label={"Tipo de Sangre"} canEdit value={tipoSangre} />
@@ -103,6 +106,7 @@ function InfoDate({ label, value, canEdit }) {
           marginHorizontal: 10,
           flex: 1,
           width:"auto",
+         
         }}
       />
     </View>
@@ -116,7 +120,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 16,
-    color: "grey",
+    color: "black",
     marginBottom: 1,
   },
   fielContainer: {
@@ -134,7 +138,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: "500",
-    color: "grey",
+    color: "black",
     width: "50%",
     fontSize: 16,
     marginLeft:10,
