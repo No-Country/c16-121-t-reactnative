@@ -22,9 +22,21 @@ const PasswordChangeCode = () => {
         console.log("Valor de verificationCode:", enteredCode);
         try {
             await handleForgotPasswordSubmit( email, enteredCode, newPassword);
-            Alert.alert('Éxito', 'Código de verificación correcto');
+            // Alert.alert('Éxito', 'Código de verificación correcto');
+            Dialog.show({
+                type: ALERT_TYPE.SUCCESS,
+                title: "Exito",
+                textBody: "Código de verificación correcto",
+                button: "Cerrar",
+            });
         } catch (error) {
-            Alert.alert('Error', 'Código de verificación incorrecto');
+            // Alert.alert('Error', 'Código de verificación incorrecto');
+            Dialog.show({
+                type: ALERT_TYPE.WARNING,
+                title: "Error",
+                textBody: "Código de verificación incorrecto",
+                button: "Cerrar",
+            });
         }
     };
 

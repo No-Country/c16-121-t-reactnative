@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View, ScrollView, StyleSheet, FlatList } from "react-native";
+import { Text, View, StyleSheet, FlatList } from "react-native";
 import { publicacionesPorUsuario } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
 import { Colors } from "../Constants/Colors";
@@ -58,18 +58,17 @@ const MisPublicaciones = () => {
   );
 
   return (
-    <View style={{ backgroundColor: background, flex: 1 }}>
+    <View style={[styles.container, { backgroundColor: background }]}>
       <Background />
-      <View style={{ marginTop: "60%", padding: 10 }}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={[styles.title, {color:colorText}]}> Publicaciones realizadas:</Text>
-          <FlatList
-            data={publicaciones}
-            renderItem={renderPublicationItem}
-            keyExtractor={(item) => item.id.toString()}
-          />
-        </ScrollView>
-      </View>
+      <Text style={[styles.title, { color: colorText }]}>
+        {" "}
+        Publicaciones realizadas:
+      </Text>
+      <FlatList
+        data={publicaciones}
+        renderItem={renderPublicationItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
     </View>
   );
 };
@@ -77,12 +76,14 @@ const MisPublicaciones = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
   },
   title: {
-    marginTop: 50,
+    marginTop: 220,
     fontSize: 25,
     fontWeight: "bold",
     color: Colors.input,
+    textAlign: "center",
   },
   publicacion: {
     fontSize: 18,
