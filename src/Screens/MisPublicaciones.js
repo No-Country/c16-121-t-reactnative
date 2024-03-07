@@ -3,7 +3,7 @@ import { Text, View, ScrollView, StyleSheet, FlatList } from "react-native";
 import { publicacionesPorUsuario } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
 import { Colors } from "../Constants/Colors";
-
+import Background from "../Components/Background";
 const MisPublicaciones = () => {
   const { dbUserInfo } = React.useContext(AuthContext);
   const [publicaciones, setPublicaciones] = React.useState([]);
@@ -55,15 +55,22 @@ const MisPublicaciones = () => {
   );
 
   return (
+    
     <View style={{ backgroundColor: "white", flex: 1 }}>
-      <View style={{ marginTop: "10%", padding:10 }}>
+      <Background/>
+     
+      <View style={{ marginTop: "60%", padding:10 }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.title}> Publicaciones realizadas:</Text>
         <FlatList
           data={publicaciones}
           renderItem={renderPublicationItem}
           keyExtractor={(item) => item.id.toString()}
+
         />
+             </ScrollView>
       </View>
+ 
     </View>
   );
 };
