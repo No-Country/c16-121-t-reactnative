@@ -58,7 +58,7 @@ const [loading, setLoading] = React.useState(false);
       <ScrollView>
         <View style={styles.cont}>
       <Text style={styles.text}> Correo Electrónico </Text>
-      <MyInput label={"Email"} onChangeText={setEmail} style={styles.input}/>
+      <MyInput label={"Email"} onChangeText={(text) => setEmail(text.trim())} style={styles.input}/>
       <Text style={styles.textPassword}> Contraseña </Text>
       <View style={styles.viewPassword}>
         <MyInput
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     color: "#F3305F",
-    marginRight: "65%",
+    marginRight: "67%",
   },
   textForgotPassword: {
     position: "absolute",

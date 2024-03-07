@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -25,10 +25,10 @@ const Publication = () => {
   //DE BASE DE DATOS
   const tipoSangre = ["+ A", "- A", "+ B", "- B", "+ AB", "- AB", "+ O", "- O"];
 
-  const [selectSangre, setSelectSangre] = useState("+ A");
+  const [selectSangre, setSelectSangre] = useState(dbUserInfo.tipoSangre || "");
   const [centro, setCentro] = useState("");
-  const [ciudad, setCiudad] = useState("");
-  const [telefono, setTelefono] = useState("");
+  const [ciudad, setCiudad] = useState(dbUserInfo.provincia ||"");
+  const [telefono, setTelefono] = useState(dbUserInfo.telefono || "");
   const [publicacion, setPublicacion] = useState("");
   const [cant, setCant] = useState("");
   const [formData, setFormData] = useState({});
@@ -42,19 +42,19 @@ const Publication = () => {
     handleFormData("selectSangre", itemValue);
   };
 
+  useEffect(() => {
+   if( centro && tipoSangre){
+      const mensaje = `¡Necesitamos tu ayuda!\nSe solicitan ${cant} donadores de sangre tipo ${selectSangre} en ${centro}. \nTu donación puede salvar vidas. ¡Gracias por tu apoyo!`
+      setPublicacion(mensaje)
+    } else {
+      setPublicacion("")
+    }
+  },[selectSangre, cant, centro]) 
+
   function validation() {
-    if (
-      !selectSangre ||
-      !centro ||
-      !ciudad ||
-      !telefono ||
-      !publicacion ||
-      !cant
-    ) {
+    if (!selectSangre || !centro || !ciudad || !telefono || !publicacion || !cant) {
       alert("Faltan campos por completar");
     } else {
-      // // handleSubmit()
-      // createPublication()
       const fechaActual = new Date();
       const fechaFormateada = fechaActual.toISOString().split("T")[0];
 
@@ -71,21 +71,7 @@ const Publication = () => {
     }
   }
 
-  const handleSubmit = () => {
-    const fechaActual = new Date();
-    const fechaFormateada = fechaActual.toISOString().split("T")[0];
 
-    const publicationDetails = {
-      publicacion: publicacion,
-      fecha: fechaFormateada,
-      habilitada: true,
-      // cantidadRequeridos: 10,
-      usuariosID: userId,
-      tipoSangre: selectSangre,
-    };
-    console.log("handlesubmit ", publicationDetails);
-    createPublication(publicationDetails);
-  };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -110,14 +96,6 @@ const Publication = () => {
             setCentro(text), handleFormData("centro", text);
           }}
         />
-        <Text style={styles.text}>Cantidad de donantes</Text>
-        <TextInput
-          style={styles.input}
-          value={cant}
-          onChangeText={(text) => {
-            setCant(text), handleFormData("cant", text);
-          }}
-        />
         <Text style={styles.text}>Ciudad</Text>
         <TextInput
           style={styles.input}
@@ -126,10 +104,22 @@ const Publication = () => {
             setCiudad(text), handleFormData("ciudad", text);
           }}
         />
+        <Text style={styles.text}>Cantidad de donantes</Text>
+        <TextInput
+          style={styles.input}
+          value={cant}
+          keyboardType="numeric"
+          maxLength={3}
+          onChangeText={(text) => {
+            setCant(text), handleFormData("cant", text);
+          }}
+        />
         <Text style={styles.text}>Contacto</Text>
         <TextInput
           style={styles.input}
           value={telefono}
+          keyboardType="numeric"
+          maxLength={15}
           onChangeText={(text) => {
             setTelefono(text), handleFormData("telefono", text);
           }}
