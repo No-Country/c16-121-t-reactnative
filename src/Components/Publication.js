@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 import { Colors } from "../Constants/Colors";
 import MyBottom from "./MyBottom";
 import MyInput from "./MyInput";
@@ -9,21 +15,20 @@ import { createPublication, getUser } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
 
 const Publication = () => {
-  const { userSub } = React.useContext(AuthContext);
+  const { dbUserInfo } = React.useContext(AuthContext);
 
-  getUser(userSub).then((userInfo) => {
-    console.log("Datos del usuario:", userInfo);
-    userId = userInfo;
-   
-  });
+  // getUser(userSub).then((userInfo) => {
+  //   console.log("Datos del usuario:", userInfo);
+  //   userId = userInfo;
+  // });
 
   //DE BASE DE DATOS
   const tipoSangre = ["+ A", "- A", "+ B", "- B", "+ AB", "- AB", "+ O", "- O"];
 
-  const [selectSangre, setSelectSangre] = useState("+ A");
+  const [selectSangre, setSelectSangre] = useState(dbUserInfo.tipoSangre || "");
   const [centro, setCentro] = useState("");
-  const [ciudad, setCiudad] = useState("");
-  const [telefono, setTelefono] = useState("");
+  const [ciudad, setCiudad] = useState(dbUserInfo.provincia ||"");
+  const [telefono, setTelefono] = useState(dbUserInfo.telefono || "");
   const [publicacion, setPublicacion] = useState("");
   const [cant, setCant] = useState("");
   const [formData, setFormData] = useState({});
@@ -37,12 +42,19 @@ const Publication = () => {
     handleFormData("selectSangre", itemValue);
   };
 
+  useEffect(() => {
+   if( centro && tipoSangre){
+      const mensaje = `¡Necesitamos tu ayuda!\nSe solicitan ${cant} donadores de sangre tipo ${selectSangre} en ${centro}. \nTu donación puede salvar vidas. ¡Gracias por tu apoyo!`
+      setPublicacion(mensaje)
+    } else {
+      setPublicacion("")
+    }
+  },[selectSangre, cant, centro]) 
+
   function validation() {
     if (!selectSangre || !centro || !ciudad || !telefono || !publicacion || !cant) {
       alert("Faltan campos por completar");
     } else {
-      // // handleSubmit()
-      // createPublication()
       const fechaActual = new Date();
       const fechaFormateada = fechaActual.toISOString().split("T")[0];
 
@@ -51,7 +63,7 @@ const Publication = () => {
         fecha: fechaFormateada,
         habilitada: true,
         cantidadRequeridos: cant,
-        usuariosID: userId,
+        usuariosID: dbUserInfo.id,
         tipoSangre: selectSangre,
       };
       console.log("handlesubmit ", publicationDetails);
@@ -59,111 +71,86 @@ const Publication = () => {
     }
   }
 
-  const handleSubmit = () => {
-    const fechaActual = new Date();
-    const fechaFormateada = fechaActual.toISOString().split("T")[0];
 
-    const publicationDetails = {
-      publicacion: publicacion,
-      fecha: fechaFormateada,
-      habilitada: true,
-      // cantidadRequeridos: 10,
-      usuariosID: userId,
-      tipoSangre: selectSangre,
-    };
-    console.log("handlesubmit ", publicationDetails);
-    createPublication(publicationDetails);
-  };
 
   return (
-    <View style={styles.publicationContainer}>
-      <View style={styles.columnContainer}>
-        <View style={{ flex: 1 / 2 }}>
-          <Text style={styles.text}>Tipo de sangre</Text>
-          <View style={styles.pickerContainer}>
-            <Picker
-              style={styles.picker}
-              dropdownIconColor={Colors.input}
-              dropdownIconRippleColor="#FCC5D2"
-              selectedValue={selectSangre}
-              onValueChange={handleOptionChange}
-            >
-              {tipoSangre.map((tipo, index) => (
-                <Picker.Item key={index} label={tipo} value={tipo} />
-              ))}
-            </Picker>
-          </View>
-          <Text style={styles.text}>Centro de donación</Text>
-          <TextInput
-            style={styles.input}
-            value={centro}
-            onChangeText={(text) => {
-              setCentro(text), handleFormData("centro", text);
-            }}
-          />
-          <Text style={styles.text}>Cantidad de donantes</Text>
-          <TextInput
-            style={styles.input}
-            value={cant}
-            onChangeText={(text) => {
-              setCant(text), handleFormData("cant", text);
-            }}
-          />
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{ width: 300, marginTop: 30 }}>
+        <Text style={styles.text}>Tipo de sangre</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            style={styles.picker}
+            selectedValue={selectSangre}
+            onValueChange={handleOptionChange}
+          >
+            {tipoSangre.map((tipo, index) => (
+              <Picker.Item key={index} label={tipo} value={tipo} />
+            ))}
+          </Picker>
         </View>
-
-        <View style={{ flex: 1 / 2 }}>
-          <Text style={styles.text}>Ciudad</Text>
-          <TextInput
-            style={styles.input}
-            value={ciudad}
-            onChangeText={(text) => {
-              setCiudad(text), handleFormData("ciudad", text);
-            }}
-          />
-          <Text style={styles.text}>Contacto</Text>
-          <TextInput
-            style={styles.input}
-            value={telefono}
-            onChangeText={(text) => {
-              setTelefono(text), handleFormData("telefono", text);
-            }}
-          />
-        </View>
-      </View>
-
-      <Text>Deja tu mensaje aquí</Text>
-      <ScrollView style={styles.textInputContainer}>
+        <Text style={styles.text}>Centro de donación</Text>
         <TextInput
-          style={styles.textInput}
-          multiline={true}
-          value={publicacion}
+          style={styles.input}
+          value={centro}
           onChangeText={(text) => {
-            setPublicacion(text), handleFormData("publicacion", text);
+            setCentro(text), handleFormData("centro", text);
           }}
-        ></TextInput>
-      </ScrollView>
-      <MyBottom title="Publicar" onPress={() => validation()} />
-    </View>
+        />
+        <Text style={styles.text}>Ciudad</Text>
+        <TextInput
+          style={styles.input}
+          value={ciudad}
+          onChangeText={(text) => {
+            setCiudad(text), handleFormData("ciudad", text);
+          }}
+        />
+        <Text style={styles.text}>Cantidad de donantes</Text>
+        <TextInput
+          style={styles.input}
+          value={cant}
+          keyboardType="numeric"
+          maxLength={3}
+          onChangeText={(text) => {
+            setCant(text), handleFormData("cant", text);
+          }}
+        />
+        <Text style={styles.text}>Contacto</Text>
+        <TextInput
+          style={styles.input}
+          value={telefono}
+          keyboardType="numeric"
+          maxLength={15}
+          onChangeText={(text) => {
+            setTelefono(text), handleFormData("telefono", text);
+          }}
+        />
+        <View>
+          <Text style={styles.text}>Deja tu mensaje aquí</Text>
+          <TextInput
+            style={styles.textInput}
+            multiline={true}
+            value={publicacion}
+            onChangeText={(text) => {
+              setPublicacion(text), handleFormData("publicacion", text);
+            }}
+          ></TextInput>
+        </View>
+
+        <MyBottom title="Publicar" onPress={() => validation()} />
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  publicationContainer: {
-    width: "90%",
-    backgroundColor: "transparent",
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: Colors.input,
-    alignItems: "center",
-    padding: 20,
-  },
   columnContainer: {
     flexDirection: "row",
     width: "90%",
     gap: 14,
+    padding: 80,
   },
   text: {
-    width: "100%",
+    fontWeight: "bold",
     marginVertical: 8,
   },
   input: {

@@ -6,6 +6,7 @@ import Profile from "../Screens/Profile";
 import Home from "../Screens/Home";
 import Exit from "../Screens/Exit";
 import MapScreen from "../Components/Map";
+import MisPublicaciones from "../Screens/MisPublicaciones";
 
 const Tab = createBottomTabNavigator();
 
@@ -93,11 +94,11 @@ export default function MyTabs() {
             }}
           />
           <Tab.Screen
-            name="Exit"
-            component={Exit}
+            name="MisPublicaciones"
+            component={MisPublicaciones}
             options={{
               tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="exit-to-app" color={color} size={size} />
+                <MaterialIcons name="archive" color={color} size={size} />
               ),
             }}
           />

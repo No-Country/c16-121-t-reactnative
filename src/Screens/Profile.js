@@ -1,22 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, TextInput, SafeAreaView, ScrollView } from "react-native";
 import ProfileDates from "../Components/ProfileDates";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import Background from '../Components/Background';
+import { DarckContext } from "../Context/DarckContext";
+import { PictureProfile } from "../Components/headerComponent/PictureProfile";
 
 const Profile = () => {
+  const { theme } = useContext(DarckContext);
+  const { background, colorText, backgroundGrey } = theme;
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      {/* <View style={{ flex: 2 / 6 }}> */}
-      <View style={{ flex: 2 / 6 }}>
-        <HeaderMovil condition={false}></HeaderMovil>
+    <SafeAreaView style={[styles.container, { backgroundColor: backgroundGrey }]}>
+      <View style={styles.perfil}>
+       <PictureProfile showButton={true}/>
       </View>
-      {/* <View style={{ flex: 4 / 6 }}> */}
-      <ScrollView style={{ marginTop: 250, marginBottom: 40 }}>
+    
+      <ScrollView style={styles.scrollView}>
         <ProfileDates />
       </ScrollView>
-      {/* </View> */}
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  perfil:{
+    width:100, 
+    height:100,
+    alignSelf:'center',
+    margin:70
+  
+  },
+
+
+
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    // marginTop: ,
+    marginBottom: 40,
+  },
+});
+
 export default Profile;

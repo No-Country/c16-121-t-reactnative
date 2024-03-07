@@ -73,6 +73,8 @@ export const createPublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -100,6 +102,8 @@ export const updatePublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -127,6 +131,8 @@ export const deletePublicacion = /* GraphQL */ `
         __typename
       }
       tipoSangre
+      centroDonacion
+      ciudad
       createdAt
       updatedAt
       _version
@@ -430,7 +436,6 @@ export const deleteUsuarios = /* GraphQL */ `
     }
   }
 `;
-
 export const disableUser = /* GraphQL */ `
   mutation DisableUser($id: ID!, $habilitado: Boolean) {
     updateUsuarios(input: { id: $id, habilitado: $habilitado }) {
@@ -490,7 +495,6 @@ export const disableUser = /* GraphQL */ `
       }
     }
   `;
-
   export const updateHabilitado = /* GraphQL */ `
   mutation UpdateUsuarios(
     $input: UpdateUsuariosInput!

@@ -12,15 +12,15 @@ export const updateUsuarioHabilitado = async (userId, newHabilitadoValue) => {
 
   try {
     const response = await API.graphql({
-      query: mutations.updateHabilitado, 
+      query: mutations.updateUsuarios, 
       variables: {
-        input: newDates 
+        input:newDates
       }
-    });
-    console.log("Updated user data:", response.data);
+  });
+    console.log("Update:", response.data);
     return response.data;
   } catch (error) {
-    console.error('Error updating user habilitado:', error);
+    console.error('Error:', error);
     throw error;
   }
 };
@@ -29,11 +29,48 @@ export const updateUsuarioHabilitado = async (userId, newHabilitadoValue) => {
 export const createRecibo = async (reciboDetalles) => {
   try {
     await API.graphql({
-      query: mutations.createReciboDonaciones,
+      query: mutations.createReciboDonaciones, 
       variables: { input: reciboDetalles },
     });
-    console.log("se crea recibo");
+
   } catch (error) {
     console.error(error);
   }
 };
+
+export const getRecibosPorUsuario = async (userId) => {
+  try {
+    const recibosUsuario =  await API.graphql({
+      query: queries.reciboDonacionesByUsuariosID,
+      variables: {
+        usuariosID: userId,
+      },
+    });
+
+    const recibos = recibosUsuario.data.reciboDonacionesByUsuariosID.items
+
+    const sortedRecibos = recibos.sort((a, b) => {
+      return new Date(b.fecha) - new Date(a.fecha);
+    });
+
+    return sortedRecibos;
+
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getReciboReciente = async (userId) => {
+  try{
+    const recibos = await API.graphql({
+      query: queries.reciboDonacionesByUsuariosID,
+      variables: {
+        usuariosID: userId,
+      },
+    })
+    return recibosUsuario.data.reciboDonacionesByUsuariosID.items[0]
+  } catch(e) {
+    console.log(e);
+    return null;
+  }
+}

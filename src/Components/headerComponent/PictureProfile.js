@@ -8,44 +8,36 @@ import { TouchableOpacity } from "react-native";
 import { Colors } from "../../Constants/Colors";
 import { IconToNotification } from "../iconNotification/iconToNotification";
 import { useContext } from "react";
-import { DarckContext} from "../../Context/DarckContext";
+import { DarckContext } from "../../Context/DarckContext";
 import { AuthContext } from "../../Context/AuthContext";
 import { getUser } from "../../Utils/userPublication";
 
+export const PictureProfile = ({ showButton }) => {
+  const { dbUserInfo } = React.useContext(AuthContext);
+  console.log("data1", dbUserInfo);
 
-export const PictureProfile = ({showButton}) => {
+  const [picture, setPicture] = React.useState(dbUserInfo.imagen);
 
-
- const {dbUserInfo } = React.useContext(AuthContext);
- console.log('data1', dbUserInfo)
-
-
-
-  const [picture, setPicture] = React.useState("");
   const { theme } = useContext(DarckContext);
   const { borderDarck } = theme;
 
-  React.useEffect(() => {
 
-    const getPhoto = ()=>{
-      const photo = dbUserInfo.imagen;
+  // React.useEffect(() => {
+    const getPhoto = async () => {
+        const photo = await AsyncStorage.getItem("@pic");
+        setPicture(photo)
+        // if (photo == null) setPicture(photo);
+    };
 
-      console.log('imagen' ,dbUserInfo.imagen);
-
-      if (photo !== null) setPicture(dbUserInfo.imagen);
-    }
     // const getPhoto = async () => {
     //   const photo = await AsyncStorage.getItem("@pic");
     //   if (photo !== null) setPicture(photo);
     // };
-    getPhoto();
 
-  });
-
-
+    // getPhoto();
+  // });
 
   const pickImage = async () => {
-  
     if (Platform.OS !== "web") {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -92,18 +84,16 @@ export const PictureProfile = ({showButton}) => {
 
         await AsyncStorage.setItem("@pic", json.url);
         console.log("url", json.url);
-
-
+        getPhoto()
       } catch (e) {
         console.log(e);
       }
     }
-    
   };
 
   return (
     <View style={style.container}>
-      <View style={[style.profile, {borderColor: borderDarck }]}>
+      <View style={[style.profile, { borderColor: borderDarck }]}>
         {showButton && (
           <TouchableOpacity onPress={pickImage} style={style.button}>
             <Text style={{ fontSize: 18, color: "white", fontWeight: "800" }}>
@@ -117,9 +107,9 @@ export const PictureProfile = ({showButton}) => {
         )}
       </View>
       {!showButton && (
-      <View style= {style.iconNotification}>
-        <IconToNotification></IconToNotification>
-      </View>
+        <View style={style.iconNotification}>
+          <IconToNotification></IconToNotification>
+        </View>
       )}
     </View>
   );
@@ -130,7 +120,6 @@ const style = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
-    
   },
   profile: {
     aspectRatio: 1,
@@ -141,8 +130,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     flexDirection: "column",
     overflow: "hidden",
-    borderColor:'black',
-    
+    borderColor: "black",
   },
   iconNotification: {
     position: "absolute",
@@ -160,7 +148,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
-    borderWidth:1
+    borderWidth: 1,
   },
 
   image: {
@@ -169,6 +157,5 @@ const style = StyleSheet.create({
     height: "100%",
     aspectRatio: 1,
     borderRadius: 200,
-   
   },
 });

@@ -1,11 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DonorContext from "../Context/DonorContext";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../Constants/Colors";
+import { getRecibosPorUsuario } from "../Utils/userDonor";
+import { AuthContext } from "../Context/AuthContext";
 
 const DonationsList = () => {
   const { donorData } = useContext(DonorContext);
-  const donaciones = donorData?.donaciones || [];
+  const { dbUserInfo } = React.useContext(AuthContext);
+  // const donaciones = donorData?.donaciones || [];
+
+  const [donaciones, setDonaciones] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async() => {
+      try{
+        const reciboDonaciones = await getRecibosPorUsuario(dbUserInfo.id);
+        setDonaciones(reciboDonaciones)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [donaciones])
+
+  // const donaciones = getRecibosPorUsuario(dbUserInfo.id).then((recibos) => {
+  //     console.log("recibos:", recibos);
+  //   });
 
   const formatDate = (itemDate) => {
     const date = new Date(itemDate);
@@ -25,8 +46,8 @@ const DonationsList = () => {
           data={donaciones}
           renderItem={({ item }) => (
             <View style={styles.donationItem}>
-              <Text style={styles.date}>{formatDate(item.date)}</Text>
-              <Text style={styles.location}>{item.location}</Text>
+              <Text style={styles.date}>{formatDate(item.fecha)}</Text>
+              <Text style={styles.location}>{item.centroDonacion}</Text>
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}

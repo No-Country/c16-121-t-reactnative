@@ -1,15 +1,19 @@
 import * as React from "react";
-import { View, Text, Image, style, StyleSheet } from "react-native";
+import { View, Text, Image, style, StyleSheet,TouchableOpacity } from "react-native";
 import iconNotification from '../../../assets/iconNotification.png'
+import { createReaction } from "../../Utils/userReacciones";
 
 export const IconToNotification = ()=>{
-
-    let number = 1
+   
+    
+   
     return(
-        <View style={styles.container}>
-            <Image style={styles.icon} source={iconNotification} ></Image>
-            <Text style={styles.text}>{number}</Text>
-        </View>
+        <TouchableOpacity > 
+      <View style={styles.container}>
+        <Image style={styles.icon} source={iconNotification} />
+      
+      </View>
+    </TouchableOpacity>
     )
 
 }

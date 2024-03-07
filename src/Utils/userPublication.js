@@ -14,6 +14,7 @@ export const createPublication = async (todoDetails) => {
       variables: { input: todoDetails },
     });
     console.log("se supone que entro en createPub");
+    alert("Publicación creada con éxito");
   } catch (error) {
     console.error(error);
   }
@@ -85,7 +86,7 @@ export const getAllPublications = async (startDate, endDate) => {
     return response.data.listPublicacions.items;
   } catch (error) {
     console.error("Error fetching all publications:", error);
-    return null;
+    return null; 
   }
 };
 
@@ -109,24 +110,19 @@ export const getPublications = async () => {
           fecha: { between: [fechaLimiteFormateada, fechaActual] }, 
           _deleted: { ne: true },
         },
-        limit: 1,
-        // sort: {
-        //   field: "fecha",
-        //   direction: "desc",
-        // },
+        limit: 100,
       },
     });
 
-    // console.log("publicaciones", post.data.listPublicacions.items.length);
-    // return post.data.listPublicacions.items
-    
     const publicationsWithUser = await Promise.all(post.data.listPublicacions.items.map(async (publication) => {
       const usuarioID = publication.usuariosID;
-      const userData = await getUserData(usuarioID);
+      const userData = await getUserData(usuarioID, ['nombre', 'telefono']);
       return { ...publication, usuario: userData };
     }));
 
-    return publicationsWithUser;
+    const publicationsSorted = publicationsWithUser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+ 
+    return publicationsSorted;
 
   } catch (e) {
     console.log(e);
@@ -137,12 +133,128 @@ export const getPublications = async () => {
 const getUserData = async (userId) => {
   try {
     const userData = await API.graphql({
-      query: queries.getUsuarios, 
+      query: queries.getDatosUsuarios, 
       variables: { id: userId },
     });
     return userData.data.getUsuarios; 
   } catch (error) {
     console.error('Error obteniendo datos del usuario:', error);
     throw error;
+  }
+};
+
+// Creo la reacción 
+export const createReaccion = async (infoReaccion) => {
+  try {
+    await API.graphql({
+      query: mutations.createReacciones,
+      variables: { input: infoReaccion },
+    });
+    console.log("crear reaccion");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+//Elimino la reacción
+export const deleteReaccion = async (itemId) => {
+  try {
+    const reaccion = await API.graphql({
+      query: queries.reaccionesByPublicacionID,
+      variables: {
+        publicacionID: itemId,
+      },
+    });
+    console.log("dato reacción", reaccion.data.reaccionesByPublicacionID.items[0].id)
+    const idReaccion = reaccion.data.reaccionesByPublicacionID.items[0].id
+    await API.graphql({
+      query: mutations.deleteReacciones,
+      variables: { 
+        input: {id: idReaccion},
+      }
+    });
+    console.log("ELIMINADO");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+//cantidad de reacciones por publicación
+export const cantidadReaccionesPorPublicacion = async (itemId) => {
+  try {
+    const reaccion = await API.graphql({
+      query: queries.reaccionesByPublicacionID,
+      variables: {
+        publicacionID: itemId,
+      },
+    });
+
+    const cantReacciones = reaccion.data.reaccionesByPublicacionID.items;
+     return cantReacciones.length
+  } catch (error) {
+    console.error( error);
+    throw error;
+  }
+};
+
+//cantidad de publicaciones por usuario
+export const cantidadPublicacionesPorUsuario = async (userId) => {
+  try {
+    const publicacion = await API.graphql({
+      query: queries.publicacionsByUsuariosID,
+      variables: {
+        usuariosID: userId,
+      },
+    });
+
+    const cantPublicaciones = publicacion.data.publicacionsByUsuariosID.items;
+    return cantPublicaciones.length
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+//reacción de una publicación + datos de usuario que reacciona
+export const datosReaccion = async (reaccionId) => {
+  try {
+    const reaccionData = await API.graphql({
+      query: queries.getReacciones,
+      variables: { id: reaccionId }
+    });
+    const publicacionData = await API.graphql({
+      query: queries.getPublicacion,
+      variables: { id: reaccionData.data.getReacciones.publicacionID }
+    });
+    const usuarioData = await API.graphql({
+      query: queries.getUsuarios,
+      variables: { id: reaccionData.data.getReacciones.usuariosID }
+    });
+
+    return {
+      reaccion: reaccionData.data.getReacciones,
+      publicacion: publicacionData.data.getPublicacion,
+      usuario: usuarioData.data.getUsuarios
+    };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+//publicaciones reaccionadas por el usuario
+export const publicacionesPorUsuario = async (userId) => {
+  try {
+    const publicacionesUsuario =  await API.graphql({
+      query: queries.publicacionsByUsuariosID,
+      variables: {
+        usuariosID: userId,
+      },
+    });
+    
+    return publicacionesUsuario.data.publicacionsByUsuariosID.items;
+
+  } catch (e) {
+    console.log(e);
   }
 };
