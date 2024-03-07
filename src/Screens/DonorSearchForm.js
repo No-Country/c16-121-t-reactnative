@@ -1,10 +1,11 @@
 import * as React from "react";
-import { View, ScrollView, StyleSheet, Pressable, Text } from "react-native";
+import { View, ScrollView, StyleSheet, Pressable, Text,KeyboardAvoidingView  } from "react-native";
 import ChangePassword from "../Components/ChangePassword";
 import Publication from "../Components/Publication";
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../Constants/Colors";
+import { SafeAreaView } from "react-native-web";
 
 const styles = StyleSheet.create({
     container: {
@@ -13,12 +14,12 @@ const styles = StyleSheet.create({
         elevation: 5, // Para crear el efecto de elevación
         margin: 15,
         marginTop: "13%",
-        height: "85%",
+        height: "90%",
         alignItems: "center",
         justifyContent: "center",
       },
       textStyle: {
-        marginTop: 50,
+       marginTop:30,
         fontSize: 25,
         fontWeight: "bold",
         color: Colors.input,
@@ -33,15 +34,19 @@ const styles = StyleSheet.create({
 export default function DonorSearchForm() {
   const navigation = useNavigation();
   return (
-    <View style={{ backgroundColor: "#FFEBF0", flex: 1 }}>
+   
+    <View style={{ backgroundColor: "#FFEBF0" }}>
       <Pressable style={{marginTop:30, marginHorizontal:20, marginBottom:-40}} onPress={navigation.goBack}>
       <AntDesign name="arrowleft" size={24} color="black" />
       </Pressable>
       
       <View style={styles.container}>
         <Text style={styles.textStyle}>¿Buscas donador?</Text>
-        <Publication />
+        <Publication/>
+        
       </View>
     </View>
+    
+
   );
 }
