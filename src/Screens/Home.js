@@ -75,7 +75,7 @@ const Home = () => {
         <Text style={styles.fecha}>Fecha de publicación: {item.fecha}</Text>
       </View>
       <View style={{ marginTop: "40%", elevation: 3 }}>
-        <IconToDonate style={styles.icono} />
+        <IconToDonate style={styles.icono} itemId={item.id}/>
       </View>
     </View>
   );

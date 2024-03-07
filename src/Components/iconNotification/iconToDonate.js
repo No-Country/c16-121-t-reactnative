@@ -13,19 +13,34 @@ import iconToDonate1 from "../../../assets/iconToDonate1.png";
 import iconToDonate2 from "../../../assets/iconToDonate2.png";
 import MyBottom from "../MyBottom";
 import { ModalComponent } from "../modal";
+import { useContext } from "react";
+import {AuthContext} from '../../Context/AuthContext'
+import { createReacion } from "../../Utils/userReacciones";
 
-export const IconToDonate = () => {
+
+export const IconToDonate = ({itemId}) => {
   const [iconState1, setIconState1] = useState(true);
   const [iconState2, setIconState2] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
+  const {dbUserInfo}=React.useContext(AuthContext)
 
+
+  const infoReaccion = {
+    publicacionID: itemId,
+    usuariosID: dbUserInfo.id,
+  };
   const toggleIcon = () => {
     setVisibleModal(true);
+    // createReacion(infoReaccion)
   };
   // Función para hacer contacto y enviar notidicación
   const sendNotification = () => {
+    createReacion(infoReaccion)
     console.log("se envió solicitud");
   };
+
+
+
 
   // Función para hacer solicitud de eliminar contactar
   const deleteNotification = () =>{
@@ -34,7 +49,7 @@ export const IconToDonate = () => {
 
   const messege = {
     messege1:
-      "Se enviará un mensaje al solicitante tu disponibilidad para donar, ¿Estás seguro de contactar?",
+      "Se enviará una reacción a esta publicación y una notificación para ponerte en contacto con el propietario, ¿Estás seguro de contactar?",
     messege2: "¿Está segur@ de que ya no desea ponerse en contacto con el solicitante?",
   };
 
