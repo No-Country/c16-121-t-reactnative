@@ -19,24 +19,24 @@ const DonorInfo = ({ canDonate }) => {
 
   const handleSave = () => {
     if (date && location) {
-      // const newDonation = { date, location };
-      // setDonorData((prevDonorData) => {
-      //   const updateData = {
-      //     ...donorData,
-      //     donaciones: [...(prevDonorData.donaciones || []), newDonation],
-      //   };
-      //   alert("Donación guardada con éxito");
-      //   return updateData;
-      
-      const fechaFormateada = date.toISOString().split("T")[0];
+      const newDonation = { date, location };
+      setDonorData((prevDonorData) => {
+        const updateData = {
+          ...donorData,
+          donaciones: [...(prevDonorData.donaciones || []), newDonation],
+        };
+        alert("Donación guardada con éxito");
+        const fechaFormateada = date.toISOString().split("T")[0];
 
-      const reciboDetalles = {
-        usuariosID: dbUserInfo.id,
-        fecha: fechaFormateada,
-        centroDonacion: location
-      };
+        const reciboDetalles = {
+          usuariosID: dbUserInfo.id,
+          fecha: fechaFormateada,
+          centroDonacion: location,
+        };
 
-      createRecibo(reciboDetalles)
+        createRecibo(reciboDetalles);
+        return updateData;
+      });
     } else {
       alert("Faltan ingresar datos");
     }
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   textInfo: {
     fontSize: 15,
     fontWeight: "bold",
-    color: 'black',
+    color: "black",
     marginBottom: 8,
     paddingHorizontal: 20,
   },

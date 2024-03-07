@@ -7,16 +7,11 @@ import Background from '../Components/Background';
 const Profile = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      {/* <View style={{ flex: 2 / 6 }}> */}
-      <View style={{ flex: 2 / 6 }}>
-        <Background/>
-        {/* <HeaderMovil condition={false}></HeaderMovil> */}
-      </View>
-      {/* <View style={{ flex: 4 / 6 }}> */}
-      <ScrollView style={{ marginTop: 250, marginBottom: 40 }}>
+    
+    <ScrollView style={{ marginTop: 250, marginBottom: 40 }}> 
         <ProfileDates />
       </ScrollView>
-      {/* </View> */}
+    
     </SafeAreaView>
   );
 };

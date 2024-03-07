@@ -39,11 +39,9 @@ export const IconToDonate = ({itemId}) => {
     console.log("se envió solicitud");
   };
 
-
-
-
   // Función para hacer solicitud de eliminar contactar
   const deleteNotification = () =>{
+    deleteReaccion(itemId)
     console.log('eliminando notificación')
   }
 
