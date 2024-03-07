@@ -109,7 +109,7 @@ export const getPublications = async () => {
           fecha: { between: [fechaLimiteFormateada, fechaActual] }, 
           _deleted: { ne: true },
         },
-        limit: 2,
+        limit: 100,
       },
     });
 
@@ -119,7 +119,7 @@ export const getPublications = async () => {
       return { ...publication, usuario: userData };
     }));
 
-    const publicationsSorted = publicationsWithUser.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+    const publicationsSorted = publicationsWithUser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
  
     return publicationsSorted;
 

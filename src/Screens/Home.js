@@ -1,21 +1,11 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-  Image
-} from "react-native";
+import { View, Text, SafeAreaView, FlatList, ScrollView, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
 import { DarckContext } from "../Context/DarckContext";
 import { useContext } from "react";
-
+import Background from "../Components/Background";
 
 
 import {
@@ -65,7 +55,9 @@ const Home = () => {
   const renderPublicationItem = ({ item }) => (
     <View style={styles.card}>
       <View style={styles.cardContent}>
-        <Text style={styles.usuario}>Nombre: {item.usuarioID}</Text>
+        <Text style={styles.usuario}>Nombre: {item.usuario ? item.usuario.nombre : 'Usuario desconocido'}</Text>
+        <Text style={styles.contacto}>Contacto: {item.usuario ? item.usuario.telefono : 'Telefono desconocido'}</Text>
+        <Text style={styles.localidad}>Localidad: {item.usuario ? item.usuario.localidad : 'Localidad desconocida'}</Text>
         <Text style={styles.tipoSangre}>
           Tipo de sangre requerido: {item.tipoSangre}
         </Text>
@@ -83,10 +75,10 @@ const Home = () => {
   return (
     <SafeAreaView style={[{ flex: 1, backgroundColor: "white" }]}>
       <View>
-
-        <HeaderMovil condition={true}></HeaderMovil>
+    <Background/>
+        {/* <HeaderMovil condition={true}></HeaderMovil> */}
       </View>
-      <View style={{ marginTop: "65%", height: "50%" }}>
+      <View style={{ marginTop: "55%" }}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
           <Text style={styles.buscar}>¿Buscas donador?{""}</Text>
@@ -99,11 +91,10 @@ const Home = () => {
           data={publications}
           renderItem={renderPublicationItem}
           keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{ paddingHorizontal: 10 }}
+          contentContainerStyle={{ paddingHorizontal: 15 }}
         ></FlatList>
 
-       
-          <CardHome style={{ marginTop: 15}}/>
+        {/* <CardHome style={{ marginTop: 10}}/> */}
         
       </View>
     </SafeAreaView>
@@ -118,12 +109,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFB6C1',
   },
 
-  
   card: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: Colors.profileCard,
+    backgroundColor: 'white',
+    borderColor:'#999999',
+    borderWidth:1,
     padding: 20,
     marginTop:10,
     marginBottom: 8,
@@ -131,9 +123,9 @@ const styles = StyleSheet.create({
     elevation: 3,
     
   },
-  buscar:{
-    fontSize:20,
-    textAlign:'center',
+  buscar: {
+    fontSize: 20,
+    textAlign: "center",
     fontWeight: "bold",
     color:'#808080'
     
@@ -150,37 +142,51 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     marginBottom: 10,
+   
   },
   usuario: {
     fontSize: 18,
-    color: "white",
+    color: "black",
     marginBottom: 5,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   publicacionContainer: {
-    backgroundColor: "white",
+    backgroundColor: "#f2f2f2",
     borderRadius: 8,
-    padding: 10,
+    padding:15,
     marginTop: 10,
     marginBottom: 10,
-    width: "110%",
+    width: "115%",
+
   },
   tipoSangre: {
     fontSize: 16,
-    color: "#666",
+    color: '#595959',
     marginBottom: 5,
-    color:'white'
+    color:'black'
   },
   fecha: {
     fontSize: 14,
     color: "#999",
     marginTop: 10,
-    color:'white'
+    color:'black'
   },
-  lupa:{
-    width:'10%',
-    height:'100%',
-    margin:5
-  }
+  lupa: {
+    width: "10%",
+    height: "100%",
+    margin: 5,
+  },
+  contacto: {
+    fontSize: 18,
+    color: "black",
+    marginBottom: 5,
+    fontWeight: "bold",
+  },
+  localidad: {
+    fontSize: 18,
+    color: "black",
+    marginBottom: 5,
+    fontWeight: "bold",
+  },
 });
 export default Home;
