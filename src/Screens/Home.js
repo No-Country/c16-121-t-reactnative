@@ -45,21 +45,30 @@ const Home = () => {
   //   // console.log("publicaciones:", publicaciones);
   // });
 
-  cantidadReaccionesPorPublicacion("34aed3f7-4a96-41c3-8a21-d8bd94cb3c64").then((reaccion) => {
-      console.log("CANTIDAD REACCIONES:", reaccion);
-    });
+  // cantidadReaccionesPorPublicacion("34aed3f7-4a96-41c3-8a21-d8bd94cb3c64").then((reaccion) => {
+  //     console.log("CANTIDAD REACCIONES:", reaccion);
+  //   });
 
-  cantidadPublicacionesPorUsuario("617b9174-2dc1-4dc7-9d2a-8b6489943b6b").then((publicacion) => {
-    console.log("CANTIDAD PUBLICACIONES:", publicacion);
-  });
+  // cantidadPublicacionesPorUsuario("617b9174-2dc1-4dc7-9d2a-8b6489943b6b").then((publicacion) => {
+  //   console.log("CANTIDAD PUBLICACIONES:", publicacion);
+  // });
 
-  datosReaccion("633a17fb-0067-4e72-9720-d3dbf2504fbb").then((reaccion) => {
-    console.log("DATOS REACCION:", reaccion);
-  });
+  // datosReaccion("633a17fb-0067-4e72-9720-d3dbf2504fbb").then((reaccion) => {
+  //   console.log("DATOS REACCION:", reaccion);
+  // });
 
-  publicacionesPorUsuario("617b9174-2dc1-4dc7-9d2a-8b6489943b6b").then((pub) => {
-    console.log("PUBLICACION POR USUARIO:", pub);
-  });
+  // publicacionesPorUsuario("617b9174-2dc1-4dc7-9d2a-8b6489943b6b").then((pub) => {
+  //   console.log("PUBLICACION POR USUARIO:", pub);
+  // });
+
+  const formatDate = (itemDate) => {
+    const date = new Date(itemDate);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
 
   React.useEffect(() => {
     fetchPublications();
@@ -68,7 +77,11 @@ const Home = () => {
   const fetchPublications = async () => {
     try {
       const fetchedPublications = await getPublications();
-      setPublications(fetchedPublications);
+      const reaccionesDePublicacion = await Promise.all(fetchedPublications.map(async (publicacion) => {
+        const reacciones = await cantidadReaccionesPorPublicacion(publicacion.id);
+        return { ...publicacion, cantidadReacciones: reacciones };
+      }));
+      setPublications(reaccionesDePublicacion);
     } catch (error) {
       console.error("Error al traer las publicaciones", error);
     }
@@ -76,7 +89,7 @@ const Home = () => {
   const renderPublicationItem = ({ item }) => (
     <View style={styles.card}>
       <View style={styles.cardContent}>
-        <Text style={styles.usuario}>Nombre: {item.usuario ? item.usuario.nombre : 'Usuario desconocido'}</Text>
+        <Text style={styles.usuario}>Nombre: {item.usuario ? item.usuario.nombre + " " + item.usuario.apellido: 'Usuario desconocido'}</Text>
         <Text style={styles.contacto}>Contacto: {item.usuario ? item.usuario.telefono : 'Telefono desconocido'}</Text>
         <Text style={styles.localidad}>Localidad: {item.usuario ? item.usuario.localidad : 'Localidad desconocida'}</Text>
         <Text style={styles.tipoSangre}>
@@ -85,9 +98,10 @@ const Home = () => {
         <View style={styles.publicacionContainer}>
           <Text style={styles.publicacion}>{item.publicacion}</Text>
         </View>
-        <Text style={styles.fecha}>Fecha de publicación: {item.fecha}</Text>
+        <Text style={styles.fecha}>Fecha de publicación: {formatDate(item.fecha)}</Text>
       </View>
-      <View style={{ marginTop: "40%", elevation: 3 }}>
+      <View style={{ marginTop: "40%", elevation: 3, flexDirection: "row" }}>
+            <Text style={{fontWeight: "bold"}}>{item.cantidadReacciones}</Text>
         <IconToDonate style={styles.icono} itemId={item.id}/>
       </View>
     </View>
