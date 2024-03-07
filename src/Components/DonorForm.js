@@ -5,11 +5,14 @@ import { Colors } from "../Constants/Colors";
 import { Picker } from "@react-native-picker/picker";
 import DonorContext, { useDonorContext } from "../Context/DonorContext";
 import DonorInfo from "./DonorInfo";
+import { AuthContext } from "../Context/AuthContext";
+import { disableUsuario, updateUsuarioHabilitado } from "../Utils/userDonor";
 
 const DonorForm = () => {
   const { donorData, setDonorData } = useDonorContext();
   const [isEditing, setIsEditing] = useState(true);
   const [canDonate, setCanDonate] = useState(true);
+  const { dbUserInfo } = React.useContext(AuthContext);
 
   useEffect(() => {
     if(donorData){
@@ -27,7 +30,7 @@ const DonorForm = () => {
   const handleOptionChange = (itemValue) => {
     setSelectSangre(itemValue);
   };
-
+ 
   //PREGUNTAS . RELACIONAR CON DB
   const questions = [
     {
@@ -84,6 +87,17 @@ const DonorForm = () => {
       //verificar si puede donar
       const yesAnswer = Object.values(answers).some((answer) => answer === true);
       setCanDonate(!yesAnswer);
+      console.log("yes", yesAnswer)
+      // disableUsuario(dbUserInfo.id, yesAnswer).then((userInfo) => {
+      //   console.log(yesAnswer, userInfo);
+      // });
+
+      updateUsuarioHabilitado(dbUserInfo.id, yesAnswer).then((userData) => {
+        console.log("User habilitado updated:", userData);
+      }).catch((error) => {
+        console.error("Error updating user habilitado:", error);
+      });
+
     } else {
       alert("Por favor, responde todas las preguntas");
     }
@@ -98,10 +112,11 @@ const DonorForm = () => {
       {!isEditing ?
         <>
           <View style={styles.donorContainer}>
-          <TouchableOpacity  onPress={toggleEdit}>
-            <Text style={styles.textUpdate}>Actualizar los datos {">"}</Text>
-          </TouchableOpacity>
+          
             <DonorInfo canDonate={canDonate}/>
+            <TouchableOpacity  onPress={toggleEdit}>
+            <Text style={styles.textUpdate}>{"<"}Actualizar los datos </Text>
+          </TouchableOpacity>
           </View>
         </>
       :
@@ -165,7 +180,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    width: "90%",
+    width: "95%",
+    marginTop:'-4%'
   },
   text: {
     fontSize: 14,
@@ -194,7 +210,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
   donorContainer: {
-    width: "90%",
+    width: "98%",
     height: "100%",
     justifyContent: "flex-start",
     gap: 20,

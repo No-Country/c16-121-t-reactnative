@@ -1,13 +1,16 @@
 import React, { useContext, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Colors } from "../Constants/Colors";
 import DateInput from "./DateInput";
 import MyInput from "./MyInput";
 import MyBottom from "./MyBottom";
 import { useDonorContext } from "../Context/DonorContext";
+import { AuthContext } from "../Context/AuthContext";
+import { createRecibo } from "../Utils/userDonor";
 
 const DonorInfo = ({ canDonate }) => {
   const { donorData, setDonorData } = useDonorContext();
+  const { dbUserInfo } = React.useContext(AuthContext);
 
   //Guardar las donaciones en el context
   const [date, setDate] = useState("");
@@ -16,16 +19,24 @@ const DonorInfo = ({ canDonate }) => {
 
   const handleSave = () => {
     if (date && location) {
-      const newDonation = { date, location };
-      setDonorData((prevDonorData) => {
-        const updateData = {
-          ...donorData,
-          donaciones: [...(prevDonorData.donaciones || []), newDonation],
-        };
-        console.log(date, typeof date);
-        alert("Donación guardada con éxito");
-        return updateData;
-      });
+      // const newDonation = { date, location };
+      // setDonorData((prevDonorData) => {
+      //   const updateData = {
+      //     ...donorData,
+      //     donaciones: [...(prevDonorData.donaciones || []), newDonation],
+      //   };
+      //   alert("Donación guardada con éxito");
+      //   return updateData;
+      
+      const fechaFormateada = date.toISOString().split("T")[0];
+
+      const reciboDetalles = {
+        usuariosID: dbUserInfo.id,
+        fecha: fechaFormateada,
+        centroDonacion: location
+      };
+
+      createRecibo(reciboDetalles)
     } else {
       alert("Faltan ingresar datos");
     }
@@ -40,8 +51,6 @@ const DonorInfo = ({ canDonate }) => {
     return prevDate > currentDate ? prev : current;
   }, {});
 
-  console.log("donRec ", donacionReciente);
-
   let periodoReposo;
   if (Object.keys(donacionReciente).length == 0) {
     periodoReposo = new Date(fechaActual);
@@ -50,15 +59,12 @@ const DonorInfo = ({ canDonate }) => {
     periodoReposo = new Date(donacionRecienteDate);
     periodoReposo.setMonth(periodoReposo.getMonth() + 2);
   }
-  console.log("perRepo ", periodoReposo);
 
   //Calcular la cantidad de días que faltan
   const diferencia = periodoReposo - fechaActual;
-  
+
   //Diferencia en milisegundos
   const diasFaltantes = Math.ceil(diferencia / (1000 * 60 * 60 * 24));
-
-  console.log("diasfaltantes ", diasFaltantes);
 
   return (
     <View style={styles.container}>
@@ -67,24 +73,35 @@ const DonorInfo = ({ canDonate }) => {
       ) : (
         <>
           {diasFaltantes <= 0 ? (
-            <Text style={styles.textInfo }>List@ para donar</Text>
+            <Text style={styles.textInfo}>List@ para donar</Text>
           ) : (
             <>
               {/* <Text style={styles.text}>Cuánto falta para volver a donar</Text> */}
-              <Text style={styles.textInfo}>  Aún te faltan {diasFaltantes} días para volver a donar</Text>
+              <Text style={styles.textInfo}>
+                {" "}
+                Aún te faltan {diasFaltantes} días para volver a donar
+              </Text>
             </>
           )}
 
           <View style={styles.formContainer}>
             <View style={{ flexDirection: "row" }}>
-              <View>
+              <View style={styles.inputContainer1}>
                 <Text style={styles.text}>Fecha</Text>
-                <DateInput value={date} onChange={setDate}
-                />
+                <DateInput value={date} onChange={setDate} />
               </View>
-              <View>
+              <View style={styles.inputContainer2}>
                 <Text style={styles.text}>Centro de donación</Text>
-                <MyInput label={"Hospital del niño"} value={location} onChangeText={setLocation}/>
+                {/* <MyInput style={styles.locationInput} label={"Hospital del niño"} value={location} onChangeText={setLocation} multiline={true}/> */}
+                <ScrollView style={styles.locationInputContainer}>
+                  <MyInput
+                    style={styles.locationInput}
+                    label={"Hospital del niño"}
+                    multiline={true}
+                    value={location}
+                    onChangeText={setLocation}
+                  />
+                </ScrollView>
               </View>
             </View>
 
@@ -97,21 +114,20 @@ const DonorInfo = ({ canDonate }) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        gap: 20
-    },
+  container: {
+    width: "100%",
+    gap: 20,
+    alignItems: "center",
+  },
   textInfo: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
-    color: Colors.input,
+    color: 'black',
     marginBottom: 8,
-    paddingRight: 20,
-    paddingLeft: 20,
+    paddingHorizontal: 20,
   },
   formContainer: {
     width: "90%",
-    justifyContent: "center",
     backgroundColor: "transparent",
     borderRadius: 20,
     borderWidth: 2,
@@ -119,14 +135,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 16,
   },
-  textContainer: {
-    width: "100%",
-    backgroundColor: "transparent",
-    borderRadius: 20,
-    borderWidth: 2,
+  inputContainer1: {
+    width: "38%",
+  },
+  inputContainer2: {
+    width: "52%",
+    marginLeft: 12,
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: Colors.input,
+    paddingLeft: 10,
+  },
+  locationInputContainer: {
+    maxHeight: 100,
+    maxWidth: "100%",
+  },
+  locationInput: {
+    height: "100%",
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1,
     borderColor: Colors.input,
-    height: 44,
-      textAlign: "center"
+    borderRadius: 10,
   },
 });
 

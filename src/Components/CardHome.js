@@ -1,12 +1,6 @@
+// Importa View de react-native
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Platform,
-  ImageBackground,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Platform, ImageBackground } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const CardHome = () => {
@@ -18,11 +12,13 @@ const CardHome = () => {
         style={styles.button}
         onPress={() => navigation.navigate("DonationForm")}
       >
-        <ImageBackground
-          source={require("../Assets/formulario.jpg")}
-          style={styles.imageBackground}
-          resizeMode="cover"
-        />
+        <View style={styles.imageContainer}>
+          <ImageBackground
+            source={require("../Assets/formulario.jpg")}
+            style={styles.imageBackground}
+            resizeMode="cover"
+          />
+        </View>
       </TouchableOpacity>
       <View style={{ width: 10 }} />
 
@@ -31,21 +27,25 @@ const CardHome = () => {
           style={styles.button1}
           onPress={() => navigation.navigate("ProcesoDeDonacion")}
         >
-          <ImageBackground
-            source={require("../Assets/fondo3.jpg")}
-            style={styles.imageBackground}
-            resizeMode="cover"
-          />
+          <View style={styles.imageContainer}>
+            <ImageBackground
+              source={require("../Assets/proceso.jpg")}
+              style={styles.imageBackground}
+              resizeMode="cover"
+            />
+          </View>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
           onPress={() => navigation.navigate("PorQueDonar")}
         >
-          <ImageBackground
-            source={require("../Assets/fondo2.jpg")}
-            style={styles.imageBackground}
-            resizeMode="cover"
-          />
+          <View style={styles.imageContainer}>
+            <ImageBackground
+              source={require("../Assets/porque.jpg")}
+              style={styles.imageBackground}
+              resizeMode="cover"
+            />
+          </View>
         </TouchableOpacity>
       </View>
     </View>
@@ -55,16 +55,19 @@ const CardHome = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: "25%",
+    marginTop: "40%",
     flexDirection: "row",
     paddingHorizontal: "10%",
     alignItems: "center",
+    justifyContent:'center',
+    borderRadius: 15,
+    marginBottom:'10%',
   },
   button: {
     backgroundColor: "#FFB6C1",
     borderRadius: 15,
     width: 130,
-    height: 210,
+    height: 200,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -72,15 +75,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
-
     elevation: 6,
   },
   button1: {
     backgroundColor: "#FFDEAD",
-    borderRadius: 15,
+    borderRadius: 20,
     marginBottom: 10,
     width: 190,
-    height: 95,
+    height: 90,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -88,16 +90,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
-
     elevation: 6,
   },
   button2: {
     backgroundColor: "#CD5C5C",
-
     borderRadius: 15,
     marginBottom: 10,
     width: 190,
-    height: 100,
+    height: 90,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
-
     elevation: 6,
   },
   rightButtonsContainer: {},
@@ -115,6 +114,11 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontWeight: "bold",
+  },
+  imageContainer: {
+    flex: 1,
+    borderRadius: 15,
+    overflow: "hidden", 
   },
   imageBackground: {
     flex: 1,

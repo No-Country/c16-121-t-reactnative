@@ -3,6 +3,7 @@ import { View, TextInput, Text, StyleSheet, Alert } from 'react-native';
 import { AuthContext } from '../Context/AuthContext';
 import { useRoute } from '@react-navigation/native';
 import MyBottom from "./MyBottom";
+import { ALERT_TYPE,Dialog,Toast } from 'react-native-alert-notification';
 
 const VerificationScreen = () => {
     const { handleConfirmSignUp, email, verificationCode } = useContext(AuthContext);
@@ -20,9 +21,14 @@ const VerificationScreen = () => {
         console.log("Valor de verificationCode:", enteredCode);
         try {
             await handleConfirmSignUp(enteredCode, correo);
-            Alert.alert('Éxito', 'Código de verificación correcto');
+            
         } catch (error) {
-            Alert.alert('Error', 'Código de verificación incorrecto');
+            Dialog.show({
+                type: ALERT_TYPE.WARNING,
+                title: 'Error',
+                textBody: 'Código de verificación incorrecto',
+                button: 'Cerrar',
+              })
         }
     };
 

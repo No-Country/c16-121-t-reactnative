@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
-import { Amplify, Hub, AuthModeStrategyType } from "aws-amplify";
+import { Amplify, Hub, AuthModeStrategyType,  API, graphqlOperation } from "aws-amplify";
 import config from "./src/aws-exports";
 import { AuthProvider } from "./src/Context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -12,10 +12,8 @@ import ModoDarck from "./src/Components/ButtomMod";
 // import { Darck } from "./src/Constants/Colors";
 // import { DonorProvider } from "./src/Context/DonorContext";
 import {AlertNotificationRoot } from 'react-native-alert-notification';
-
-import { Darck } from "./src/Constants/Colors";
-
 import { DonorProvider } from "./src/Context/DonorContext";
+import { DarckProvider } from "./src/Context/DarckContext";
 
 
 Amplify.configure({
@@ -32,11 +30,6 @@ const styles = StyleSheet.create({
     
   },
 
-  containerDarck:{
-    backgroundColor:'black'
-  }
-
-    
   
 });
 
@@ -50,14 +43,24 @@ export default function App() {
   
  
 
+
+
+  
+  const [signedIn, setSignedIn] = React.useState(false);
+
   const listener = (data) => {
+    // console.log('Evento recibido:', data.payload);
     switch (data.payload.event) {
       case "signIn":
         const { attributes } = data.payload.data;
         setUser(attributes);
+        setSignedIn(true); 
         break;
       case "signOut":
         setUser(null);
+
+        setSignedIn(false); 
+
         break;
       default:
         break;
@@ -75,17 +78,21 @@ export default function App() {
     }, 2000);
   }, []);
   return (
-   <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-      <AlertNotificationRoot>
-      <DonorProvider>
-        <View style={styles.container}>
-       
-          {user ? <MyStack /> : <AuthStack />}
-        </View>
-        </DonorProvider>
+        <AlertNotificationRoot>
+          <DonorProvider>
+            <DarckProvider>
+              <View style={styles.container}>
+                {/* <MapScreen/>*/}
+                {user ? <MyStack /> : <AuthStack />}
+                <ModoDarck/>
+              </View>
+            </DarckProvider>
+          </DonorProvider>
         </AlertNotificationRoot>
       </AuthProvider>
+
     </GestureHandlerRootView>
   );
 }

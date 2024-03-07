@@ -4,6 +4,8 @@ import { Hub } from "aws-amplify";
 import  SingUp  from "../Components/SingUp";
 import { AuthContext, AuthProvider } from "../Context/AuthContext";
 import Background from "../Components/Background";
+import { useContext } from "react";
+import { DarckContext } from "../Context/DarckContext";
 
 const styles = StyleSheet.create({
     scrollViewContainer:{
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Register({ navigation }) {
+    
     const [user, setUser] = React.useState(null);
     const { width, height } = Dimensions.get("window");
     const listener = (data) => {

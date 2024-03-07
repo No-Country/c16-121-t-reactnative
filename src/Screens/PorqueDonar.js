@@ -1,9 +1,15 @@
 import React from "react";
-import { StyleSheet, View, Text, ScrollView, Image } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Image,Pressable } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
 const PorqueDonar = () => {
+  const navigation = useNavigation();
   return (
-    <ScrollView>
+   <View style={{backgroundColor:'#FFEBF0', flex:1}}>
+     <Pressable style={{marginTop:30, marginHorizontal:20, marginBottom:-40}} onPress={navigation.goBack}>
+      <AntDesign name="arrowleft" size={24} color="black" />
+      </Pressable>
       <View style={styles.container}>
         <Text style={styles.textTitle}>¿POR QUÉ DONAR?</Text>
         <View style={styles.backgroundItem}>
@@ -48,16 +54,22 @@ const PorqueDonar = () => {
           </Text>
         </View>
       </View>
-    </ScrollView>
+      </View>
+   
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 250,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    elevation: 5, 
+    margin: 10,
+    padding: 10,
+    alignItems:'center',
+    justifyContent:'center',
+    height:'60%',
+    marginTop:'30%'
   },
   backgroundItem: {
     backgroundColor: "#FC688B",

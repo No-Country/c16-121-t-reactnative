@@ -77,7 +77,7 @@ const SingUp = () => {
 
   return (
     <SafeAreaView>
-      <View>
+      <View >
         <Text style={styles.text}>Nombre</Text>
         <MyInput
           label={"Sofía"}
@@ -154,10 +154,10 @@ const SingUp = () => {
 
         <MyBottom
           title="Registrarse"
-          onPress={() => {
+          onPress={async () => {
             if (validateData()) {
-              handleSignUp();
-              navigation.navigate("Verification",{correo:correo});
+              let response= await handleSignUp();
+              response && navigation.navigate("Verification",{correo:correo});
             }
           }}
         />
@@ -193,6 +193,9 @@ const styles = StyleSheet.create({
   },
   eyeIcon: {
     marginLeft: -40,
+  },
+  background:{
+    backgroundColor:'red',
   }
 });
 

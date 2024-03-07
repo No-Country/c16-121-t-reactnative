@@ -46,8 +46,10 @@
           "SMS"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 8
+          "passwordPolicyCharacters": [
+            "REQUIRES_UPPERCASE"
+          ],
+          "passwordPolicyMinLength": 6
         },
         "signupAttributes": [
           "EMAIL",
@@ -66,6 +68,13 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "storage": {
+    "s3gotadevidastorage5daf82d0": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }
