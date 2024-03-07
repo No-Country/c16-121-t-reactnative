@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DonorContext from "../Context/DonorContext";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../Constants/Colors";
@@ -9,9 +9,24 @@ const DonationsList = () => {
   const { donorData } = useContext(DonorContext);
   const { dbUserInfo } = React.useContext(AuthContext);
   // const donaciones = donorData?.donaciones || [];
-  const donaciones = getRecibosPorUsuario(dbUserInfo.id).then((recibos) => {
-      console.log("recibos:", recibos);
-    });
+
+  const [donaciones, setDonaciones] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async() => {
+      try{
+        const reciboDonaciones = await getRecibosPorUsuario(dbUserInfo.id);
+        setDonaciones(reciboDonaciones)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [donaciones])
+
+  // const donaciones = getRecibosPorUsuario(dbUserInfo.id).then((recibos) => {
+  //     console.log("recibos:", recibos);
+  //   });
 
   const formatDate = (itemDate) => {
     const date = new Date(itemDate);

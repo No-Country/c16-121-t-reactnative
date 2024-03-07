@@ -720,6 +720,7 @@ export const getDatosUsuarios = /* GraphQL */ `
   query GetUsuarios($id: ID!) {
     getUsuarios(id: $id) {
       nombre
+      apellido
       imagen
       localidad
       telefono

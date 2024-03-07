@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
+    backgroundColor: "red",
     borderRadius: 10,
     elevation: 5, // Para crear el efecto de elevación
     margin: 15,

@@ -44,13 +44,33 @@ export const getRecibosPorUsuario = async (userId) => {
       query: queries.reciboDonacionesByUsuariosID,
       variables: {
         usuariosID: userId,
-        sortDirection: { direction: "desc", field: "fecha"}
       },
     });
 
-    return recibosUsuario.data.reciboDonacionesByUsuariosID.items;
+    const recibos = recibosUsuario.data.reciboDonacionesByUsuariosID.items
+
+    const sortedRecibos = recibos.sort((a, b) => {
+      return new Date(b.fecha) - new Date(a.fecha);
+    });
+
+    return sortedRecibos;
 
   } catch (e) {
     console.log(e);
   }
 };
+
+export const getReciboReciente = async (userId) => {
+  try{
+    const recibos = await API.graphql({
+      query: queries.reciboDonacionesByUsuariosID,
+      variables: {
+        usuariosID: userId,
+      },
+    })
+    return recibosUsuario.data.reciboDonacionesByUsuariosID.items[0]
+  } catch(e) {
+    console.log(e);
+    return null;
+  }
+}
