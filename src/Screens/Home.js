@@ -1,12 +1,23 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, FlatList, ScrollView, StyleSheet, TouchableOpacity, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Pressable,
+} from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
 import { DarckContext } from "../Context/DarckContext";
 import { useContext } from "react";
 import Background from "../Components/Background";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
+import ModalList from "../Components/ModalList";
 
 import {
   cantidadPublicacionesPorUsuario,
@@ -29,11 +40,7 @@ const Home = () => {
   const { setHome } = React.useContext(AuthContext);
   const [publications, setPublications] = useState([]);
   const { theme } = useContext(DarckContext);
-  const {
-    background,
-    colorText
-   
-  } = theme;
+  const { background, colorText } = theme;
 
   const navigation = useNavigation();
   const handleSearchDonor = () => {
@@ -50,39 +57,56 @@ const Home = () => {
   };
 
   React.useEffect(() => {
-    setHome(prevState => prevState + 1);
+    setHome((prevState) => prevState + 1);
     fetchPublications();
   }, []);
 
   const fetchPublications = async () => {
     try {
       const fetchedPublications = await getPublications();
-      const reaccionesDePublicacion = await Promise.all(fetchedPublications.map(async (publicacion) => {
-        const reacciones = await cantidadReaccionesPorPublicacion(publicacion.id);
-        return { ...publicacion, cantidadReacciones: reacciones };
-      }));
+      const reaccionesDePublicacion = await Promise.all(
+        fetchedPublications.map(async (publicacion) => {
+          const reacciones = await cantidadReaccionesPorPublicacion(
+            publicacion.id
+          );
+          return { ...publicacion, cantidadReacciones: reacciones };
+        })
+      );
       setPublications(reaccionesDePublicacion);
     } catch (error) {
       console.error("Error al traer las publicaciones", error);
     }
   };
   const renderPublicationItem = ({ item }) => (
-    <View style={[styles.card, {backgroundColor:background}]}>
+    <View style={[styles.card, { backgroundColor: background }]}>
       <View style={styles.cardContent}>
-        <Text style={[styles.usuario, {color:colorText}]}>Nombre: {item.usuario ? item.usuario.nombre + " " + item.usuario.apellido: 'Usuario desconocido'}</Text>
-        <Text  style={[styles.usuario, {color:colorText}]}>Contacto: {item.usuario ? item.usuario.telefono : 'Telefono desconocido'}</Text>
-        <Text  style={[styles.usuario, {color:colorText}]}>Localidad: {item.usuario ? item.usuario.localidad : 'Localidad desconocida'}</Text>
-        <Text  style={[styles.usuario, {color:colorText}]}>
+        <Text style={[styles.usuario, { color: colorText }]}>
+          Nombre:{" "}
+          {item.usuario
+            ? item.usuario.nombre + " " + item.usuario.apellido
+            : "Usuario desconocido"}
+        </Text>
+        <Text style={[styles.usuario, { color: colorText }]}>
+          Contacto:{" "}
+          {item.usuario ? item.usuario.telefono : "Telefono desconocido"}
+        </Text>
+        <Text style={[styles.usuario, { color: colorText }]}>
+          Localidad:{" "}
+          {item.usuario ? item.usuario.localidad : "Localidad desconocida"}
+        </Text>
+        <Text style={[styles.usuario, { color: colorText }]}>
           Tipo de sangre requerido: {item.tipoSangre}
         </Text>
         <View style={styles.publicacionContainer}>
           <Text style={styles.publicacion}>{item.publicacion}</Text>
         </View>
-        <Text  style={[styles.usuario, {color:colorText}]}>Fecha de publicación: {formatDate(item.fecha)}</Text>
+        <Text style={[styles.usuario, { color: colorText }]}>
+          Fecha de publicación: {formatDate(item.fecha)}
+        </Text>
       </View>
       <View style={{ marginTop: "40%", elevation: 3, flexDirection: "row" }}>
-            <Text style={{fontWeight: "bold"}}>{item.cantidadReacciones}</Text>
-        <IconToDonate style={styles.icono} itemId={item.id}/>
+        <Text style={{ fontWeight: "bold" }}>{item.cantidadReacciones}</Text>
+        <IconToDonate style={styles.icono} itemId={item.id} />
       </View>
     </View>
   );
@@ -90,13 +114,14 @@ const Home = () => {
   return (
     <SafeAreaView style={[{ flex: 1, backgroundColor: background }]}>
       <View>
-        <Background/>
+        <Background />
       </View>
       <View style={{ marginTop: "55%" }}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
-          <Text style={styles.buscar}>¿Buscas donador?{""}  </Text>
-          <AntDesign name="search1" size={20} color="#808080" />
+            <ModalList style={styles.ModalList} />
+            <Text style={styles.buscar}>¿Buscas donador?{""} </Text>
+            <AntDesign name="search1" size={20} color="#808080" />
           </View>
         </TouchableOpacity>
         <FlatList
@@ -112,30 +137,36 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding:'3%',
-    backgroundColor: '#FFB6C1',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "3%",
+    backgroundColor: "#FFB6C1",
   },
   card: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: 'white',
-    borderColor:'#999999',
-    borderWidth:1,
+    backgroundColor: "white",
+    borderColor: "#999999",
+    borderWidth: 1,
     padding: 20,
-    marginTop:10,
+    marginTop: 10,
     marginBottom: 8,
     borderRadius: 10,
     elevation: 3,
   },
+  ModalList: {
+
+    position: "absolute",
+    bottom:50,
+  },
+
   buscar: {
     fontSize: 20,
     textAlign: "center",
     fontWeight: "bold",
-    color:'#404040'
+    color: "#404040",
   },
   icono: {
     marginTop: 10,
@@ -159,22 +190,22 @@ const styles = StyleSheet.create({
   publicacionContainer: {
     backgroundColor: "#f2f2f2",
     borderRadius: 8,
-    padding:15,
+    padding: 15,
     marginTop: 10,
     marginBottom: 10,
     width: "115%",
   },
   tipoSangre: {
     fontSize: 16,
-    color: '#595959',
+    color: "#595959",
     marginBottom: 5,
-    color:'black'
+    color: "black",
   },
   fecha: {
     fontSize: 14,
     color: "#999",
     marginTop: 10,
-    color:'black'
+    color: "black",
   },
   lupa: {
     width: "10%",
