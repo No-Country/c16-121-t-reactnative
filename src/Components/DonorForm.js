@@ -8,6 +8,8 @@ import DonorInfo from "./DonorInfo";
 import { AuthContext } from "../Context/AuthContext";
 import { disableUsuario, updateUsuarioHabilitado } from "../Utils/userDonor";
 import { DarckContext } from "../Context/DarckContext";
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+
 const DonorForm = () => {
   const { donorData, setDonorData } = useDonorContext();
   const [isEditing, setIsEditing] = useState(true);
@@ -100,7 +102,13 @@ const DonorForm = () => {
       });
 
     } else {
-      alert("Por favor, responde todas las preguntas");
+      // alert("Por favor, responde todas las preguntas");
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: "Error",
+        textBody: "Por favor, responde todas las preguntas",
+        button: "Cerrar",
+      });
     }
   };
 
