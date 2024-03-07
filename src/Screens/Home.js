@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, FlatList, ScrollView, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, SafeAreaView, FlatList, ScrollView, StyleSheet, TouchableOpacity, Image, Pressable } from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
 import { DarckContext } from "../Context/DarckContext";
 import { useContext } from "react";
 import Background from "../Components/Background";
+import { AntDesign } from '@expo/vector-icons';
 
 
 import {
@@ -81,10 +82,11 @@ const Home = () => {
       <View style={{ marginTop: "55%" }}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
-          <Text style={styles.buscar}>¿Buscas donador?{""}</Text>
-          <Image   
+          <Text style={styles.buscar}>¿Buscas donador?{""}  </Text>
+          {/* <Image   
           source={require("../Assets/lupa.png")}
-          style={styles.lupa}></Image>
+          style={styles.lupa}></Image> */}
+       <AntDesign name="search1" size={20} color="#808080" />
           </View>
         </TouchableOpacity>
         <FlatList
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     fontWeight: "bold",
-    color:'#808080'
+    color:'#404040'
     
   },
   icono: {
