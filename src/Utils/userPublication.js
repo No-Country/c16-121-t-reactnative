@@ -14,6 +14,7 @@ export const createPublication = async (todoDetails) => {
       variables: { input: todoDetails },
     });
     console.log("se supone que entro en createPub");
+    alert("Publicación creada con éxito");
   } catch (error) {
     console.error(error);
   }
