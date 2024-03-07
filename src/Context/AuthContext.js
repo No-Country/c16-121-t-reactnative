@@ -10,6 +10,7 @@ import * as queries from '../graphql/queries';
 //import "@azure/core-asynciterator-polyfill";
 
 const AuthContext = React.createContext({
+  setHome: () => { },
   dbUserInfo: {},
   setDbUserInfo: () => { },
   authState: "signIn",
@@ -57,7 +58,7 @@ function AuthProvider({ children, navigation }) {
   const sub = authState?.attributes?.sub;
   const [userSub, setUserSub] = React.useState("");
   const [dbUserInfo, setDbUserInfo] = React.useState({});
-
+  const [home, setHome] = React.useState(0);
 
   React.useEffect(() => {
 
@@ -65,30 +66,33 @@ function AuthProvider({ children, navigation }) {
       .then((user) => {
         setAuthState("signedIn");
         setUserSub(user.attributes.sub);
+
+        
+
       })
       .catch(() => {
         setAuthState("signIn");
         setUserSub("");
       });
 
-    // Buscar el usuario por su ID
-    const readInfoUser = async () => {
+       // Buscar el usuario por su ID
+  const readInfoUser = async () => {
+    const oneTodo = await API.graphql({
+      query:queries.getUserBySubQuery,
+      variables: { sub: userSub }
+    });
+    let userdb= oneTodo.data.listUsuarios.items[0]
+    console.log(userdb)
+    setDbUserInfo(userdb)
+}
+readInfoUser()
 
-      if (userSub) {
-        const oneTodo = await API.graphql({
-          query: queries.getUserBySubQuery,
-          variables: { sub: userSub }
-        });
-        let userdb = oneTodo.data.listUsuarios.items[0]
-        console.log(userdb)
-        setDbUserInfo(userdb)
-      }
-    }
-    readInfoUser()
 
-  }, [handleSignIn, userSub])
+  }, [handleSignIn, userSub,home])
 
-  // console.log(authState, "user aquiii");
+ 
+
+  //console.log(authState, "user aquiii");
 
 
 
@@ -282,6 +286,7 @@ function AuthProvider({ children, navigation }) {
   return (
     <Provider
       value={{
+        setHome,
         dbUserInfo,
         setDbUserInfo,
         userSub,
