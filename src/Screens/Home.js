@@ -24,8 +24,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../Constants/Colors";
 import { IconToDonate } from "../Components/iconNotification/iconToDonate";
+import { AuthContext } from "../Context/AuthContext";
 
 const Home = () => {
+  const { setHome } = React.useContext(AuthContext);
   const [publications, setPublications] = useState([]);
   const { theme } = useContext(DarckContext);
   const {
@@ -71,6 +73,7 @@ const Home = () => {
   };
 
   React.useEffect(() => {
+    setHome(prevState => prevState + 1);
     fetchPublications();
   }, []);
 
