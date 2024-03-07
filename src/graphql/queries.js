@@ -722,7 +722,7 @@ export const getDatosUsuarios = /* GraphQL */ `
       nombre
       apellido
       imagen
-      provincia
+      localidad
       telefono
     }
   }

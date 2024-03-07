@@ -55,20 +55,21 @@ const ProfileDates = () => {
     <SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
-        <InfoDate label={"nombre"} value={nombre} />
-        <InfoDate label={"apellido"} value={apellido} />
-        <InfoDate label={"edad"} canEdit value={edad} />
-        <InfoDate label={"email"} canEdit value={email} />
-        <InfoDate label={"telefono"} canEdit value={telefono} />
-        <InfoDate label={"tipoSangre"} canEdit value={tipoSangre} />
-        <InfoDate label={"dni"} canEdit value={dni} />
+        <InfoDate label={"Nombre"} value={nombre} />
+        <InfoDate label={"Apellido"} value={apellido} />
+        <InfoDate label={"Edad"} canEdit value={edad} />
+        <InfoDate label={"Email"} canEdit value={email} />
+        <InfoDate label={"Telefono"} canEdit value={telefono} />
+        <InfoDate label={"TipoSangre"} canEdit value={tipoSangre} />
+        <InfoDate label={"Dni"} canEdit value={dni} />
         <InfoDate label={"Ciudad"} canEdit value={localidad} />
-        <InfoDate label={"provincia"} canEdit value={provincia} />
-        <InfoDate label={"pais"} canEdit value={pais} />
+        <InfoDate label={"Provincia"} canEdit value={provincia} />
+        <InfoDate label={"Pais"} canEdit value={pais} />
         <MyBottom title="Guardar" onPress={handleDialog} />
+        <DonationsList />
       </View>
       {/* {donorData && donorInfo.donaciones && <DonationsList />} */}
-      <DonationsList />
+     
     </SafeAreaView>
   );
 };
