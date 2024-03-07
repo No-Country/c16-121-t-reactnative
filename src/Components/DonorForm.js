@@ -7,13 +7,14 @@ import DonorContext, { useDonorContext } from "../Context/DonorContext";
 import DonorInfo from "./DonorInfo";
 import { AuthContext } from "../Context/AuthContext";
 import { disableUsuario, updateUsuarioHabilitado } from "../Utils/userDonor";
-
+import { DarckContext } from "../Context/DarckContext";
 const DonorForm = () => {
   const { donorData, setDonorData } = useDonorContext();
   const [isEditing, setIsEditing] = useState(true);
   const [canDonate, setCanDonate] = useState(true);
   const { dbUserInfo } = React.useContext(AuthContext);
-
+  const{theme} = useContext(DarckContext);
+  const{background, backgroundGrey, colorText} = theme
   useEffect(() => {
     if(donorData){
       setIsEditing(false)
@@ -122,7 +123,7 @@ const DonorForm = () => {
       :
         <>
           <View style={styles.formContainer}>
-            <Text style={styles.text}>Tipo de sangre</Text>
+            <Text style={[styles.text,{color:colorText}]}>Tipo de sangre</Text>
             <View style={styles.pickerContainer}>
               <Picker
                 style={styles.picker}
@@ -138,7 +139,7 @@ const DonorForm = () => {
             </View>
             {questions.map((item, index) => (
               <View key={index} style={{ width: "100%" }}>
-                <Text style={styles.text}>{item.question}</Text>
+                <Text style={[styles.text,{color:colorText}]}>{item.question}</Text>
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity
                     style={[
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "95%",
-    marginTop:'-4%'
+    marginTop:'-10%'
   },
   text: {
     fontSize: 14,

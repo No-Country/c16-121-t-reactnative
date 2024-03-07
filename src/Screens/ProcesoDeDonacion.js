@@ -2,15 +2,20 @@ import React from "react";
 import { StyleSheet, View, Text, ScrollView, Image,Pressable  } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
-
+import { useContext } from "react";
+import { DarckContext } from "../Context/DarckContext";
 const ProcesoDeDonacion = () => {
   const navigation = useNavigation();
+
+  const{theme} = useContext(DarckContext);
+  const {background} = theme;
+
   return (
-    <ScrollView style={{backgroundColor:'#FFEBF0'}}>
+    <ScrollView style={{backgroundColor:background}}>
       <Pressable style={{marginTop:30, marginHorizontal:20, marginBottom:-40}} onPress={navigation.goBack}>
       <AntDesign name="arrowleft" size={24} color="black" />
       </Pressable>
-      <View style={styles.container2}>
+      <View style={[styles.container2, {backgroundColor:background}]}>
         <Text style={styles.textTitle}>PROCESO DE DONACIÓN</Text>
         <View style={styles.backgroundItem}>
           <Image source={require("../Assets/1_12269574.png")} style={styles.image} />
