@@ -6,6 +6,7 @@ import {
   getAllPublicationsTodayQuery,
   getAllPublicationsQuery,
 } from "../graphql/queries";
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
 export const createPublication = async (todoDetails) => {
   try {
@@ -14,7 +15,13 @@ export const createPublication = async (todoDetails) => {
       variables: { input: todoDetails },
     });
     console.log("se supone que entro en createPub");
-    alert("Publicación creada con éxito");
+    // alert("Publicación creada con éxito");
+    Dialog.show({
+      type: ALERT_TYPE.SUCCESS,
+      title: "Éxito",
+      textBody: "Publicación creada con éxito",
+      button: "Cerrar",
+    });
   } catch (error) {
     console.error(error);
   }
