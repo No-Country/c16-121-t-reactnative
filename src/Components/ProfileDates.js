@@ -43,7 +43,7 @@ const ProfileDates = () => {
    console.log(dbUserInfo)
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
-      title: "Success",
+      title: "Éxito",
       textBody: "Se guardaron los cambios",
       button: "close",
     });

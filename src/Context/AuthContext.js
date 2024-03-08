@@ -127,7 +127,7 @@ readInfoUser()
       console.log('USEEER', username)
       Dialog.show({
         type: ALERT_TYPE.SUCCESS,
-        title: 'Success',
+        title: 'Éxito',
         textBody: `Bienvenido ${username[0].toUpperCase() + username.slice(1)}...`,
         button: 'Cerrar',
       })
@@ -221,10 +221,10 @@ readInfoUser()
       setAuthState("signIn");
       Dialog.show({
         type: ALERT_TYPE.SUCCESS,
-        title: 'Success',
-        textBody: 'Código de verificación correcto',
-        button: 'Cerrar',
-      })
+        title: "Éxito",
+        textBody: "Código de verificación correcto",
+        button: "Cerrar",
+      });
       navigation.navigate("Login");
     } catch (error) {
       console.error("Error: ", error);
