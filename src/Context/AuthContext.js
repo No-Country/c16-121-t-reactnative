@@ -127,7 +127,7 @@ readInfoUser()
       console.log('USEEER', username)
       Dialog.show({
         type: ALERT_TYPE.SUCCESS,
-        title: 'Success',
+        title: 'Éxito',
         textBody: `Bienvenido ${username[0].toUpperCase() + username.slice(1)}...`,
         button: 'Cerrar',
       })
@@ -221,10 +221,10 @@ readInfoUser()
       setAuthState("signIn");
       Dialog.show({
         type: ALERT_TYPE.SUCCESS,
-        title: 'Success',
-        textBody: 'Código de verificación correcto',
-        button: 'Cerrar',
-      })
+        title: "Éxito",
+        textBody: "Código de verificación correcto",
+        button: "Cerrar",
+      });
       navigation.navigate("Login");
     } catch (error) {
       console.error("Error: ", error);
@@ -244,10 +244,22 @@ readInfoUser()
       currentUser = await Auth.currentAuthenticatedUser();
       await Auth.completeNewPassword(currentUser, newPassword, confirmNewPassword);
       console.log("Contraseña cambiada exitosamente");
-      Alert.alert("Exito", "Contraseña cambiada exitosamente");
+      // Alert.alert("Exito", "Contraseña cambiada exitosamente");
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: "Exito",
+        textBody: "Contraseña cambiada exitosamente",
+        button: "Cerrar",
+      });
     } catch (error) {
       console.error("Error al cambiar la contraseña:", error);
-      Alert.alert("Error", error.message);
+      // Alert.alert("Error", error.message);
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: "Error",
+        textBody: error.message,
+        button: "Cerrar",
+      });
     }
   };
 
@@ -256,18 +268,23 @@ readInfoUser()
     console.log("entro a forgotPassword")
     try {
       await Auth.forgotPassword(email);
-      console.log(
-        "Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña"
-      );
+      // console.log("Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña");
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: "Exito",
+        textBody: "Se ha enviado un correo electrónico con un código nuevo para restablecer la contraseña",
+        button: "Cerrar",
+      });
       // navigation.navigate("VerificationPasswordChange");
-      // Agrega aquí la navegación a la pantalla de confirmación de restablecimiento de contraseña si es necesario
     } catch (error) {
       console.log("este es el email: ", email);
-      console.error(
-        "Error al enviar correo electrónico de restablecimiento de contraseña:",
-        error
-      );
-      // Manejar el error aquí
+      console.error("Error al enviar correo electrónico de restablecimiento de contraseña:", error);
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: "Error",
+        textBody: error.message,
+        button: "Cerrar",
+      });
     }
   };
 
@@ -275,11 +292,21 @@ readInfoUser()
     try {
       await Auth.forgotPasswordSubmit(email, code, newPassword);
       console.log("Contraseña restablecida exitosamente");
+      Dialog.show({
+        type: ALERT_TYPE.SUCCESS,
+        title: "Exito",
+        textBody: "Contraseña restablecida exitosamente",
+        button: "Cerrar",
+      });
       navigation.navigate("Login");
-      // Agrega aquí la navegación a la pantalla de inicio de sesión o una pantalla de éxito si es necesario
     } catch (error) {
       console.error("Error al restablecer la contraseña:", error);
-      // Manejar el error aquí
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: "Error",
+        textBody: error.message,
+        button: "Cerrar",
+      });
     }
   };
 

@@ -12,10 +12,11 @@ import DonorForm from "../Components/DonorForm";
 import { Colors } from "../Constants/Colors";
 import { useDonorContext } from "../Context/DonorContext";
 import { useNavigation } from "@react-navigation/native";
-
+import { useContext } from "react";
+import { DarckContext } from "../Context/DarckContext";
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "red",
+    backgroundColor: "white",
     borderRadius: 10,
     elevation: 5, // Para crear el efecto de elevación
     margin: 15,
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textStyle: {
-    marginTop: 50,
+    marginTop: 10,
     fontSize: 25,
     fontWeight: "bold",
     color: Colors.input,
@@ -40,15 +41,17 @@ const styles = StyleSheet.create({
 export default function DonationForm() {
   const { donorData } = useDonorContext();
   const navigation = useNavigation();
+  const{theme} = useContext(DarckContext);
+  const{background, backgroundGrey, colorText} = theme
 
   return (
-    <View style={{ backgroundColor: "#FFEBF0", flex: 1 }}>
-      <Pressable style={{marginTop:30, marginHorizontal:20, marginBottom:-40}} onPress={navigation.goBack}>
+    <View style={{ backgroundColor: background, flex: 1 }}>
+      <Pressable style={{marginTop:30, marginHorizontal:20, marginBottom:-30}} onPress={navigation.goBack}>
       <AntDesign name="arrowleft" size={24} color="black" />
       </Pressable>
       
-      <View style={styles.container}>
-        <Text style={styles.textStyle}>¡Conviértete en donador!</Text>
+      <View style={[styles.container, {backgroundColor:backgroundGrey}]}>
+        <Text style={[styles.textStyle, {color:colorText}]}>¡Conviértete en donador!</Text>
 
         <DonorForm />
       </View>

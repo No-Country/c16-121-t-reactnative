@@ -43,7 +43,7 @@ const ProfileDates = () => {
    console.log(dbUserInfo)
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
-      title: "Success",
+      title: "Éxito",
       textBody: "Se guardaron los cambios",
       button: "close",
     });
@@ -63,8 +63,8 @@ const ProfileDates = () => {
         <InfoDate  label={"Edad"} canEdit value={edad}  />
         <InfoDate label={"Email"} canEdit value={email} />
         <InfoDate label={"Telefono"} canEdit value={telefono} />
-        <InfoDate label={"TipoSangre"} canEdit value={tipoSangre} />
-        <InfoDate label={"Dni"} canEdit value={dni} />
+        <InfoDate label={"Tipo de Sangre"} canEdit value={tipoSangre} />
+        <InfoDate label={"DNI"} canEdit value={dni} />
         <InfoDate label={"Ciudad"} canEdit value={localidad} />
         <InfoDate label={"Provincia"} canEdit value={provincia} />
         <InfoDate label={"Pais"} canEdit value={pais} />

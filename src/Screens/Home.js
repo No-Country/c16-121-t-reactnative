@@ -1,4 +1,7 @@
+
 import React, { useState, useEffect } from "react";
+
+
 import {
   View,
   Text,
@@ -9,7 +12,9 @@ import {
   TouchableOpacity,
   Image,
   Pressable,
+
   ActivityIndicator,
+
 } from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
@@ -17,8 +22,11 @@ import CardHome from "../Components/CardHome";
 import { DarckContext } from "../Context/DarckContext";
 import { useContext } from "react";
 import Background from "../Components/Background";
-import { AntDesign } from "@expo/vector-icons";
+
 import { useFocusEffect } from "@react-navigation/native";
+
+import ModalList from "../Components/ModalList";
+
 import {
   cantidadPublicacionesPorUsuario,
   cantidadReaccionesPorPublicacion,
@@ -41,8 +49,10 @@ const Home = () => {
   const { setHome } = React.useContext(AuthContext);
   const [publications, setPublications] = useState([]);
   const { theme } = useContext(DarckContext);
+
   const [loading, setLoading] = useState(true);
   const [loadingLastPublication, setLoadingLastPublication] = useState(false);
+
   const { background, colorText } = theme;
 
   const navigation = useNavigation();
@@ -58,6 +68,9 @@ const Home = () => {
 
     return `${day}/${month}/${year}`;
   };
+
+
+
 
   const fetchPublications = async () => {
     try {
@@ -133,6 +146,9 @@ const Home = () => {
       <View style={{ marginTop: "55%" }}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
+
+            <ModalList style={styles.ModalList} />
+
             <Text style={styles.buscar}>¿Buscas donador?{""} </Text>
             <AntDesign name="search1" size={20} color="#808080" />
           </View>
@@ -180,6 +196,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
   },
+  ModalList: {
+
+    position: "absolute",
+    bottom:50,
+  },
+
   buscar: {
     fontSize: 20,
     textAlign: "center",
