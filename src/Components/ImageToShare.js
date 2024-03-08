@@ -41,10 +41,10 @@ const ImageToShare = ({ infoUsuario, cant, tipoSangre, onCloseModal }) => {
               //   uri: 'https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?q=80&w=1414&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
               // }}
             />
-            <TouchableOpacity onPress={shareImage}>
+            {/* <TouchableOpacity onPress={shareImage}> */}
               {/* <Text>Compartir</Text> */}
-              <MyBottom title="Compartir"></MyBottom>
-            </TouchableOpacity>
+              <MyBottom title="Compartir" onPress={shareImage}></MyBottom>
+            {/* </TouchableOpacity> */}
           </View>
         </TouchableOpacity>
       </Modal>
