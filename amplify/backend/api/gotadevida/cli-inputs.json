@@ -17,10 +17,6 @@
         "cognitoUserPoolId": "authgotadevida"
       }
     ],
-    "conflictResolution": {
-      "defaultResolutionStrategy": {
-        "type": "AUTOMERGE"
-      }
-    }
+    "conflictResolution": {}
   }
 }

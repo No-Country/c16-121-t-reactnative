@@ -82,7 +82,6 @@ function AuthProvider({ children, navigation }) {
       variables: { sub: userSub }
     });
     let userdb= oneTodo.data.listUsuarios.items[0]
-    console.log(userdb)
     setDbUserInfo(userdb)
 }
 readInfoUser()

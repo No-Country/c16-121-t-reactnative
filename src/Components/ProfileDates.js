@@ -16,28 +16,25 @@ import DonorContext from "../Context/DonorContext";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import DialogAlert from "./DialogAlert";
 import MyBottom from "./MyBottom";
-import { createUser, getAllUsers, updateUserDate } from "../Utils/UserDate";
+import { createUser, getAllUsers, updateUserProfile } from "../Utils/UserDate";
 import { useEffect, useState } from "react";
 
 const ProfileDates = () => {
-  const { userSub,dbUserInfo } = React.useContext(AuthContext);
+  const { userSub,dbUserInfo,setHome } = React.useContext(AuthContext);
   const { donorData } = React.useContext(DonorContext);
-  
-
+  const [info, setInfo] = React.useState(dbUserInfo);
+  const {id,nombre,apellido,edad,email,telefono,tipoSangre,dni,localidad,provincia,pais}=info
   useEffect(()=>{
-   
-  },[])
+   console.log(dbUserInfo)
+  },[dbUserInfo])
   
 
   const donorInfo = donorData || { donaciones: [] };
   const handleDialog = async() => {
     try{
-    
-    //console.log("essssss"+userSub)
-    //await createUser("cesarrhalier@gmail.com","cesar","haa","e15ba570-00a1-700c-92e2-cfff1d3c6d45")
-   // await getAllUsers()
-   //await updateUserDate(userSub,"german")
-   console.log(dbUserInfo)
+ 
+   await updateUserProfile(info)
+   setHome(prevState => prevState + 1)
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
       title: "Success",
@@ -49,23 +46,23 @@ const ProfileDates = () => {
   }
   };
 
-  const {id,nombre,apellido,edad,email,telefono,tipoSangre,dni,localidad,provincia,pais}=dbUserInfo
+  
 
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
-        <InfoDate label={"Nombre"} value={nombre} />
-        <InfoDate label={"Apellido"} value={apellido} />
-        <InfoDate label={"Edad"} canEdit value={edad} />
-        <InfoDate label={"Email"} canEdit value={email} />
-        <InfoDate label={"Telefono"} canEdit value={telefono} />
-        <InfoDate label={"TipoSangre"} canEdit value={tipoSangre} />
-        <InfoDate label={"Dni"} canEdit value={dni} />
-        <InfoDate label={"Ciudad"} canEdit value={localidad} />
-        <InfoDate label={"Provincia"} canEdit value={provincia} />
-        <InfoDate label={"Pais"} canEdit value={pais} />
-        <MyBottom title="Guardar" onPress={handleDialog} />
+        <InfoDate label={"Nombre"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"Apellido"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"Edad"} canEdit setInfo={setInfo} info={info} type="numeric"/>
+        <InfoDate label={"Email"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"Telefono"} canEdit setInfo={setInfo} info={info} type="numeric"/>
+        <InfoDate label={"TipoSangre"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"Dni"} canEdit setInfo={setInfo} info={info} type="numeric"/>
+        <InfoDate label={"Localidad"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"Provincia"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"Pais"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <MyBottom title="Guardar" onPress={handleDialog}/>
         <DonationsList />
       </View>
       {/* {donorData && donorInfo.donaciones && <DonationsList />} */}
@@ -75,27 +72,26 @@ const ProfileDates = () => {
 };
 //en db ciudad es LOCALIDAD
 
-function InfoDate({ label, value, canEdit }) {
-  const [localValue, setLocalValue] = React.useState(value);
-  const [info, setInfo] = React.useState({});
-  console.log(info)
+function InfoDate({ label, type, canEdit, setInfo, info}) {
 
   const handleInfoChange = (newValue) => {
-    setLocalValue(newValue);
-    setInfo(prevState => ({
-      ...prevState,
-      [label]: newValue
-    }));
-  };
+    setInfo(prevState => {
+      const news = { ...prevState, [label.toLowerCase()]: newValue };
+      return news;
+    });
+  }
+  const valueUser=info[label.toLowerCase()]
+  const firstLetterUp= typeof valueUser ==="string"?valueUser.charAt(0).toUpperCase() + valueUser.slice(1):valueUser
+ 
 
   return (
     <View style={styles.fielContainer}>
       <Text style={styles.label}> {label}</Text>
       <TextInput
         placeholder={label}
-        keyboardType={canEdit ? "web-search" : "default"}
+        keyboardType={type}
         onChangeText={canEdit && handleInfoChange}
-        value={localValue}
+        value={label==="Email"?valueUser:firstLetterUp}
         onSubmitEditing={() => alert("hello")}
         style={{
           fontWeight: "500",
