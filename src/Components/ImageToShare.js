@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Modal, View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
+import MyBottom from './MyBottom'
 
 
 const ImageToShare = ({ infoUsuario, cant, tipoSangre, onCloseModal }) => {
@@ -41,7 +42,8 @@ const ImageToShare = ({ infoUsuario, cant, tipoSangre, onCloseModal }) => {
               // }}
             />
             <TouchableOpacity onPress={shareImage}>
-              <Text>Compartir</Text>
+              {/* <Text>Compartir</Text> */}
+              <MyBottom title="Compartir"></MyBottom>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
