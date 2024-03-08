@@ -57,16 +57,16 @@ const ProfileDates = () => {
     <SafeAreaView>
       <View style={styles.container}>
         <Text style={[styles.sectionTitle, { color: colorText }]}> DATOS DEL USUARIO: </Text>
-        <InfoDate label={"Nombre"} canEdit setInfo={setInfo} info={info} type="default"/>
-        <InfoDate label={"Apellido"} canEdit setInfo={setInfo} info={info} type="default"/>
-        <InfoDate label={"Edad"} canEdit setInfo={setInfo} info={info} type="numeric"/>
-        <InfoDate label={"Email"} canEdit setInfo={setInfo} info={info} type="default"/>
-        <InfoDate label={"Telefono"} canEdit setInfo={setInfo} info={info} type="numeric"/>
-        <InfoDate label={"TipoSangre"} canEdit setInfo={setInfo} info={info} type="default"/>
-        <InfoDate label={"Dni"} canEdit setInfo={setInfo} info={info} type="numeric"/>
-        <InfoDate label={"Localidad"} canEdit setInfo={setInfo} info={info} type="default"/>
-        <InfoDate label={"Provincia"} canEdit setInfo={setInfo} info={info} type="default"/>
-        <InfoDate label={"Pais"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"Nombre"} canEdit setInfo={setInfo} info={info} type="string"/>
+        <InfoDate label={"Apellido"} canEdit setInfo={setInfo} info={info} type="string"/>
+        <InfoDate label={"Edad"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"Email"} canEdit setInfo={setInfo} info={info} type="string"/>
+        <InfoDate label={"Telefono"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"TipoSangre"} canEdit setInfo={setInfo} info={info} type="string"/>
+        <InfoDate label={"Dni"} canEdit setInfo={setInfo} info={info} type="default"/>
+        <InfoDate label={"Localidad"} canEdit setInfo={setInfo} info={info} type="string"/>
+        <InfoDate label={"Provincia"} canEdit setInfo={setInfo} info={info} type="string"/>
+        <InfoDate label={"Pais"} canEdit setInfo={setInfo} info={info} type="string"/>
         <MyBottom title="Guardar" onPress={handleDialog} />
         <DonationsList />
       </View>
@@ -85,18 +85,19 @@ function InfoDate({ label, type, canEdit, setInfo, info}) {
       return news;
     });
   }
-  const valueUser=info[label.toLowerCase()]
+
+  const valueUser=info[label==="TipoSangre"?"tipoSangre":label.toLowerCase()]
   const firstLetterUp= typeof valueUser ==="string"?valueUser.charAt(0).toUpperCase() + valueUser.slice(1):valueUser
- 
+ console.log(typeof firstLetterUp+label)
 
   return (
     <View style={styles.fielContainer}>
       <Text style={styles.label}> {label}</Text>
       <TextInput
         placeholder={label}
-        keyboardType={type}
+        keyboardType={type === "string" ? "string" : "default"}
         onChangeText={canEdit && handleInfoChange}
-        value={label==="Email"?valueUser:firstLetterUp}
+        value={toString(valueUser)}
         onSubmitEditing={() => alert("hello")}
         style={{
           fontWeight: "500",
@@ -104,7 +105,6 @@ function InfoDate({ label, type, canEdit, setInfo, info}) {
           marginHorizontal: 10,
           flex: 1,
           width:"auto",
-         
         }}
       />
     </View>
