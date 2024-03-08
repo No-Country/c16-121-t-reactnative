@@ -4,18 +4,15 @@ import { Colors } from "../../Constants/Colors";
 import { PictureProfile } from "../headerComponent/PictureProfile";
 import { IconToDonate } from "../iconNotification/iconToDonate";
 
-const infoProfile = {
-  name: "laura lopez",
-  city: "Buenos Aires",
-  country: "",
-  location: "Hospital General del Niño",
-  contact: "4645564156",
-  coment:
-    "With React Native, you style your application using JavaScript. All of the core components accept a prop named style. The style names and values usually match how CSS works on the ith React Native, you style your application usin .",
-  type: "+A",
-  image:
-    "https://purina.com.pe/sites/default/files/styles/webp/public/2022-10/Que_debes_saber_antes_de_adoptar_un_gatito.jpg.webp?itok=N2sS0lfp",
-};
+export const imagePerfil =(itemProfile)=>{
+  return(
+    <View>      
+      <Image style={style.image} source={{uri:itemProfile.image}}></Image>
+    </View>
+  )
+
+
+}
 
 const InfoDetail = ({ value, option }) => {
   return (
