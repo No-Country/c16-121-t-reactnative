@@ -50,9 +50,7 @@ const MisPublicaciones = () => {
         <View style={styles.publicacionContainer}>
           <Text style={styles.publicacion}> {item.publicacion}</Text>
         </View>
-        <Text style={styles.requerido}>
-          Cantidad requerida:{item.cantidadRequeridos}
-        </Text>
+        <Text style={styles.requerido}> Cantidad requerida: {item.cantidadRequeridos} donantes</Text>
       </View>
     </View>
   );
@@ -77,6 +75,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    marginBottom: 50
   },
   title: {
     marginTop: 220,

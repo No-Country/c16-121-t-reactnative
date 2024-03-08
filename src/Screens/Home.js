@@ -27,7 +27,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../Constants/Colors";
 import { IconToDonate } from "../Components/iconNotification/iconToDonate";
 import { AuthContext } from "../Context/AuthContext";
-import { AntDesign } from '@expo/vector-icons';
+import ImageToShare from "../Components/ImageToShare";
 
 const Home = () => {
 
@@ -54,6 +54,15 @@ const Home = () => {
 
     return `${day}/${month}/${year}`;
   };
+
+  const [selectedPublication, setSelectedPublication] = useState(null)
+  const handleOpenModal = (publication) => {
+    setSelectedPublication(publication)
+  }
+
+  const handleCloseModal = () => {
+    setSelectedPublication(null)
+  }
 
   const fetchPublications = async () => {
     try {
@@ -132,21 +141,25 @@ const Home = () => {
       <View style={{ marginTop: "55%", marginBottom: 100 }}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
-
             <ModalList style={styles.ModalList} />
-
             <Text style={styles.buscar}>¿Buscas donador?{""} </Text>
             <AntDesign name="search1" size={20} color="#808080" />
           </View>
         </TouchableOpacity>
 
         {!loading && (
-          <FlatList
-            data={publications}
-            renderItem={renderPublicationItem}
-            keyExtractor={(item) => item.id.toString()}
-            contentContainerStyle={{ paddingHorizontal: 15 }}
-          />
+          <>
+            <FlatList
+              data={publications}
+              renderItem={renderPublicationItem}
+              keyExtractor={(item) => item.id.toString()}
+              contentContainerStyle={{ paddingHorizontal: 15 }}
+            />
+            {selectedPublication && (
+              <ImageToShare nombre={selectedPublication.usuario.nombre} onCloseModal={handleCloseModal}/>
+            )}
+          </>
+          
         )}
 
         {loading && !loadingLastPublication && (
