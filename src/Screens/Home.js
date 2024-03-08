@@ -27,8 +27,10 @@ import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../Constants/Colors";
 import { IconToDonate } from "../Components/iconNotification/iconToDonate";
 import { AuthContext } from "../Context/AuthContext";
+import { AntDesign } from '@expo/vector-icons';
 
 const Home = () => {
+
   const [updateTrigger, setUpdateTrigger] = useState(0);
   const { setHome } = React.useContext(AuthContext);
   const [publications, setPublications] = useState([]);
