@@ -16,7 +16,7 @@ import { DarckContext } from "../Context/DarckContext";
 import { PictureProfile } from "../Components/headerComponent/PictureProfile";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../Context/AuthContext";
-
+import { Auth } from "aws-amplify";
 const Profile = () => {
   const { theme } = useContext(DarckContext);
   const { background, colorText, backgroundGrey } = theme;
@@ -24,7 +24,7 @@ const Profile = () => {
   const navigation = useNavigation();
 
   const handleExit = () => {
-    BackHandler.exitApp(); // Cierra la aplicación
+    Auth.signOut(); // Cierra la aplicación
   };
 
   return (
