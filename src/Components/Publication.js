@@ -27,7 +27,7 @@ const Publication = () => {
   //DE BASE DE DATOS
   const tipoSangre = ["+ A", "- A", "+ B", "- B", "+ AB", "- AB", "+ O", "- O"];
 
-  const [selectSangre, setSelectSangre] = useState(dbUserInfo.tipoSangre || "");
+  const [selectSangre, setSelectSangre] = useState(dbUserInfo.tipoSangre || "+ A");
   const [centro, setCentro] = useState("");
   const [ciudad, setCiudad] = useState(dbUserInfo.provincia ||"");
   const [telefono, setTelefono] = useState(dbUserInfo.telefono || "");
@@ -76,7 +76,7 @@ const Publication = () => {
       };
       console.log("handlesubmit ", publicationDetails);
       createPublication(publicationDetails);
-      navigation.navigate('Root');
+      navigation.navigate('Tabs');
     }
   }
 
