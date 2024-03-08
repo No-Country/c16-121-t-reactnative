@@ -7,6 +7,8 @@ import { DarckContext } from "../Context/DarckContext";
 import { useContext } from "react";
 import Background from "../Components/Background";
 import { AntDesign } from '@expo/vector-icons';
+import  ImageToShare  from "../Components/ImageToShare";
+import { FontAwesome } from '@expo/vector-icons';
 
 import {
   cantidadPublicacionesPorUsuario,
@@ -49,6 +51,14 @@ const Home = () => {
     return `${day}/${month}/${year}`;
   };
 
+  const [selectedPublication, setSelectedPublication] = useState(null);
+  const handleOpenModal = (publication) => {
+    setSelectedPublication(publication);
+  };
+  const handleCloseModal = () => {
+    setSelectedPublication(null);
+  };
+
   React.useEffect(() => {
     setHome(prevState => prevState + 1);
     fetchPublications();
@@ -84,6 +94,9 @@ const Home = () => {
             <Text style={{fontWeight: "bold"}}>{item.cantidadReacciones}</Text>
         <IconToDonate style={styles.icono} itemId={item.id}/>
       </View>
+      <TouchableOpacity onPress={() => handleOpenModal(item)}>
+        <FontAwesome name="share" size={24} color="black" />
+      </TouchableOpacity>
     </View>
   );
 
@@ -92,20 +105,27 @@ const Home = () => {
       <View>
         <Background/>
       </View>
-      <View style={{ marginTop: "55%" }}>
+      <View style={{ marginTop: "55%", marginBottom: 100 }}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
           <Text style={styles.buscar}>¿Buscas donador?{""}  </Text>
           <AntDesign name="search1" size={20} color="#808080" />
           </View>
         </TouchableOpacity>
+        
         <FlatList
           data={publications}
           renderItem={renderPublicationItem}
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={{ paddingHorizontal: 15 }}
-        ></FlatList>
-      </View>
+          />
+         {selectedPublication && (
+  <ImageToShare
+    nombre={selectedPublication.usuario.nombre}
+    onCloseModal={handleCloseModal}
+  />
+)}
+      </View> 
     </SafeAreaView>
   );
 };

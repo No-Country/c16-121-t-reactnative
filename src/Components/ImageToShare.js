@@ -1,0 +1,73 @@
+import React, { useRef } from 'react';
+import { Modal, View, Text, TouchableOpacity, Image } from 'react-native';
+import { captureRef } from 'react-native-view-shot';
+import * as Sharing from 'expo-sharing';
+
+const ImageToShare = ({ nombre, onCloseModal }) => {
+  const ref = useRef();
+
+  const handleCloseModal = () => {
+    onCloseModal();
+  };
+
+  const shareImage = async () => {
+    try {
+      const image = await captureRef(ref, { format: 'png' });
+
+      await Sharing.shareAsync(image, { dialogTitle: `¡Ayuda a ${nombre}!` });
+    } catch (error) {
+      console.error('Error al compartir la imagen:', error);
+    }
+  };
+
+  return (
+    <View>
+      <Modal
+        visible={true}
+        transparent={true}
+        statusBarTranslucent={true}
+        animationType="none"
+        onRequestClose={handleCloseModal}
+      >
+        <TouchableOpacity style={styles.modalContainer} onPress={handleCloseModal}>
+          <View style={styles.modalContent} ref={ref}>
+            <Text>hola {nombre}</Text>
+            <Image
+              style={styles.generatedImage}
+              source={{
+                uri: 'https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?q=80&w=1414&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              }}
+            />
+            <TouchableOpacity onPress={shareImage}>
+              <Text>Compartir</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    </View>
+  );
+};
+
+const styles = {
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5,
+    width: '70%',
+    height: '50%',
+  },
+  generatedImage: {
+    width: '100%',
+    height: '80%',
+    resizeMode: 'cover',
+  },
+};
+
+export default ImageToShare;

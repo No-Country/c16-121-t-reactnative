@@ -49,7 +49,7 @@ const MisPublicaciones = () => {
          <Text style={styles.publicacion}> {item.publicacion}</Text>
         </View>
        
-        <Text style={styles.requerido}>Cantidad requerida:{item.cantidadRequeridos}</Text>
+        <Text style={styles.requerido}>Cantidad requerida: {item.cantidadRequeridos} donantes</Text>
       </View>
     </View>
   );
@@ -59,7 +59,7 @@ const MisPublicaciones = () => {
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <Background/>
      
-      <View style={{ marginTop: "60%", padding:10 }}>
+      <View style={{ marginTop: "55%", paddingHorizontal:10, marginBottom: 50 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.title}> Publicaciones realizadas:</Text>
         <FlatList
