@@ -675,6 +675,7 @@ export const getUserBySubQuery = /* GraphQL */ `
         tipoSangre
         createdAt
         updatedAt
+        _version
       }
     }
   }

@@ -506,3 +506,13 @@ export const disableUser = /* GraphQL */ `
     }
   }
 `;
+export const deleteUsuarioFieldMutation = /* GraphQL */ `
+  mutation DeleteUsuarioField($id: ID!, $fieldName: String!) {
+    deleteUsuarioField(id: $id, fieldName: $fieldName) {
+      id
+      nombre
+      apellido
+      # Otros campos que necesites después de la eliminación
+    }
+  }
+`;

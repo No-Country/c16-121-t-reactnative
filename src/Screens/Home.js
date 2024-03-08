@@ -10,7 +10,6 @@ import Background from "../Components/Background";
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFocusEffect } from "@react-navigation/native";
 import ModalList from "../Components/ModalList";
-import { AntDesign } from '@expo/vector-icons';
 import {
   cantidadPublicacionesPorUsuario,
   cantidadReaccionesPorPublicacion,
