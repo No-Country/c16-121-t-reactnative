@@ -115,6 +115,7 @@ export const PictureProfile = ({ showButton }) => {
 };
 
 const style = StyleSheet.create({
+
   container: {
     alignItems: "center",
     flex: 1,
@@ -122,14 +123,16 @@ const style = StyleSheet.create({
   },
   profile: {
     aspectRatio: 1,
-    borderWidth: 3,
-    borderRadius: 200,
+    borderWidth: 2,
+    borderRadius: 100,
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
     overflow: "hidden",
     borderColor: "black",
+    width:'140%', 
+    marginTop:30
   },
   iconNotification: {
     position: "absolute",

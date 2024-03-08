@@ -16,6 +16,7 @@ import { ModalComponent } from "../modal";
 import { useContext } from "react";
 import {AuthContext} from '../../Context/AuthContext'
 import { createReacion } from "../../Utils/userReacciones";
+import { deleteReaccion } from "../../Utils/userPublication";
 
 
 export const IconToDonate = ({itemId}) => {

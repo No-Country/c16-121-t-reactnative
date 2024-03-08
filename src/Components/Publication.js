@@ -4,7 +4,7 @@ import {
   Text,
   TextInput,
   View,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView
 } from "react-native";
 import { Colors } from "../Constants/Colors";
 import MyBottom from "./MyBottom";
@@ -14,10 +14,11 @@ import { ScrollView } from "react-native-gesture-handler";
 import { createPublication, getUser } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+import { useNavigation } from '@react-navigation/native';
 
 const Publication = () => {
   const { dbUserInfo } = React.useContext(AuthContext);
-
+  const navigation = useNavigation();
   // getUser(userSub).then((userInfo) => {
   //   console.log("Datos del usuario:", userInfo);
   //   userId = userInfo;
@@ -75,9 +76,9 @@ const Publication = () => {
       };
       console.log("handlesubmit ", publicationDetails);
       createPublication(publicationDetails);
+      navigation.navigate('Home');
     }
   }
-
 
 
   return (

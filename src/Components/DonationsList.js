@@ -38,21 +38,30 @@ const DonationsList = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Donaciones realizadas</Text>
-      <View style={styles.donationsContainer}>
-        <FlatList
-          style={{ width: "90%" }}
-          data={donaciones}
-          renderItem={({ item }) => (
-            <View style={styles.donationItem}>
-              <Text style={styles.date}>{formatDate(item.fecha)}</Text>
-              <Text style={styles.location}>{item.centroDonacion}</Text>
+    <View style={styles.container}> 
+      {
+        donaciones?.length > 0 
+        ? <>
+          <Text style={styles.text}>Donaciones realizadas</Text>
+            <View style={styles.donationsContainer}>
+              <FlatList
+                style={{ width: "90%" }}
+                data={donaciones}
+                renderItem={({ item }) => (
+                  <View style={styles.donationItem}>
+                    <Text style={styles.date}>{formatDate(item.fecha)}</Text>
+                    <Text style={styles.location}>{item.centroDonacion}</Text>
+                  </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              ></FlatList>
             </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        ></FlatList>
-      </View>
+        </>
+        : <>
+          <Text style={styles.text}>No hay donaciones registradas</Text>
+        </>
+      }
+     
     </View>
   );
 };

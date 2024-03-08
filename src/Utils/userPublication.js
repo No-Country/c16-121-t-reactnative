@@ -259,7 +259,11 @@ export const publicacionesPorUsuario = async (userId) => {
       },
     });
     
-    return publicacionesUsuario.data.publicacionsByUsuariosID.items;
+    const publicaciones = publicacionesUsuario.data.publicacionsByUsuariosID.items
+    
+    const publicationsSorted = publicaciones.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))    
+
+    return publicationsSorted;
 
   } catch (e) {
     console.log(e);
