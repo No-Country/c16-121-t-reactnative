@@ -31,21 +31,29 @@ const ModalList = () => {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    marginHorizontal: 30,
+    marginHorizontal: 10,
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
-    bottom:1,
-    left:5,
+    bottom:30,
+    left:-3,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  
+   
+   
   },
   icon: {
    
-    marginVertical: 10,
+    marginVertical: 25,
+ 
     backgroundColor: "grey",
     borderRadius: 50,
-    padding: 10,
+    padding: 5,
     color: "white",
+    marginRight: 5,
   },
+
 });
 
 export default ModalList;
