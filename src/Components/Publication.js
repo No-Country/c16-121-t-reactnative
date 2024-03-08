@@ -13,6 +13,7 @@ import { Picker } from "@react-native-picker/picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { createPublication, getUser } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
 const Publication = () => {
   const { dbUserInfo } = React.useContext(AuthContext);
@@ -53,7 +54,13 @@ const Publication = () => {
 
   function validation() {
     if (!selectSangre || !centro || !ciudad || !telefono || !publicacion || !cant) {
-      alert("Faltan campos por completar");
+      // alert("Faltan campos por completar");
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: "Error",
+        textBody: "Faltan campos por completar",
+        button: "Cerrar",
+      });
     } else {
       const fechaActual = new Date();
       const fechaFormateada = fechaActual.toISOString().split("T")[0];

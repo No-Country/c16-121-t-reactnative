@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { DarckContext } from "../../Context/DarckContext";
 import { AuthContext } from "../../Context/AuthContext";
 import { getUser } from "../../Utils/userPublication";
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
 export const PictureProfile = ({ showButton }) => {
   const { dbUserInfo } = React.useContext(AuthContext);
@@ -34,7 +35,13 @@ export const PictureProfile = ({ showButton }) => {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
-        alert("Sorry, we need access");
+        // alert("Sorry, we need access");
+        Dialog.show({
+          type: ALERT_TYPE.WARNING,
+          title: "Error",
+          textBody: "Lo siento, se necesita acceso.",
+          button: "Cerrar",
+        });
       }
     }
     let result = await ImagePicker.launchImageLibraryAsync({
