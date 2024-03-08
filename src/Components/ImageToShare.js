@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Modal, View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
+import MyBottom from './MyBottom'
 
 
 const ImageToShare = ({ infoUsuario, cant, tipoSangre, onCloseModal }) => {
@@ -40,9 +41,10 @@ const ImageToShare = ({ infoUsuario, cant, tipoSangre, onCloseModal }) => {
               //   uri: 'https://images.unsplash.com/photo-1563291074-2bf8677ac0e5?q=80&w=1414&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
               // }}
             />
-            <TouchableOpacity onPress={shareImage}>
-              <Text>Compartir</Text>
-            </TouchableOpacity>
+            {/* <TouchableOpacity onPress={shareImage}> */}
+              {/* <Text>Compartir</Text> */}
+              <MyBottom title="Compartir" onPress={shareImage}></MyBottom>
+            {/* </TouchableOpacity> */}
           </View>
         </TouchableOpacity>
       </Modal>
