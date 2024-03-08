@@ -76,7 +76,7 @@ const Publication = () => {
       };
       console.log("handlesubmit ", publicationDetails);
       createPublication(publicationDetails);
-      navigation.navigate('Home');
+      navigation.navigate('Root');
     }
   }
 
