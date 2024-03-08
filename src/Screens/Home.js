@@ -1,30 +1,14 @@
 
 import React, { useState, useEffect } from "react";
-
-
-import {
-  View,
-  Text,
-  SafeAreaView,
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Pressable,
-
-  ActivityIndicator,
-
-} from "react-native";
+import { View, Text, SafeAreaView, FlatList, ScrollView, StyleSheet, TouchableOpacity, Image, Pressable, ActivityIndicator } from "react-native";
 import { HeaderMovil } from "../Components/headerComponent/HeaderMovil";
 import { PostCard } from "../Components/postCard/PostCard";
 import CardHome from "../Components/CardHome";
 import { DarckContext } from "../Context/DarckContext";
 import { useContext } from "react";
 import Background from "../Components/Background";
-
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFocusEffect } from "@react-navigation/native";
-
 import ModalList from "../Components/ModalList";
 import { AntDesign } from '@expo/vector-icons';
 import {
@@ -43,8 +27,10 @@ import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../Constants/Colors";
 import { IconToDonate } from "../Components/iconNotification/iconToDonate";
 import { AuthContext } from "../Context/AuthContext";
+import ImageToShare from "../Components/ImageToShare";
 
 const Home = () => {
+
   const [updateTrigger, setUpdateTrigger] = useState(0);
   const { setHome } = React.useContext(AuthContext);
   const [publications, setPublications] = useState([]);
@@ -69,13 +55,20 @@ const Home = () => {
     return `${day}/${month}/${year}`;
   };
 
+  const [selectedPublication, setSelectedPublication] = useState(null)
+  const handleOpenModal = (publication) => {
+    setSelectedPublication(publication)
+  }
 
-
+  const handleCloseModal = () => {
+    setSelectedPublication(null)
+  }
 
   const fetchPublications = async () => {
     try {
       setLoading(true); 
       const fetchedPublications = await getPublications();
+      
       const reaccionesDePublicacion = await Promise.all(
         fetchedPublications.map(async (publicacion) => {
           const reacciones = await cantidadReaccionesPorPublicacion(
@@ -127,13 +120,16 @@ const Home = () => {
         <View style={styles.publicacionContainer}>
           <Text style={styles.publicacion}>{item.publicacion}</Text>
         </View>
-        <Text style={[styles.usuario, { color: colorText }]}>
+        <Text style={[styles.usuario, { color: colorText, fontSize: 14 }]}>
           Fecha de publicación: {formatDate(item.fecha)}
         </Text>
       </View>
-      <View style={{ marginTop: "40%", elevation: 3, flexDirection: "row" }}>
+      <View style={{ elevation: 3, flexDirection: "row", position: "absolute", bottom: 10, right: 10}}>
         <Text style={{ fontWeight: "bold" }}>{item.cantidadReacciones}</Text>
         <IconToDonate style={styles.icono} itemId={item.id} />
+        <TouchableOpacity onPress={() => handleOpenModal(item)} style={{marginLeft: 10}}>
+          <FontAwesome name="share" size={24} color="black" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -143,24 +139,28 @@ const Home = () => {
       <View>
         <Background />
       </View>
-      <View style={{ marginTop: "55%" }}>
+      <View style={{ marginTop: "55%", marginBottom: 100 }}>
         <TouchableOpacity onPress={handleSearchDonor}>
           <View style={styles.searchContainer}>
-
             <ModalList style={styles.ModalList} />
-
             <Text style={styles.buscar}>¿Buscas donador?{""} </Text>
             <AntDesign name="search1" size={20} color="#808080" />
           </View>
         </TouchableOpacity>
 
         {!loading && (
-          <FlatList
-            data={publications}
-            renderItem={renderPublicationItem}
-            keyExtractor={(item) => item.id.toString()}
-            contentContainerStyle={{ paddingHorizontal: 15 }}
-          />
+          <>
+            <FlatList
+              data={publications}
+              renderItem={renderPublicationItem}
+              keyExtractor={(item) => item.id.toString()}
+              contentContainerStyle={{ paddingHorizontal: 15 }}
+            />
+            {selectedPublication && (
+              <ImageToShare infoUsuario={selectedPublication.usuario} cant={selectedPublication.cantidadRequeridos} tipoSangre={selectedPublication.tipoSangre} onCloseModal={handleCloseModal}/>
+            )}
+          </>
+          
         )}
 
         {loading && !loadingLastPublication && (
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginTop: 10,
     marginBottom: 10,
-    width: "115%",
+    width: "100%",
   },
   tipoSangre: {
     fontSize: 16,
