@@ -4,7 +4,7 @@ import {
   Text,
   TextInput,
   View,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView
 } from "react-native";
 import { Colors } from "../Constants/Colors";
 import MyBottom from "./MyBottom";
@@ -13,10 +13,10 @@ import { Picker } from "@react-native-picker/picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { createPublication, getUser } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
-
+import { useNavigation } from '@react-navigation/native';
 const Publication = () => {
   const { dbUserInfo } = React.useContext(AuthContext);
-
+  const navigation = useNavigation();
   // getUser(userSub).then((userInfo) => {
   //   console.log("Datos del usuario:", userInfo);
   //   userId = userInfo;
@@ -68,24 +68,10 @@ const Publication = () => {
       };
       console.log("handlesubmit ", publicationDetails);
       createPublication(publicationDetails);
+      navigation.navigate('Home');
     }
   }
 
-  const handleSubmit = () => {
-    const fechaActual = new Date();
-    const fechaFormateada = fechaActual.toISOString().split("T")[0];
-
-    const publicationDetails = {
-      publicacion: publicacion,
-      fecha: fechaFormateada,
-      habilitada: true,
-      // cantidadRequeridos: 10,
-      usuariosID: userId,
-      tipoSangre: selectSangre,
-    };
-    console.log("handlesubmit ", publicationDetails);
-    createPublication(publicationDetails);
-  };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
