@@ -1,12 +1,17 @@
 import * as React from "react";
-import { Text, View, ScrollView, StyleSheet, FlatList } from "react-native";
+import { Text, View, StyleSheet, FlatList } from "react-native";
 import { publicacionesPorUsuario } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
 import { Colors } from "../Constants/Colors";
 import Background from "../Components/Background";
+import { useContext } from "../Context/DarckContext";
+import { DarckContext } from "../Context/DarckContext";
+
 const MisPublicaciones = () => {
   const { dbUserInfo } = React.useContext(AuthContext);
   const [publicaciones, setPublicaciones] = React.useState([]);
+  const { theme } = React.useContext(DarckContext);
+  const { background, colorText } = theme;
 
   const formatDate = (itemDate) => {
     const date = new Date(itemDate);
@@ -18,10 +23,6 @@ const MisPublicaciones = () => {
   };
 
   const UserId = dbUserInfo.id;
-  console.log('ACA', UserId)
-  publicacionesPorUsuario(UserId).then((pub) => {
-    console.log("PUBLICACION POR USUARIO:", pub);
-  });
 
   const obtenerPublicaciones = () => {
     publicacionesPorUsuario(UserId)
@@ -32,59 +33,57 @@ const MisPublicaciones = () => {
         console.error("Error al obtener las publicaciones:", error);
       });
   };
+
   React.useEffect(() => {
     obtenerPublicaciones();
   }, []);
 
   const renderPublicationItem = ({ item }) => (
-    <View style={styles.card}>
+    <View style={[styles.card, { backgroundColor: background }]}>
       <View style={styles.cardContent}>
-      <Text style={styles.fecha}>
+        <Text style={styles.fecha}>
           Fecha de publicación: {formatDate(item.fecha)}
         </Text>
         <Text style={styles.tipoSangre}>
           Tipo de sangre requerido: {item.tipoSangre}
         </Text>
         <View style={styles.publicacionContainer}>
-         <Text style={styles.publicacion}> {item.publicacion}</Text>
+          <Text style={styles.publicacion}> {item.publicacion}</Text>
         </View>
-       
-        <Text style={styles.requerido}>Cantidad requerida: {item.cantidadRequeridos} donantes</Text>
+        <Text style={styles.requerido}>
+          Cantidad requerida:{item.cantidadRequeridos}
+        </Text>
       </View>
     </View>
   );
 
   return (
-    
-    <View style={{ backgroundColor: "white", flex: 1 }}>
-      <Background/>
-     
-      <View style={{ marginTop: "55%", paddingHorizontal:10, marginBottom: 50 }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}> Publicaciones realizadas:</Text>
-        <FlatList
-          data={publicaciones}
-          renderItem={renderPublicationItem}
-          keyExtractor={(item) => item.id.toString()}
-
-        />
-             </ScrollView>
-      </View>
- 
+    <View style={[styles.container, { backgroundColor: background }]}>
+      <Background />
+      <Text style={[styles.title, { color: colorText }]}>
+        {" "}
+        Publicaciones realizadas:
+      </Text>
+      <FlatList
+        data={publicaciones}
+        renderItem={renderPublicationItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
   },
-  title:{
-   
-        marginTop: 50,
-        fontSize: 25,
-        fontWeight: "bold",
-        color: Colors.input
-     
+  title: {
+    marginTop: 220,
+    fontSize: 25,
+    fontWeight: "bold",
+    color: Colors.input,
+    textAlign: "center",
   },
   publicacion: {
     fontSize: 18,
@@ -146,13 +145,14 @@ const styles = StyleSheet.create({
     color: "#999",
     marginTop: 10,
     color: "black",
-    fontWeight:'bold'
+    fontWeight: "bold",
   },
-  requerido:{
+  requerido: {
     fontSize: 17,
     color: "#999",
     marginTop: 10,
     color: "black",
-  }
+  },
 });
+
 export default MisPublicaciones;

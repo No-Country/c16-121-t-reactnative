@@ -2,15 +2,20 @@ import React from "react";
 import { StyleSheet, View, Text, ScrollView, Image,Pressable } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
+import { DarckContext } from "../Context/DarckContext";
 
 const PorqueDonar = () => {
   const navigation = useNavigation();
+  const{theme} =useContext(DarckContext);
+  const {background} = theme
+
   return (
-   <View style={{backgroundColor:'#FFEBF0', flex:1}}>
+   <View style={[{backgroundColor:background, flex:1}]}>
      <Pressable style={{marginTop:30, marginHorizontal:20, marginBottom:-40}} onPress={navigation.goBack}>
       <AntDesign name="arrowleft" size={24} color="black" />
       </Pressable>
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor:background}]}>
         <Text style={styles.textTitle}>¿POR QUÉ DONAR?</Text>
         <View style={styles.backgroundItem}>
           <Image

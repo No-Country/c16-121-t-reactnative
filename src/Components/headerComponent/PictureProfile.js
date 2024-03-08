@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { View, Text, StyleSheet, Button, Platform, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { CLOUD_NAME, UPLOAD_PRESET } from "@env";
@@ -8,21 +8,28 @@ import { TouchableOpacity } from "react-native";
 import { Colors } from "../../Constants/Colors";
 import { IconToNotification } from "../iconNotification/iconToNotification";
 import { useContext } from "react";
-import { DarckContext} from "../../Context/DarckContext";
-export const PictureProfile = ({showButton}) => {
-  const [picture, setPicture] = React.useState("");
-  const { theme } = useContext(DarckContext);
-    const { borderDarck } = theme;
-  React.useEffect(() => {
-    const getPhoto = async () => {
-      const photo = await AsyncStorage.getItem("@pic");
-      if (photo !== null) setPicture(photo);
-    };
-    getPhoto();
-  });
+import { DarckContext } from "../../Context/DarckContext";
+import { AuthContext } from "../../Context/AuthContext";
+import { getUser } from "../../Utils/userPublication";
 
-  const pickImage = async () => {
+export const PictureProfile = ({ showButton }) => {
+  const { dbUserInfo } = React.useContext(AuthContext);
+  console.log("data1", dbUserInfo);
+
+  const [picture, setPicture] = React.useState(dbUserInfo.imagen);
+
+  const { theme } = useContext(DarckContext);
+  const { borderDarck } = theme;
+
+
+ 
+    const getPhoto = async () => {
+        const photo = await AsyncStorage.getItem("@pic");
+        setPicture(photo)
+   
+    };
   
+  const pickImage = async () => {
     if (Platform.OS !== "web") {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -64,27 +71,26 @@ export const PictureProfile = ({showButton}) => {
         console.log("PROBANDING", UPLOAD_PRESET);
         console.log("PROBANDING", CLOUD_NAME);
 
-
         // Lógica para guardarlo en la base de datos
         // Guardar en localStorage
 
         await AsyncStorage.setItem("@pic", json.url);
         console.log("url", json.url);
-
-        
+        getPhoto()
       } catch (e) {
         console.log(e);
       }
     }
-    
   };
 
   return (
     <View style={style.container}>
-      <View style={[style.profile, {borderColor: borderDarck }]}>
+      <View style={[style.profile, { borderColor: borderDarck }]}>
         {showButton && (
           <TouchableOpacity onPress={pickImage} style={style.button}>
-            <Text style={{ fontSize: 18, color: "white", fontWeight:'800' }}>+</Text>
+            <Text style={{ fontSize: 18, color: "white", fontWeight: "800" }}>
+              +
+            </Text>
           </TouchableOpacity>
         )}
 
@@ -93,9 +99,9 @@ export const PictureProfile = ({showButton}) => {
         )}
       </View>
       {!showButton && (
-      <View style= {style.iconNotification}>
-        <IconToNotification></IconToNotification>
-      </View>
+        <View style={style.iconNotification}>
+          <IconToNotification></IconToNotification>
+        </View>
       )}
     </View>
   );
@@ -103,16 +109,11 @@ export const PictureProfile = ({showButton}) => {
 
 const style = StyleSheet.create({
   container: {
-    //  flexDirection:'column',
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
-    
   },
   profile: {
-    // width: 70,
-    // height:70,
-    flex: 1,
     aspectRatio: 1,
     borderWidth: 3,
     borderRadius: 200,
@@ -121,31 +122,32 @@ const style = StyleSheet.create({
     alignItems: "center",
     flexDirection: "column",
     overflow: "hidden",
-    borderColor:'black',
-    
+    borderColor: "black",
   },
-  iconNotification:{
-    position:'absolute',
-    right:-9
-    },
+  iconNotification: {
+    position: "absolute",
+    right: -8.5,
+  },
 
   button: {
     width: "35%",
     height: "35%",
-    borderRadius: 100,
+    borderRadius: 200,
     backgroundColor: Colors.bottonLogin,
     color: "black",
     position: "absolute",
-    zIndex: 20,
+    zIndex: 25,
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
+    borderWidth: 1,
   },
 
   image: {
     flex: 1,
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    aspectRatio: 1,
+    borderRadius: 200,
   },
 });
