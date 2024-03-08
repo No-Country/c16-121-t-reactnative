@@ -68,6 +68,7 @@ const Home = () => {
     try {
       setLoading(true); 
       const fetchedPublications = await getPublications();
+      
       const reaccionesDePublicacion = await Promise.all(
         fetchedPublications.map(async (publicacion) => {
           const reacciones = await cantidadReaccionesPorPublicacion(
@@ -156,7 +157,7 @@ const Home = () => {
               contentContainerStyle={{ paddingHorizontal: 15 }}
             />
             {selectedPublication && (
-              <ImageToShare nombre={selectedPublication.usuario.nombre} onCloseModal={handleCloseModal}/>
+              <ImageToShare infoUsuario={selectedPublication.usuario} cant={selectedPublication.cantidadRequeridos} tipoSangre={selectedPublication.tipoSangre} onCloseModal={handleCloseModal}/>
             )}
           </>
           
