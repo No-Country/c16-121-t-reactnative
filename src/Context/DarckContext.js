@@ -3,13 +3,14 @@ import React from "react";
 const Darck = {
   
  
-    background: "black",
+    background: "#333333",
     colorText: "white",
     inputDarck:'white',
     borderDarck: 'white',
     height: '%100',
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
+    backgroundGrey:'#737373'
 
 
 

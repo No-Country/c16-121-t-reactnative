@@ -44,6 +44,9 @@ export const getRecibosPorUsuario = async (userId) => {
       query: queries.reciboDonacionesByUsuariosID,
       variables: {
         usuariosID: userId,
+        filter: {
+          _deleted: { ne: true },
+        },
       },
     });
 

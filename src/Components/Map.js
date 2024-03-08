@@ -12,6 +12,7 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { AntDesign } from "@expo/vector-icons";
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
 const MapScreen = () => {
   const [location, setLocation] = useState(null);
@@ -23,10 +24,17 @@ const MapScreen = () => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        Alert.alert(
-          "Permiso de ubicación",
-          "La aplicación necesita acceso a la ubicación para funcionar correctamente."
-        );
+        // Alert.alert(
+        //   "Permiso de ubicación",
+        //   "La aplicación necesita acceso a la ubicación para funcionar correctamente."
+        // );
+        Dialog.show({
+          type: ALERT_TYPE.WARNING,
+          title: "Permiso de ubicación",
+          textBody:
+            "La aplicación necesita acceso a la ubicación para funcionar correctamente.",
+          button: "Cerrar",
+        });
         return;
       }
 

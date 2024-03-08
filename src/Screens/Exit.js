@@ -4,6 +4,7 @@ import { Colors } from "../Constants/Colors";
 import { Auth } from "aws-amplify";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../Context/AuthContext";
+import LoadingScreen from "../Screens/Loading";
 
 
 const styles = StyleSheet.create({
@@ -33,16 +34,17 @@ export default function Exit() {
                 await Auth.signOut();
                 setAuthState("signIn")
                 navigation.navigate("Login")
-              } catch (error) {
+            } catch (error) {
                 console.log('error signing out: ', error);
-              }
+            }
         }
         handleExit()
-      }, [])
-   
+    }, [])
+
     return (
         <View style={styles.container}>
-             <Text >Saliendo de la app...</Text>
+             {/* <Text >Saliendo de la app...</Text> */}
+            <LoadingScreen />
         </View>
     );
 }

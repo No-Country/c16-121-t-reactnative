@@ -7,6 +7,7 @@ import MyBottom from "./MyBottom";
 import { useDonorContext } from "../Context/DonorContext";
 import { AuthContext } from "../Context/AuthContext";
 import { createRecibo } from "../Utils/userDonor";
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
 const DonorInfo = ({ canDonate }) => {
   const { donorData, setDonorData } = useDonorContext();
@@ -25,7 +26,13 @@ const DonorInfo = ({ canDonate }) => {
           ...donorData,
           donaciones: [...(prevDonorData.donaciones || []), newDonation],
         };
-        alert("Donación guardada con éxito");
+        // alert("Donación guardada con éxito");
+        Dialog.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: "Éxito",
+          textBody: "Donación guardada con éxito",
+          button: "Cerrar",
+        });
         const fechaFormateada = date.toISOString().split("T")[0];
 
         const reciboDetalles = {
@@ -38,7 +45,13 @@ const DonorInfo = ({ canDonate }) => {
         return updateData;
       });
     } else {
-      alert("Faltan ingresar datos");
+      // alert("Faltan ingresar datos");
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: "Error",
+        textBody: "Faltan ingresar datos",
+        button: "Cerrar",
+      });
     }
   };
 

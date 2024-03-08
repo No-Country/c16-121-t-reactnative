@@ -86,6 +86,7 @@ export default function App() {
               <View style={styles.container}>
                 {/* <MapScreen/>*/}
                 {user ? <MyStack /> : <AuthStack />}
+                {/* <MyStack/> */}
                 <ModoDarck/>
               </View>
             </DarckProvider>

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView
 } from "react-native";
 import { Colors } from "../Constants/Colors";
 import MyBottom from "./MyBottom";
@@ -13,10 +13,12 @@ import { Picker } from "@react-native-picker/picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { createPublication, getUser } from "../Utils/userPublication";
 import { AuthContext } from "../Context/AuthContext";
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+import { useNavigation } from '@react-navigation/native';
 
 const Publication = () => {
   const { dbUserInfo } = React.useContext(AuthContext);
-
+  const navigation = useNavigation();
   // getUser(userSub).then((userInfo) => {
   //   console.log("Datos del usuario:", userInfo);
   //   userId = userInfo;
@@ -25,10 +27,10 @@ const Publication = () => {
   //DE BASE DE DATOS
   const tipoSangre = ["+ A", "- A", "+ B", "- B", "+ AB", "- AB", "+ O", "- O"];
 
-  const [selectSangre, setSelectSangre] = useState("+ A");
+  const [selectSangre, setSelectSangre] = useState(dbUserInfo.tipoSangre || "+ A");
   const [centro, setCentro] = useState("");
-  const [ciudad, setCiudad] = useState("");
-  const [telefono, setTelefono] = useState("");
+  const [ciudad, setCiudad] = useState(dbUserInfo.provincia ||"");
+  const [telefono, setTelefono] = useState(dbUserInfo.telefono || "");
   const [publicacion, setPublicacion] = useState("");
   const [cant, setCant] = useState("");
   const [formData, setFormData] = useState({});
@@ -42,19 +44,25 @@ const Publication = () => {
     handleFormData("selectSangre", itemValue);
   };
 
-  function validation() {
-    if (
-      !selectSangre ||
-      !centro ||
-      !ciudad ||
-      !telefono ||
-      !publicacion ||
-      !cant
-    ) {
-      alert("Faltan campos por completar");
+  useEffect(() => {
+   if( centro && tipoSangre){
+      const mensaje = `¡Necesitamos tu ayuda!\nSe solicitan ${cant} donadores de sangre tipo ${selectSangre} en ${centro}. \nTu donación puede salvar vidas. ¡Gracias por tu apoyo!`
+      setPublicacion(mensaje)
     } else {
-      // // handleSubmit()
-      // createPublication()
+      setPublicacion("")
+    }
+  },[selectSangre, cant, centro]) 
+
+  function validation() {
+    if (!selectSangre || !centro || !ciudad || !telefono || !publicacion || !cant) {
+      // alert("Faltan campos por completar");
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: "Error",
+        textBody: "Faltan campos por completar",
+        button: "Cerrar",
+      });
+    } else {
       const fechaActual = new Date();
       const fechaFormateada = fechaActual.toISOString().split("T")[0];
 
@@ -68,24 +76,10 @@ const Publication = () => {
       };
       console.log("handlesubmit ", publicationDetails);
       createPublication(publicationDetails);
+      navigation.navigate('Tabs');
     }
   }
 
-  const handleSubmit = () => {
-    const fechaActual = new Date();
-    const fechaFormateada = fechaActual.toISOString().split("T")[0];
-
-    const publicationDetails = {
-      publicacion: publicacion,
-      fecha: fechaFormateada,
-      habilitada: true,
-      // cantidadRequeridos: 10,
-      usuariosID: userId,
-      tipoSangre: selectSangre,
-    };
-    console.log("handlesubmit ", publicationDetails);
-    createPublication(publicationDetails);
-  };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -110,14 +104,6 @@ const Publication = () => {
             setCentro(text), handleFormData("centro", text);
           }}
         />
-        <Text style={styles.text}>Cantidad de donantes</Text>
-        <TextInput
-          style={styles.input}
-          value={cant}
-          onChangeText={(text) => {
-            setCant(text), handleFormData("cant", text);
-          }}
-        />
         <Text style={styles.text}>Ciudad</Text>
         <TextInput
           style={styles.input}
@@ -126,10 +112,22 @@ const Publication = () => {
             setCiudad(text), handleFormData("ciudad", text);
           }}
         />
+        <Text style={styles.text}>Cantidad de donantes</Text>
+        <TextInput
+          style={styles.input}
+          value={cant}
+          keyboardType="numeric"
+          maxLength={3}
+          onChangeText={(text) => {
+            setCant(text), handleFormData("cant", text);
+          }}
+        />
         <Text style={styles.text}>Contacto</Text>
         <TextInput
           style={styles.input}
           value={telefono}
+          keyboardType="numeric"
+          maxLength={15}
           onChangeText={(text) => {
             setTelefono(text), handleFormData("telefono", text);
           }}

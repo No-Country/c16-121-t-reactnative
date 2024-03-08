@@ -18,10 +18,15 @@ import DialogAlert from "./DialogAlert";
 import MyBottom from "./MyBottom";
 import { createUser, getAllUsers, updateUserProfile } from "../Utils/UserDate";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { DarckContext } from "../Context/DarckContext";
 
 const ProfileDates = () => {
   const { userSub,dbUserInfo,setHome } = React.useContext(AuthContext);
   const { donorData } = React.useContext(DonorContext);
+  const { theme } = useContext(DarckContext);
+  const { colorText } = theme;
+
   const [info, setInfo] = React.useState(dbUserInfo);
   const {id,nombre,apellido,edad,email,telefono,tipoSangre,dni,localidad,provincia,pais}=info
   useEffect(()=>{
@@ -37,7 +42,7 @@ const ProfileDates = () => {
    setHome(prevState => prevState + 1)
     Toast.show({
       type: ALERT_TYPE.SUCCESS,
-      title: "Success",
+      title: "Éxito",
       textBody: "Se guardaron los cambios",
       button: "close",
     });
@@ -51,7 +56,7 @@ const ProfileDates = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.sectionTitle}> DATOS DEL USUARIO: </Text>
+        <Text style={[styles.sectionTitle, { color: colorText }]}> DATOS DEL USUARIO: </Text>
         <InfoDate label={"Nombre"} canEdit setInfo={setInfo} info={info} type="default"/>
         <InfoDate label={"Apellido"} canEdit setInfo={setInfo} info={info} type="default"/>
         <InfoDate label={"Edad"} canEdit setInfo={setInfo} info={info} type="numeric"/>
@@ -62,7 +67,7 @@ const ProfileDates = () => {
         <InfoDate label={"Localidad"} canEdit setInfo={setInfo} info={info} type="default"/>
         <InfoDate label={"Provincia"} canEdit setInfo={setInfo} info={info} type="default"/>
         <InfoDate label={"Pais"} canEdit setInfo={setInfo} info={info} type="default"/>
-        <MyBottom title="Guardar" onPress={handleDialog}/>
+        <MyBottom title="Guardar" onPress={handleDialog} />
         <DonationsList />
       </View>
       {/* {donorData && donorInfo.donaciones && <DonationsList />} */}
@@ -99,6 +104,7 @@ function InfoDate({ label, type, canEdit, setInfo, info}) {
           marginHorizontal: 10,
           flex: 1,
           width:"auto",
+         
         }}
       />
     </View>
@@ -112,7 +118,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 16,
-    color: "grey",
+    color: "black",
     marginBottom: 1,
   },
   fielContainer: {
@@ -130,7 +136,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: "500",
-    color: "grey",
+    color: "black",
     width: "50%",
     fontSize: 16,
     marginLeft:10,
