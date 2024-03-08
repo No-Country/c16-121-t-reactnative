@@ -119,17 +119,17 @@ const Home = () => {
         <View style={styles.publicacionContainer}>
           <Text style={styles.publicacion}>{item.publicacion}</Text>
         </View>
-        <Text style={[styles.usuario, { color: colorText }]}>
+        <Text style={[styles.usuario, { color: colorText, fontSize: 14 }]}>
           Fecha de publicación: {formatDate(item.fecha)}
         </Text>
       </View>
-      <View style={{ marginTop: "40%", elevation: 3, flexDirection: "row" }}>
+      <View style={{ elevation: 3, flexDirection: "row", position: "absolute", bottom: 10, right: 10}}>
         <Text style={{ fontWeight: "bold" }}>{item.cantidadReacciones}</Text>
         <IconToDonate style={styles.icono} itemId={item.id} />
+        <TouchableOpacity onPress={() => handleOpenModal(item)} style={{marginLeft: 10}}>
+          <FontAwesome name="share" size={24} color="black" />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => handleOpenModal(item)}>
-        <FontAwesome name="share" size={24} color="black" />
-      </TouchableOpacity>
     </View>
   );
 
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginTop: 10,
     marginBottom: 10,
-    width: "115%",
+    width: "100%",
   },
   tipoSangre: {
     fontSize: 16,
