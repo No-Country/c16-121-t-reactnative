@@ -22,21 +22,13 @@ export const PictureProfile = ({ showButton }) => {
   const { borderDarck } = theme;
 
 
-  // React.useEffect(() => {
+ 
     const getPhoto = async () => {
         const photo = await AsyncStorage.getItem("@pic");
         setPicture(photo)
-        // if (photo == null) setPicture(photo);
+   
     };
-
-    // const getPhoto = async () => {
-    //   const photo = await AsyncStorage.getItem("@pic");
-    //   if (photo !== null) setPicture(photo);
-    // };
-
-    // getPhoto();
-  // });
-
+  
   const pickImage = async () => {
     if (Platform.OS !== "web") {
       const { status } =
