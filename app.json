@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "GotaDeVida",
-    "slug": "GotaDeVida",
+    "name": "gotadevida",
+    "slug": "gotadevida",
+    "scheme":"gotadevida",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,6 +16,9 @@
       "**/*"
     ],
     "ios": {
+      "infoPlist":{
+        "NSPhotoLibraryUsageDescription":"This app need access to photo library to help your set your profile picture."
+      },
       "supportsTablet": true
     },
     "android": {

@@ -1,0 +1,58 @@
+type Reacciones @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  usuariosID: ID! @index(name: "byUsuarios")
+  publicacionID: ID! @index(name: "byPublicacion")
+}
+
+type Publicacion @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  publicacion: String
+  fecha: AWSDate
+  habilitada: Boolean
+  cantidadRequeridos: Int
+  usuariosID: ID! @index(name: "byUsuarios")
+  Reacciones: [Reacciones] @hasMany(indexName: "byPublicacion", fields: ["id"])
+  tipoSangre: String
+  centroDonacion: String
+  ciudad: String
+}
+
+type Rol @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  tipo_rol: String
+}
+
+type ReciboDonaciones @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  usuariosID: ID! @index(name: "byUsuarios")
+  fecha: AWSDate
+  centroDonacion: String
+}
+
+type Usuarios @model @auth(rules: [{allow: public}, {allow: owner}, {allow: private}]) {
+  id: ID!
+  nombre: String!
+  apellido: String!
+  imagen: String
+  pais: String
+  provincia: String
+  localidad: String
+  id_ubicacion: ID
+  sub: String!
+  notificaciones: String
+  publicaciones: String
+  dni: Int
+  backup: [String]
+  bloqueado: Boolean
+  telefono: AWSPhone
+  ReciboDonaciones: [Publicacion] @hasMany(indexName: "byUsuarios", fields: ["id"])
+  Rol: Rol @hasOne
+  password: String
+  email: String
+  edad: Int
+  habilitado: Boolean
+  Publicacions: [Publicacion] @hasMany(indexName: "byUsuarios", fields: ["id"])
+  Reacciones: [Publicacion] @hasMany(indexName: "byUsuarios", fields: ["id"])
+  tipoSangre: String
+}
+ 
